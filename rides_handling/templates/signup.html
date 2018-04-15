@@ -19,27 +19,40 @@
 
   <div class = "forms">
     <br>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-          <div class = "field">
-            <div class = "tag_field">{{ field.label_tag }}</div>
-            <div class = "form_field">{{ field }}</div>
-          </div>
-
-        <!--
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-      -->
+      {% for field in form %}
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
-      </p>
-    {% endfor %}
+      {% endfor %}
 
-    <center><button type="submit">Sign up</button></center>
-  </form>
+      <center>
+          <form method="post">
+              {% csrf_token %}
+              
+  
+            <div class = "form_field"> <input id="username" type="text" name="username" value="{{ current_name }}" placeholder="Username" required autofocus> </div>
+            <br><br>
+            <div class = "form_field"> <input id="password1" type="password" name="password1" value="{{ current_name }}" placeholder="Password" required></div>
+            <br><br>
+            <div class = "form_field"> <input id="password2" type="password" name="password2" value="{{ current_name }}" placeholder="Confirm Password" required></div>
+            <br><br>
+            <div class = "form_field">
+            <label for="is_driver">Do you want to be a driver?</label>
+            <input id="is_driver" type="checkbox" name="is_driver" value="{{ current_name }}" ></div>
+  
+  
+            <br><br>
+            <button type="submit">Continue</button>
+          </form>
+  
+      </center>
+          <!--
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+          -->
+
+
+
 </div>
 {% endblock %}

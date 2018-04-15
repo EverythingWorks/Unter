@@ -19,39 +19,42 @@
 
 
   <div class = 'forms'>
-    <br>
+      <br>
+  <h1>Welcome to Unter! </h1>
+  <h2>Please, log in:</h2>
+
   <div class = "warnings">
       {% if form.errors %}
-       Your username and password didn't match. Please try again.
+       Your username and password didn't match. Please try again. 
       {% endif %}
   </div>
+        <center>
+            <form class = "form-horizontal" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
 
-    <form method="post" class = "form-horizontal">
+              <div class = "form_field"> <input id="username" type="text" name="username" value="{{ current_name }}" placeholder="Username" required autofocus> </div>
+              <br>
+              <div class = "form_field"> <input id="password" type="password" name="password" value="{{ current_name }}" placeholder="Password" required></div>
+
+              {% for error in field.errors %}
+              <div class = "warnings">
+                {{ error }}
+              </div>
+              {% endfor %}
+              {% if field.help_text %}
+                <p><small style="color: grey">{{ field.help_text }}</small></p>
+              {% endif %}
+              <br><br>
+              <button type="submit">Continue</button>
+            </form>
+
+        </center>
+      
     
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}" />
-    {% for field in form %}
-      <p>
-          <div class = "field">
-              <div class = "tag_field">{{ field.label_tag }}</div>
-              <div class = "form_field">{{ field }}</div>
-          </div>
-
-        {% for error in field.errors %}
-        <div class = "warnings">
-          {{ error }}
-        </div>
-        {% endfor %}
-        {% if field.help_text %}
-          <p><small style="color: grey">{{ field.help_text }}</small></p>
-        {% endif %}
-      </p>
-    
-    {% endfor %}
-
-    <br><br>
-    <center><button type="submit">Log in</button></center>
-  </form>
+    <h2>Don't have an account?  <a href="{% url 'signup' %}" style="text-decoration:none;" ><font color = #39382C>Sign up</font></a> for free!</h2>
+<!--</form>-->
+  
 </div>
 
 {% endblock %}

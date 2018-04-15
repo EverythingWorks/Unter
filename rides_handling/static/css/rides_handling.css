@@ -1,40 +1,41 @@
-h1 a {
-    color: #FCA205;
-}
 
 body {
     background-image: url("../images/background.jpg");
     background-repeat: repeat-y;
     background-size: cover;
+
 }
 
 .display {
     width: auto;
-    height: 470px;
+    /*height: 470px;*/
+    height: 33em;
     background-color:#F7B731;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 110px;
+    margin-top: 15vh;
 }
 
 
 .left {
-    width: 475px;
-    height: 400px;
-    margin-left: 200px;
+    /* 475px and 400px, margin 200px*/
+    width: 35vw;
+    height: 30px;
+    margin-left: 15vw;
     margin-right: auto;
     float: left; 
 
     padding-right : 30px;
 
     font-family: 'Lobster';
-    font-size: 40pt;
+    font-size: 60pt;
     text-align: right;
+    text-shadow: 3px 2px #FAC555;
 }
 
 .right {
-    width: 475px;
-    height: 400px;
+    width: 35vw;
+    height: 30px;
     margin-left: auto;
     margin-right: 200px;
 
@@ -48,7 +49,8 @@ body {
 
     background-color:#FAC555;
     font-size: 18pt;
-    font-family: 'Lato:300i';
+    font-family: 'Lobster';
+    text-shadow: 3px 2px #F7D388;
 }
 
 .choices{
@@ -59,7 +61,7 @@ body {
 
     background-color:#FAC555;
     font-size: 18pt;
-    font-family: 'Lato:300i';
+    font-family: 'Open Sans';
     text-align: center;
 }
 
@@ -85,6 +87,7 @@ body {
     border-right: 10px solid transparent; 
     height: 50px; 
     width: 195px;
+    text-shadow: 3px 2px #FAC555;
 }
 
 .choosen_right{
@@ -93,6 +96,7 @@ body {
     border-left: 10px solid transparent; 
     height: 50px; 
     width: 195px;
+    text-shadow: 3px 2px #FAC555;
 }
 
 
@@ -102,35 +106,64 @@ body {
     padding-right : 25px;
     height: 370px;
     font-size: 10pt;
-    font-family: 'Lato:400';
+    font-family: 'Open Sans';
 }
 
 .warnings{
     padding-top : 7px;
+
     font-size: 10pt;
-    font-family: 'Lato:400';
+    font-family: 'Open Sans';
     color: red;
 }
 
 .field{
     width: 410px;
-    height: 50px; 
+
 }
 
 .tag_field{
     text-align: right;
     width: 140px;
     font-size: 13pt;
-    font-family: 'Lato:400';
+    font-family: 'Source Sans Pro';
     float: left;
     margin-top: auto;
     margin-bottom: auto;   
 }
 
 .form_field{
-    padding-left: 10px;
-    width: 100px;
+    height: 3vh;
     font-size: 13pt;
-    font-family: 'Lato:400i';
-    float: left;
+    font-family: 'Open Sans';
+}
+
+img {
+    height: 50vh;
+    width: 30vw;
+}
+
+h1 {
+    font-size: 30pt;
+    font-family: 'Lobster';
+    text-shadow: 3px 2px #FAC555;   
+    text-align: center;
+}
+
+h2 {
+    font-size: 13pt;
+    font-family: 'Source Sans Pro';  
+    text-align: center;
+    text-decoration: none;
+}
+
+button {
+    background-color: #FCA205;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
 }
