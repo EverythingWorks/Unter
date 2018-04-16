@@ -19,11 +19,13 @@
 
   <div class = "forms">
     <br>
+    <div class = "warnings">
       {% for field in form %}
         {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
+          {{ error }} <br>
         {% endfor %}
       {% endfor %}
+    </div>
 
       <center>
           <form method="post">

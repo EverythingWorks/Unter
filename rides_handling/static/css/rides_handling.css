@@ -8,134 +8,121 @@ body {
 
 .display {
     width: auto;
-    /*height: 470px;*/
-    height: 33em;
+    height: 70vh;
     background-color:#F7B731;
+    background-image: url("../images/manhattan5.png");
+    background-size: cover;
     margin-left: auto;
     margin-right: auto;
     margin-top: 15vh;
+    min-height: 200px;
 }
 
 
 .left {
     /* 475px and 400px, margin 200px*/
     width: 35vw;
-    height: 30px;
-    margin-left: 15vw;
+    height: 60vh;
+    margin-left: 14vw;
     margin-right: auto;
+    margin-top: 3vh;
     float: left; 
 
-    padding-right : 30px;
+    padding-right : 2vw;
 
     font-family: 'Lobster';
-    font-size: 60pt;
+    font-size: 12vh;
     text-align: right;
     text-shadow: 3px 2px #FAC555;
 }
 
 .right {
     width: 35vw;
-    height: 30px;
+    height: 60vh;
     margin-left: auto;
-    margin-right: 200px;
-
-    padding-top : 20px;
+    margin-right: 14vw;
+    padding-top : 3vh;
 }
 
 .options{
-    height: 50px;
+    height: 7.5vh;
     margin-left: auto;
     margin-right: auto;
 
     background-color:#FAC555;
-    font-size: 18pt;
+    font-size: 3.6vh;
     font-family: 'Lobster';
     text-shadow: 3px 2px #F7D388;
 }
 
 .choices{
-    height: 50px;
+    height: 7.5vh;
     margin-left: auto;
     margin-right: auto;
-    width: 180px;
+    width: 12.6vw;
 
     background-color:#FAC555;
-    font-size: 18pt;
+    font-size: 3.6vh;
     font-family: 'Open Sans';
     text-align: center;
 }
 
 .log_in{
-    width: 180px;
+    width: 12.6vw;
     float: left; 
     text-align: center;
-    padding-right : 25px;
-    padding-top : 5px;
+    padding-right : 2vw;
+    padding-top : 0.75vh;
 }
 
 .sign_up{
-    width: 180px;
+    width: 12.6vw;
     float: right; 
     text-align: center;
-    padding-left : 25px;
-    padding-top : 5px;
+    padding-left : 2vw;
+    padding-top : 0.75vh;
 }
 
 .choosen_left{
     float: left;
-    border-bottom: 50px solid #F7D388;  
-    border-right: 10px solid transparent; 
-    height: 50px; 
-    width: 195px;
+    border-bottom: 7.5vh solid #F7D388;  
+    border-right: 0.7vw solid transparent; 
+    height: 7.5vh; 
+    width: 13.7vw;
     text-shadow: 3px 2px #FAC555;
 }
 
 .choosen_right{
     float: right;
-    border-bottom: 50px solid #F7D388;
-    border-left: 10px solid transparent; 
-    height: 50px; 
-    width: 195px;
+    border-bottom: 7.5vh solid #F7D388;
+    border-left: 0.7vw solid transparent; 
+    height: 7.5vh; 
+    width: 13.7vw;
     text-shadow: 3px 2px #FAC555;
 }
 
-
 .forms{
     background-color:  #F7D388; 
-    padding-left : 25px;
-    padding-right : 25px;
-    height: 370px;
-    font-size: 10pt;
-    font-family: 'Open Sans';
+    padding-left : 2vw;
+    padding-right : 2vw;
+    height: 55.5vh;
+    min-height: 190px;
+    min-width: 200px;
+    font-size: 2vh;
+    font-family: 'Source Sans Pro';
 }
 
 .warnings{
-    padding-top : 7px;
-
-    font-size: 10pt;
-    font-family: 'Open Sans';
-    color: red;
-}
-
-.field{
-    width: 410px;
-
-}
-
-.tag_field{
-    text-align: right;
-    width: 140px;
-    font-size: 13pt;
+    padding-top : 1vh;
+    font-size: 2vh;
     font-family: 'Source Sans Pro';
-    float: left;
-    margin-top: auto;
-    margin-bottom: auto;   
+    color: red;
 }
 
 .form_field{
     height: 3vh;
-    font-size: 13pt;
-    font-family: 'Open Sans';
+    font-size: 2.5vh;
+    font-family: 'Source Sans Pro';
 }
 
 img {
@@ -144,14 +131,15 @@ img {
 }
 
 h1 {
-    font-size: 30pt;
+    font-size: 6vh;
     font-family: 'Lobster';
     text-shadow: 3px 2px #FAC555;   
     text-align: center;
+    min-width: 300px;
 }
 
 h2 {
-    font-size: 13pt;
+    font-size: 2.6vh;
     font-family: 'Source Sans Pro';  
     text-align: center;
     text-decoration: none;
@@ -161,9 +149,9 @@ button {
     background-color: #FCA205;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 1.5vh 1.4vw;
     text-align: center;
-    font-size: 16px;
+    font-size: 2.4vh;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 1vh;
 }
