@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^login/$', rides_handling_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^signup/$', rides_handling_views.signup, name='signup'),
+    url(r'^offer/$', rides_handling_views.offer, name='offer'),
+    url(r'^signup_driver/$', rides_handling_views.signup_driver, name='signup_driver'),
 ]

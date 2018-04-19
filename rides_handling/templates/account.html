@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class = "options">
+
+    <a href="{% url 'order' %}" style="text-decoration:none;">
+        <div class = "text_right3">
+            <p style="color:#39382C"><i>Order ride</i></p>
+        </div>
+    </a>
+
+    <a href="{% url 'offer' %}" style="text-decoration:none;">
+        <div class = "text_middle3">
+           <p style="color:#39382C"><i>Offer ride</i></p>
+        </div>
+    </a>
+    
+    <a href="{% url 'account' %}" style="text-decoration:none;">
+        <div class = "choosen_right">
+        <div class = "text_left3">
+           <p style="color:#39382C"><i>Account</i></p>
+        </div>
+        </div>
+    </a>
+
+</div>
+
+
+<div class = "forms">
+  <br>
+    <a href="{% url 'signup_driver' %}" style="text-decoration:none;">
+        <h2>
+            Become a driver!
+        </h2>
+    </a>
+
+</div>
+
+
+
+{% endblock %}

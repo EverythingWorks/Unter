@@ -44,15 +44,47 @@ body {
     padding-top : 3vh;
 }
 
-.options{
-    height: 7.5vh;
-    margin-left: auto;
-    margin-right: auto;
+a{
+    text-decoration: none;
+    color:#39382C;
+}
+
+ul{
+    height: 7vh;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 
     background-color:#FAC555;
     font-size: 3.6vh;
-    font-family: 'Lobster';
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
     text-shadow: 3px 2px #F7D388;
+}
+
+li a{
+    width: 11vw;
+    float: left; 
+    text-align: center;
+    padding-right : 0.5vw;
+    padding-left : 0.5vw;
+    vertical-align: middle;
+    text-decoration: none;
+    text-decoration-style: none;
+}
+ 
+li a:hover {
+    text-shadow: 3px 2px #F7D388;
+    height: 7.5vh; 
+    color:rgb(83, 83, 83);
+}
+
+li a.active {
+    text-shadow: 3px 2px #FAC555;
+    border-bottom: 7.5vh solid #F7D388;
+    border-right: 1.5vw solid transparent; 
+    border-left: 1.5vw solid transparent; 
+    height: 7.5vh; 
 }
 
 .choices{
@@ -63,42 +95,8 @@ body {
 
     background-color:#FAC555;
     font-size: 3.6vh;
-    font-family: 'Open Sans';
+    font-family: 'Lato', sans-serif;
     text-align: center;
-}
-
-.log_in{
-    width: 12.6vw;
-    float: left; 
-    text-align: center;
-    padding-right : 2vw;
-    padding-top : 0.75vh;
-}
-
-.sign_up{
-    width: 12.6vw;
-    float: right; 
-    text-align: center;
-    padding-left : 2vw;
-    padding-top : 0.75vh;
-}
-
-.choosen_left{
-    float: left;
-    border-bottom: 7.5vh solid #F7D388;  
-    border-right: 0.7vw solid transparent; 
-    height: 7.5vh; 
-    width: 13.7vw;
-    text-shadow: 3px 2px #FAC555;
-}
-
-.choosen_right{
-    float: right;
-    border-bottom: 7.5vh solid #F7D388;
-    border-left: 0.7vw solid transparent; 
-    height: 7.5vh; 
-    width: 13.7vw;
-    text-shadow: 3px 2px #FAC555;
 }
 
 .forms{
@@ -109,20 +107,20 @@ body {
     min-height: 190px;
     min-width: 200px;
     font-size: 2vh;
-    font-family: 'Source Sans Pro';
+    font-family: 'Lato', sans-serif;  
 }
 
 .warnings{
     padding-top : 1vh;
     font-size: 2vh;
-    font-family: 'Source Sans Pro';
+    font-family: 'Lato', sans-serif;
     color: red;
 }
 
 .form_field{
     height: 3vh;
     font-size: 2.5vh;
-    font-family: 'Source Sans Pro';
+    font-family: 'Lato', sans-serif;
 }
 
 img {
@@ -140,7 +138,7 @@ h1 {
 
 h2 {
     font-size: 2.6vh;
-    font-family: 'Source Sans Pro';  
+    font-family: 'Lato', sans-serif;  
     text-align: center;
     text-decoration: none;
 }
@@ -154,4 +152,41 @@ button {
     font-size: 2.4vh;
     cursor: pointer;
     border-radius: 1vh;
+}
+
+.dropdown-content a:hover {background-color:#FAC555 ;}
+
+.dropdown {
+    cursor: pointer;
+}
+
+div.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    right: 0;
+    display: none;
+    position: absolute;
+    font-size: 2vh;
+    background-color: #F7D388;
+
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    right: 0;
+    color: black;
+    text-decoration: none;
+    font-family: 'Lato', sans-serif; 
+    font-weight: none; 
+    text-shadow: none;
+    display: block;
+    text-align: right;
+    padding-right: 0.5vw;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }

@@ -1,21 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class = "options">
-    <a href="{% url 'login' %}" style="text-decoration:none;">
-    <div class = "log_in">
-        <p style="color:#39382C"><i>Log in</i></p>
-    </div>
-  </a>
 
-  <a href="{% url 'signup' %}" style="text-decoration:none;"></a>
-    <div class = "choosen_right">
-      <div class = "sign_up">
-          <p style="color:#39382C"><i>Sign up</i></p>
-      </div>
-    </div>
-  </a>
-  </div>
+  <ul>
+    <li>
+      <a style="width: 15vw" href="{% url 'login' %}">
+         Log in
+      </a>
+    </li>
+    <li style="float:right">
+      <a class = "active"  style="width: 15vw; border-right: 0" href="{% url 'signup' %}">
+        Sign up
+      </a>
+    </li>
+  </ul>
 
   <div class = "forms">
     <br>
@@ -37,12 +35,7 @@
             <div class = "form_field"> <input id="password1" type="password" name="password1" value="{{ current_name }}" placeholder="Password" required></div>
             <br><br>
             <div class = "form_field"> <input id="password2" type="password" name="password2" value="{{ current_name }}" placeholder="Confirm Password" required></div>
-            <br><br>
-            <div class = "form_field">
-            <label for="is_driver">Do you want to be a driver?</label>
-            <input id="is_driver" type="checkbox" name="is_driver" value="{{ current_name }}" ></div>
-  
-  
+            
             <br><br>
             <button type="submit">Continue</button>
           </form>

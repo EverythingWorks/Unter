@@ -43,3 +43,12 @@ def signup(request):
         form = SignUpForm()
 
     return render(request, 'signup.html', {'form': form})
+
+
+def offer (request):
+    return render(request, 'offer.html')
+
+@login_required
+def signup_driver (request):
+    return render(request, 'signup_driver.html')
+ 

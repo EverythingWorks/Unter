@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class = "options">
-      <a href="{% url 'login' %}" style="text-decoration:none;">
-    <div class = "choosen_left">
-      <div class = "log_in">
-          <p style="color:#39382C"><i>Log in</i></p>
-      </div>
-    </div>
-  </a>
-
-  <a href="{% url 'signup' %}" style="text-decoration:none;">
-    <div class = "sign_up">
-       <p style="color:#39382C"><i>Sign up</i></p>
-    </div>
-  </a>
-  </div>
+<ul>
+  <li>
+    <a class = "active" style="width: 15vw; border-left: 0" href="{% url 'login' %}">
+       Log in
+    </a>
+  </li>
+  <li style="float:right">
+    <a style="width: 15vw" href="{% url 'signup' %}">
+      Sign up
+    </a>
+  </li>
+</ul>
 
 
   <div class = 'forms'>
@@ -42,6 +39,7 @@
                 {{ error }}
               </div>
               {% endfor %}
+              
               {% if field.help_text %}
                 <p><small style="color: grey">{{ field.help_text }}</small></p>
               {% endif %}
@@ -53,7 +51,6 @@
       
     
     <h2><a href="{% url 'signup' %}" style="text-decoration:none;" ><font color = #39382C>Don't have an account?  Sign up for free!</font></a></h2>
-<!--</form>-->
   
 </div>
 
