@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'admin/', admin.site.urls),
 
     url(r'^$', rides_handling_views.home, name='home'),
-    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^login/$', rides_handling_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^signup/$', rides_handling_views.signup, name='signup'),
 ]
