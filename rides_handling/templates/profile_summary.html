@@ -1,0 +1,7 @@
+<h1>{{ user.username }} profile summary</h1>
+<h2> User ride history:</h2>
+<ul>
+    {% for ride in rides_history %}
+        <li> From ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} ) to ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }}) </li>
+    {% endfor %}
+</ul>

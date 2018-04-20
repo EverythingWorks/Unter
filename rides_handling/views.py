@@ -72,3 +72,10 @@ def signup_driver (request):
         form = SignUpForm()
     return render(request, 'signup_driver.html')
  
+
+def profile_summary(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    else:
+        rides_history = request.user.profile.ride_set.all()
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, })

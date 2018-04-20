@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^signup/$', rides_handling_views.signup, name='signup'),
     url(r'^offer/$', rides_handling_views.offer, name='offer'),
     url(r'^signup_driver/$', rides_handling_views.signup_driver, name='signup_driver'),
+    url(r'^profile_summary/$', rides_handling_views.profile_summary, name='profile_summary'),
 ]
