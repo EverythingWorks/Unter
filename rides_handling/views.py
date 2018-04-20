@@ -44,7 +44,7 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def offer (request):
+def offer(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -59,7 +59,7 @@ def offer (request):
     
 
 @login_required
-def signup_driver (request):
+def signup_driver(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
