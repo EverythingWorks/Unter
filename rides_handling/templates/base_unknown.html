@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block display %}
+
+<div class = "display_u">
+    <header>
+      <div class = "left">
+        Unter <br>
+      </div>
+      
+    </header>
+    <main>
+        <div class = "right">
+         {% block content %}
+
+         {% endblock %}
+        </div>
+    </main>
+  </div>
+
+{% endblock %}

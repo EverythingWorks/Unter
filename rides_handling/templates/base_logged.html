@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block display %}
+    <header>
+      <div class = "header_l">
+        Unter <br>
+      </div>
+      
+    </header>
+    <main>
+     <div class = "display_l">
+         <div style="float: left; width: 15vw;">
+            <ul class="nav flex-column" style="border: 2px solid#F7D388;" >
+                        <li class="nav-item" style = "border-bottom: 2px solid #F7D388;" >
+                          <a class="nav-link" href="{% url 'home' %}"> Ride </a>
+                        </li>
+                        <li class="nav-item" style = "border-bottom: 2px solid #F7D388;">
+                          <a class="nav-link" href="{% url 'offer' %}"> Drive </a>
+                        </li>
+                        <!--
+                        <li class="nav-item" style = "border-bottom: 1px solid ##F7D388;">
+                          <a class="nav-link" href="#">Profile</a>
+                        </li>
+                        -->
+                        <li class="nav-item" >
+                          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+            </ul>
+         </div>
+         <div style="float: left; width: 65vw; ">
+           <div class = "pages">
+             {% block content %}
+
+             {% endblock %}
+            </div>
+         </div>
+        </div>
+    </main>
+  
+
+{% endblock %}

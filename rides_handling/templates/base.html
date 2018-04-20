@@ -4,14 +4,21 @@
 
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">      
     <link rel="stylesheet" href="{% static 'css/rides_handling.css' %}">
+
     <link href="https://fonts.googleapis.com/css?family=Lato:300i,400" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css?family=Lobster|Source+Sans+Pro" rel="stylesheet"> 
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- If IE use the latest rendering engine -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
     <title>{% block title %}Unter{% endblock %}</title>
   </head>
   <body>
@@ -22,29 +29,47 @@
           document.getElementById("display").style.backgroundImage = "url(../images/manhattan5.png)" }, 3000);
       </script>
 
-      <div class = "display">
-        <header>
-          <div class = "left">
-            Unter <br>
-            
-          </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style = "height: 5vh;">
+    <a class="navbar-brand" style = "font-size: 5vh; font-family: 'Lobster';text-shadow: 3px 2px #FAC555; " href="#">U</a>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" style: "position: sticky;">
+          <a class="nav-link" href="{% url 'home' %}"> Ride </a>
+        </li>
+        <li class="nav-item" style: "position: sticky;">
+          <a class="nav-link" href="{% url 'offer' %}">Drive</a>
+        </li>
+        <li class="nav-item" style: "position: sticky;">
+            <a class="nav-link" href="#">Help</a>
+        </li>
+        <li class="nav-item" style: "position: sticky;">
+            <a class="nav-link" href="#">About</a>
+        </li>
 
-          <!--
-            width="460" height="345"
+      </ul>
+          <ul class="navbar-nav mr-auto navbar-right">
+                  {% if user.is_authenticated %}
+                  <li class="nav-item style: "position: sticky;"">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                  </li>
 
-          {% if user.is_authenticated %}
-           <a href="{% url 'logout' %}">logout</a>
-          {% else %}
-            <a href="{% url 'login' %}">login</a> / <a href="{% url 'signup' %}">signup</a>
-           {% endif %}-->
-          
-        </header>
-        <main>
-            <div class = "right">
-             {% block content %}
-             {% endblock %}
-            </div>
-        </main>
-      </div>
+                  {% else %}
+                  <li class="nav-item style: "position: sticky;"">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                  </li>
+                  <li class="nav-item">
+                      /
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                  </li>
+                  {% endif %}
+            </ul>
+    </div>
+    </nav>
+        {% block display %}
+         {% endblock %}
+      
   </body>
 </html>

@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base_unknown.html' %}
 
 {% block content %}
-<ul>
-  <li>
+<ul class = "body_list">
+  <li class = "body_list">
     <a class = "active" style="width: 15vw; border-left: 0" href="{% url 'login' %}">
        Log in
     </a>
   </li>
-  <li style="float:right">
+  <li class = "body_list" style="float:right">
     <a style="width: 15vw" href="{% url 'signup' %}">
       Sign up
     </a>
@@ -17,6 +17,7 @@
 
   <div class = 'forms'>
       <br>
+
   <h1>Welcome to Unter! </h1>
   <h2>Please, log in:</h2>
 

@@ -3,10 +3,9 @@ body {
     background-image: url("../images/background.jpg");
     background-repeat: repeat-y;
     background-size: cover;
-
 }
 
-.display {
+.display_u {
     width: auto;
     height: 70vh;
     background-color:#F7B731;
@@ -14,8 +13,36 @@ body {
     background-size: cover;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15vh;
+    margin-top: 10vh;
     min-height: 200px;
+}
+
+.header_l {
+    width: 80vw;
+    background-color:#F7B731;
+    background-image: url("../images/manhattan5.png");
+    font-family: 'Lobster';
+    font-size: 12vh;
+    text-align: right;
+    padding-right: 5vw;
+    text-shadow: 3px 2px #FAC555;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.display_l {
+    width: 80vw;
+    height: 65vh;
+    background-color:#FAC555;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+
+    font-family: 'Lato', sans-serif;
+    /*font-weight: bold;*/
+    font-size: 4vh;
+    text-shadow: 3px 2px #F7D388;
 }
 
 
@@ -49,7 +76,13 @@ a{
     color:#39382C;
 }
 
-ul{
+div.display_l ul.nav li.nav-item a.nav-link:hover{
+    background: #F7D388;
+    text-decoration: none;
+    color:#39382C;
+}
+
+ul.body_list{
     height: 7vh;
     list-style-type: none;
     margin: 0;
@@ -62,7 +95,7 @@ ul{
     text-shadow: 3px 2px #F7D388;
 }
 
-li a{
+li.body_list a{
     width: 11vw;
     float: left; 
     text-align: center;
@@ -73,13 +106,13 @@ li a{
     text-decoration-style: none;
 }
  
-li a:hover {
+li.body_list a:hover {
     text-shadow: 3px 2px #F7D388;
     height: 7.5vh; 
     color:rgb(83, 83, 83);
 }
 
-li a.active {
+li.body_list a.active {
     text-shadow: 3px 2px #FAC555;
     border-bottom: 7.5vh solid #F7D388;
     border-right: 1.5vw solid transparent; 
@@ -99,7 +132,7 @@ li a.active {
     text-align: center;
 }
 
-.forms{
+.pages{
     background-color:  #F7D388; 
     padding-left : 2vw;
     padding-right : 2vw;
@@ -133,7 +166,6 @@ h1 {
     font-family: 'Lobster';
     text-shadow: 3px 2px #FAC555;   
     text-align: center;
-    min-width: 300px;
 }
 
 h2 {

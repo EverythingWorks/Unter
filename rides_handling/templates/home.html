@@ -1,36 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base_logged.html' %}
 
 {% block content %}
 
-<ul>
-  <li>
-    <a class = "active" style="border-left: 0" href="{% url 'home' %}">
-       Ride
-    </a>
-  </li>
-  <li style="float:left">
-    <a href="{% url 'offer' %}">
-      Drive
-    </a>
-  </li>
-  <li style="float:right; padding-right: 3vw;">
-    <div class="dropdown">
-      <p style="color:#39382C">Account</p>
-       <div class="dropdown-content">
-          <a href="{% url 'signup_driver' %}" style="text-decoration:none;"><p style="color:#39382C">Become a driver</p></a>
-          <a href="{% url 'logout' %}" style="text-decoration:none;"><p style="color:#39382C">Logout</p></a>
-      </div>
-  </div>
-  </li>
-</ul>
 
-
-
-<div class = "forms">
   <br>
     page in progres
-
-</div>
 
 
 

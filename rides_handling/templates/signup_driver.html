@@ -1,46 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base_logged.html' %}
 
 {% block content %}
 
-<ul>
-  <li>
-    <a href="{% url 'home' %}">
-       Ride
-    </a>
-  </li>
-  <li style="float:left">
-    <a href="{% url 'offer' %}">
-      Drive
-    </a>
-  </li>
-  <li style=" float:right;  ">
 
-    <div class="dropdown">
-        <a class="active" style="border-right: 0;">
-            Account
-        </a>
-        <br>
-       <div class="dropdown-content">
-          <a href="{% url 'signup_driver' %}" style="text-decoration:none;"><p style="color:#39382C">Become a driver</p></a>
-          <a href="{% url 'logout' %}" style="text-decoration:none;"><p style="color:#39382C">Logout</p></a>
-      </div>
-      
-  </div>
+<br>
+<h1>Become Driver right now!</h1>
+<h2>Offer rides, take orders and meet new people</h2>
+<br>
 
-  </li>
-</ul>
-
-
-<div class = "forms">
-        <br>
-        <div class = "warnings">
-          {% for field in form %}
-            {% for error in field.errors %}
-              {{ error }} <br>
-            {% endfor %}
-          {% endfor %}
-        </div> 
-    
           <center>
               <form method="post">
                   {% csrf_token %}
@@ -53,6 +20,7 @@
       
           </center>
     </div>
+
 
 
 
