@@ -1,7 +1,43 @@
-<h1>{{ user.username }} profile summary</h1>
-<h2> User ride history:</h2>
-<ul>
+{% extends 'base_logged.html' %}
+
+{% block content %}
+
+<br>
+<h1><div style="text-align: left;">{{ user.username }} rides history</div></h1>
+<br>
+<div class="container">
+    <div class="row" style = "width: 50vw;">
+        <div class="col">
+            From:
+        </div>
+        <div class="col">
+            To:
+        </div>
+        <div class="col">
+            Date:
+        </div>
+        <div class="col">
+            Status:
+        </div>
+    </div>
+    <div class = "list">
     {% for ride in rides_history %}
-        <li> From ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} ) to ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }}) </li>
+         <div class="row">
+            <div class="col">
+                ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
+            </div>
+            <div class="col">
+                ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
+            </div>
+            <div class="col">
+                {{ride.pickup_datetime}}
+            </div>
+            <div class="col">
+                {{ride.status}}
+            </div>            
+          </div>
     {% endfor %}
-</ul>
+    </div>
+</div>
+
+{% endblock %}

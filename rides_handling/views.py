@@ -45,32 +45,38 @@ def signup(request):
 
 
 def offer(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            if user.profile.is_driver == True:
-               return render(request, 'offer.html')
-            else:
-               return render(request, 'signup_driver.html')
+    if not request.user.is_authenticated:
+        return redirect('login')
     else:
-        form = SignUpForm()
-    return render(request, 'signup_driver.html')
+        if request.method == 'POST':
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                if user.profile.is_driver == True:
+                    return render(request, 'offer.html')
+                else:
+                    return render(request, 'signup_driver.html')
+        else:
+            form = SignUpForm()
+        return render(request, 'signup_driver.html')
     
 
 @login_required
 def signup_driver(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.profile.is_driver = True
-            user.profile.car = form.cleaned_data.get('car')
-            user.save()
-            return redirect('home')
+    if not request.user.is_authenticated:
+        return redirect('login')
     else:
-        form = SignUpForm()
-    return render(request, 'signup_driver.html')
+        if request.method == 'POST':
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                user.profile.is_driver = True
+                user.profile.car = form.cleaned_data.get('car')
+                user.save()
+                return redirect('home')
+        else:
+            form = SignUpForm()
+        return render(request, 'signup_driver.html')
  
 
 def profile_summary(request):
