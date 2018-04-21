@@ -16,7 +16,8 @@ def home(request):
                 ride.initiator = request.user.profile
             except Profile.DoesNotExist:
                 ride.initiator = Profile(user=request.user)
-            
+                
+            ride.status = 'set by passenger'
             ride.pickup_datetime = timezone.now()
             ride.save()
             return redirect('profile_summary')
@@ -101,5 +102,6 @@ def profile_summary(request):
         return redirect('home')
     else:
         rides_history = request.user.profile.ride_set.all()
+        rides_history = list(reversed(rides_history))
         return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, })
    

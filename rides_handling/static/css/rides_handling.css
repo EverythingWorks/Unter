@@ -32,13 +32,14 @@ body {
 
 }
 
-.display_l {
+.card .display_l {
     width: 80vw;
-    height: 65vh;
     background-color:#FAC555;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
 
     font-family: 'Lato', sans-serif;
     /*font-weight: bold;*/
@@ -46,11 +47,36 @@ body {
     text-shadow: 3px 2px #F7D388;
 }
 
+table{
+    table-layout: auto;
+    min-width: 40vw;
+    align-content: center;
+}
+
+tr{
+    height: 8vh;
+    border-bottom: 1px solid #FAC555;
+}
+
+th{
+    vertical-align: middle;
+    padding-right: 1vw;
+}
+
 .container{
+    display: flex;
+    flex-direction: column;
+
+    width: 70vw;
     margin-left: auto;
     margin-right: auto;
     text-shadow: none;
     font-size: 3vh;
+
+    min-height: 40vw;
+    height: 100%;
+    margin-bottom: 0;
+    position: relative;
 }
 
 div.list .row {
@@ -59,6 +85,8 @@ div.list .row {
     width: 50vw;
     margin-bottom: 2vh;
 }
+
+div.list .row:hover {background-color: rgba(130, 138, 146, 0.336);}
 
 .left {
     /* 475px and 400px, margin 200px*/
@@ -146,14 +174,22 @@ li.body_list a.active {
     text-align: center;
 }
 
-.pages{
+.card {
+    background-color:  transparent;
+    border: none;
+    padding-bottom: 3vw; 
+    min-width: 40vh;;
+}
+.card .pages{
     background-color:  #F7D388; 
     padding-left : 2vw;
     padding-right : 2vw;
-    height: 100%;
+    padding-bottom: 3vw; 
+
+   /* height: 100%;
     height: 65vh;
     min-height: 190px;
-    min-width: 200px;
+    min-width: 200px;*/
     font-size: 4vh;
     font-family: 'Lato', sans-serif;  
 }
@@ -167,6 +203,12 @@ li.body_list a.active {
 
 .form_field{
     height: 3vh;
+    font-size: 2.5vh;
+    font-family: 'Lato', sans-serif;
+}
+
+tr div.form_field{
+    height: auto;
     font-size: 2.5vh;
     font-family: 'Lato', sans-serif;
 }
@@ -188,6 +230,20 @@ h2 {
     font-family: 'Lato', sans-serif;  
     text-align: center;
     text-decoration: none;
+}
+
+h3 {
+    font-size: 5vh;
+    font-family: 'Lobster';
+    text-shadow: 3px 2px #FAC555;   
+    text-align: right;
+}
+
+h4 {
+    font-size: 3vh;
+    font-family: 'Lato', sans-serif;   
+    text-align: left;
+    padding-left: 0.5vw;
 }
 
 button {

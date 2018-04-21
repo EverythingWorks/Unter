@@ -1,9 +1,63 @@
 {% extends 'base_logged.html' %}
 
 {% block content %}
-    <h1>New ride</h1>
-    <form method="POST" class="ride-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Make ride</button>
+
+    <h3>Plan your ride</h3>
+
+    <div class = "warnings">
+      {% for field in form %}
+        {% for error in field.errors %}
+          {{ error }} <br>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+    <form method="POST" class="ride-form">
+        {% csrf_token %}
+        
+        <table>
+        
+        <tr  scope = "row">
+            <th>
+                <h4>From:</h4>
+            </th>
+            <th >
+                <!-- add min/max to specify nyc longitudes and latitudes-->
+                <div class = "form_field"> <input id="pickup_longitude" type="number" step=0.01 name="pickup_longitude" value="{{ current_name }}" placeholder="pickup longitude" required autofocus> </div>
+            </th>
+            <th >
+                <div class = "form_field"> <input id="pickup_latitude" type="number" step=0.01 name="pickup_latitude" value="{{ current_name }}" placeholder="pickup latitude" required></div>
+            </th>
+        </tr>
+        <tr scope = "row">
+                <th>
+                    <h4>To:</h4>
+                </th>
+                <th>
+                    <div class = "form_field"> <input id="dropoff_longitude" type="number" step=0.01 name="dropoff_longitude" value="{{ current_name }}" placeholder="dropoff longitude" required> </div>
+                </th>
+                <th>
+                    <div class = "form_field"> <input id="dropoff_latitude" type="number" step=0.01 name="dropoff_latitude" value="{{ current_name }}" placeholder="dropoff latitude" required></div>
+                </th>
+        </tr>
+        <tr scope = "row">
+                <th>
+                    <h4>Number of passengers:</h4>
+                </th>
+                <th>
+                    <div class = "form_field"> <input id="passenger_count" type="text" name="passenger_count" value="1" size="1" maxlength="4" required> </div>
+                </th>
+        </tr>
+    
+    </table>
+
+    {% for error in field.errors %}
+        <div class = "warnings">
+            {{ error }}
+        </div>
+    {% endfor %}
+
+        <br><br>
+        <center><button type="submit">Continue</button></center>
     </form>
 {% endblock %}

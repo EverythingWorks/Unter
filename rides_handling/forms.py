@@ -15,4 +15,4 @@ class SignUpForm(UserCreationForm):
 class RideForm(forms.ModelForm):
     class Meta:
         model = Ride
-        fields =  ('status', 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count', )
+        fields =  ( 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count', )
