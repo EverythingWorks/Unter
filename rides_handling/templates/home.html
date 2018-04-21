@@ -23,10 +23,10 @@
             </th>
             <th >
                 <!-- add min/max to specify nyc longitudes and latitudes-->
-                <div class = "form_field"> <input id="pickup_longitude" type="number" step=0.01 name="pickup_longitude" value="{{ current_name }}" placeholder="pickup longitude" required autofocus> </div>
+                <div class = "form_field"> <input id="pickup_longitude" type="number" step=0.000001 name="pickup_longitude" value="{{ current_name }}" placeholder="pickup longitude" max="999" min="-999" required autofocus> </div>
             </th>
             <th >
-                <div class = "form_field"> <input id="pickup_latitude" type="number" step=0.01 name="pickup_latitude" value="{{ current_name }}" placeholder="pickup latitude" required></div>
+                <div class = "form_field"> <input id="pickup_latitude" type="number" step=0.000001 name="pickup_latitude" value="{{ current_name }}" placeholder="pickup latitude" max="999" min="-999" required></div>
             </th>
         </tr>
         <tr scope = "row">
@@ -34,10 +34,10 @@
                     <h4>To:</h4>
                 </th>
                 <th>
-                    <div class = "form_field"> <input id="dropoff_longitude" type="number" step=0.01 name="dropoff_longitude" value="{{ current_name }}" placeholder="dropoff longitude" required> </div>
+                    <div class = "form_field"> <input id="dropoff_longitude" type="number" step=0.000001 name="dropoff_longitude" value="{{ current_name }}" placeholder="dropoff longitude" max="999" min="-999" required> </div>
                 </th>
                 <th>
-                    <div class = "form_field"> <input id="dropoff_latitude" type="number" step=0.01 name="dropoff_latitude" value="{{ current_name }}" placeholder="dropoff latitude" required></div>
+                    <div class = "form_field"> <input id="dropoff_latitude" type="number" step=0.000001 name="dropoff_latitude" value="{{ current_name }}" placeholder="dropoff latitude" max="999" min="-999" required></div>
                 </th>
         </tr>
         <tr scope = "row">
@@ -45,7 +45,7 @@
                     <h4>Number of passengers:</h4>
                 </th>
                 <th>
-                    <div class = "form_field"> <input id="passenger_count" type="text" name="passenger_count" value="1" size="1" maxlength="4" required> </div>
+                    <div class = "form_field"> <input id="passenger_count" type="text" name="passenger_count" value="1" size="1" maxlength="4" pattern="[1-4]" title="value from 1 to 4" required> </div>
                 </th>
         </tr>
     

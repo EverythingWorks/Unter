@@ -13,6 +13,16 @@ class SignUpForm(UserCreationForm):
 
 
 class RideForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RideForm, self).__init__(*args, **kwargs)
+        self.fields['passenger_count'].widget.attrs['min'] = 1
+    
+    def clean_passenger_count(self):
+        passenger_count = self.cleaned_data['passenger_count']
+        if passenger_count < 1:
+            raise forms.ValidationError("Passenger count cannot be less than 1")
+        return passenger_count
+
     class Meta:
         model = Ride
         fields =  ( 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count', )
