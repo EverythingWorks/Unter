@@ -26,10 +26,10 @@ class Ride(models.Model):
 
 	initiator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-	pickup_longitude = models.DecimalField(max_digits=5, decimal_places=2)
-	pickup_latitude = models.DecimalField(max_digits=5, decimal_places=2)
-	dropoff_longitude = models.DecimalField(max_digits=5, decimal_places=2)
-	dropoff_latitude = models.DecimalField(max_digits=5, decimal_places=2)
+	pickup_longitude = models.DecimalField(max_digits=9, decimal_places=6)
+	pickup_latitude = models.DecimalField(max_digits=9, decimal_places=6)
+	dropoff_longitude = models.DecimalField(max_digits=9, decimal_places=6)
+	dropoff_latitude = models.DecimalField(max_digits=9, decimal_places=6)
 	pickup_datetime = models.DateField()
 	passenger_count = models.IntegerField(default=1)
 
