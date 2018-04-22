@@ -43,7 +43,7 @@ body {
 
     font-family: 'Lato', sans-serif;
     /*font-weight: bold;*/
-    font-size: 4vh;
+    font-size: 3vh;
     text-shadow: 3px 2px #F7D388;
 }
 
@@ -63,21 +63,33 @@ th{
     padding-right: 1vw;
 }
 
+button.finish{
+    width: auto;
+    height: 2.4vh;
+    border: none;
+    background-color: transparent;
+
+    color: white;
+
+    cursor: pointer;
+    padding: 0 0 0 0;
+
+    position: relative;
+}
+
 .container{
     display: flex;
     flex-direction: column;
 
-    width: 80vw;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
     text-shadow: none;
-    font-size: 2.5vh;
+    font-size: 2.3vh;
 
-    min-height: 40vw;
     height: 100%;
     margin-bottom: 0;
     position: relative;
-    border: 1px black;
 }
 
 div.list .row {

@@ -23,7 +23,9 @@ def home(request):
             return redirect('profile_summary')
     else:
         form = RideForm()
-        return render(request, 'home.html', {'form' : form, })
+        rides_history = request.user.profile.ride_set.all().order_by("-pickup_datetime")
+        possibly_notcomplete = rides_history[0]
+        return render(request, 'home.html', {'form' : form, 'rides_history' : rides_history, 'possibly_notcomplete': possibly_notcomplete})
 
 
 def login(request):
@@ -78,6 +80,9 @@ def offer(request):
         else:
             form = SignUpForm()
         return render(request, 'signup_driver.html')
+
+def help(request): 
+    return render(request, 'help.html')
     
 
 def signup_driver(request):
@@ -103,6 +108,22 @@ def profile_summary(request):
     if not request.user.is_authenticated:
         return redirect('home')
     else:
+        if request.GET.get('finish'):
+            rides_history = request.user.profile.ride_set.all()
+            for ride in rides_history:
+                if (ride.status == 'ACCEPTED'):
+                    ride.status = 'COMPLETED'
+                    ride.save()
+            return redirect('profile_summary')
+        if request.GET.get('cancel'):
+            rides_history = request.user.profile.ride_set.all()
+            for ride in rides_history:
+                if (ride.status == 'ACCEPTED'):
+                    ride.status = 'COMPLETED'
+                    ride.save()
+            return redirect('profile_summary')            
+
         rides_history = request.user.profile.ride_set.all().order_by("-pickup_datetime")
-        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, })
-   
+        possibly_notcomplete = rides_history[0]
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'possibly_notcomplete': possibly_notcomplete })
+        
