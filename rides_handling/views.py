@@ -17,7 +17,7 @@ def home(request):
             except Profile.DoesNotExist:
                 ride.initiator = Profile(user=request.user)
                 
-            ride.status = 'set by passenger'
+            ride.status = 'SET_BY_PASSENGER'
             ride.pickup_datetime = timezone.now()
             ride.save()
             return redirect('profile_summary')
@@ -70,6 +70,7 @@ def offer(request):
             form = SignUpForm(request.POST)
             if form.is_valid():
                 user = form.save()
+                user.refresh_from_db()
                 if user.profile.is_driver == True:
                     return render(request, 'offer.html')
                 else:
@@ -79,7 +80,6 @@ def offer(request):
         return render(request, 'signup_driver.html')
     
 
-@login_required
 def signup_driver(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -88,20 +88,21 @@ def signup_driver(request):
             form = SignUpForm(request.POST)
             if form.is_valid():
                 user = form.save()
+                user.refresh_from_db()
                 user.profile.is_driver = True
                 user.profile.car = form.cleaned_data.get('car')
                 user.save()
-                return redirect('home')
+                return redirect('profile_summary')
         else:
             form = SignUpForm()
         return render(request, 'signup_driver.html')
- 
 
+
+@login_required
 def profile_summary(request):
     if not request.user.is_authenticated:
         return redirect('home')
     else:
-        rides_history = request.user.profile.ride_set.all()
-        rides_history = list(reversed(rides_history))
+        rides_history = request.user.profile.ride_set.all().order_by("-pickup_datetime")
         return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, })
    

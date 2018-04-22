@@ -29,7 +29,13 @@ class CustomUserAdmin(UserAdmin):
             return list()
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
+class RidesAdmin(admin.ModelAdmin):
+	list_display = ('initiator', 'status', 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'pickup_datetime', 'passenger_count')
+	list_filter = ('status',)
+	date_hierarchy = 'pickup_datetime'
+	ordering = ['-pickup_datetime', 'status']
+
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
-admin.site.register(Ride)
+admin.site.register(Ride, RidesAdmin)
