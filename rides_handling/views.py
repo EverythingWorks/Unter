@@ -1,3 +1,4 @@
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
 from django.shortcuts import render, redirect
@@ -23,9 +24,13 @@ def home(request):
             return redirect('profile_summary')
     else:
         form = RideForm()
-        rides_history = request.user.profile.ride_set.all().order_by("-pickup_datetime")
-        possibly_notcomplete = rides_history[0]
-        return render(request, 'home.html', {'form' : form, 'rides_history' : rides_history, 'possibly_notcomplete': possibly_notcomplete})
+        rides_history = request.user.profile.ride_set.all()
+        rides_history = list(reversed(rides_history))
+        if not rides_history:
+            recent_ride_status = "no rides"
+        else:
+            recent_ride_status = rides_history[0].status
+        return render(request, 'home.html', {'form' : form, 'rides_history' : rides_history, 'recent_ride_status' : recent_ride_status })
 
 
 def login(request):
@@ -111,19 +116,23 @@ def profile_summary(request):
         if request.GET.get('finish'):
             rides_history = request.user.profile.ride_set.all()
             for ride in rides_history:
-                if (ride.status == 'ACCEPTED'):
+                if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
                     ride.status = 'COMPLETED'
                     ride.save()
             return redirect('profile_summary')
         if request.GET.get('cancel'):
             rides_history = request.user.profile.ride_set.all()
             for ride in rides_history:
-                if (ride.status == 'ACCEPTED'):
+                if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
                     ride.status = 'COMPLETED'
                     ride.save()
             return redirect('profile_summary')            
 
-        rides_history = request.user.profile.ride_set.all().order_by("-pickup_datetime")
-        possibly_notcomplete = rides_history[0]
-        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'possibly_notcomplete': possibly_notcomplete })
+        rides_history = request.user.profile.ride_set.all()
+        rides_history = list(reversed(rides_history))
+        if not rides_history:
+            recent_ride_status = "no rides"
+        else:
+            recent_ride_status = rides_history[0].status
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'recent_ride_status': recent_ride_status })
         

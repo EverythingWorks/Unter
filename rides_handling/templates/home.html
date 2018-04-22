@@ -4,6 +4,17 @@
 
     <h3>Plan your ride</h3>
 
+{% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
+
+    <h1 style = "text-align: left">Sorry!</h1> <br>
+    <h4>You cannot take another ride when previous is in progress. <br>
+    Finish your ride to set new one.</h4>
+    <br>
+    <h2>You can finish your ride here: </h2>
+    <center><a href="{% url 'profile_summary' %}"><button>Finish here!</button></a></center>
+
+{% else %}
+
     <div class = "warnings">
       {% for field in form %}
         {% for error in field.errors %}
@@ -22,7 +33,6 @@
                 <h4>From:</h4>
             </th>
             <th >
-                <!-- add min/max to specify nyc longitudes and latitudes-->
                 <div class = "form_field"> <input id="pickup_longitude" type="number" step=0.000001 name="pickup_longitude" value="{{ current_name }}" placeholder="pickup longitude" max="999" min="-999" required autofocus> </div>
             </th>
             <th >
@@ -60,4 +70,7 @@
         <br><br>
         <center><button type="submit">Continue</button></center>
     </form>
+
+{% endif %}
+
 {% endblock %}
