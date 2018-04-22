@@ -67,22 +67,23 @@ th{
     display: flex;
     flex-direction: column;
 
-    width: 70vw;
+    width: 80vw;
     margin-left: auto;
     margin-right: auto;
     text-shadow: none;
-    font-size: 3vh;
+    font-size: 2.5vh;
 
     min-height: 40vw;
     height: 100%;
     margin-bottom: 0;
     position: relative;
+    border: 1px black;
 }
 
 div.list .row {
     background-color: rgba(112, 128, 144, 0.164);
     border-radius: 1vw;
-    width: 50vw;
+    width: 60vw;
     margin-bottom: 2vh;
 }
 
@@ -186,10 +187,6 @@ li.body_list a.active {
     padding-right : 2vw;
     padding-bottom: 3vw; 
 
-   /* height: 100%;
-    height: 65vh;
-    min-height: 190px;
-    min-width: 200px;*/
     font-size: 4vh;
     font-family: 'Lato', sans-serif;  
 }

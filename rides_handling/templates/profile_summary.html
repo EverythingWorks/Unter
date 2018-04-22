@@ -5,17 +5,18 @@
 <h3>{{ user.username }} rides history</h3>
 
 <div class="container">
-    <div class="row" style = "width: 50vw;">
+
+    <div class="row" style="width: 60vw">
         <div class="col">
             From:
         </div>
         <div class="col">
             To:
         </div>
-        <div class="col">
+        <div class="col-2">
             Date:
         </div>
-        <div class="col">
+        <div class="col-3">
             Status:
         </div>
     </div>
@@ -28,10 +29,10 @@
             <div class="col">
                 ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
             </div>
-            <div class="col">
+            <div class="col-2">
                 {{ride.pickup_datetime}}
             </div>
-            <div class="col">
+            <div class="col-3">
                 {{ride.status}}
             </div>            
           </div>

@@ -34,12 +34,14 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
         <li class="nav-item" style: "position: sticky;">
           <a class="nav-link" href="{% url 'home' %}"> Ride </a>
         </li>
         <li class="nav-item" style: "position: sticky;">
           <a class="nav-link" href="{% url 'offer' %}">Drive</a>
         </li>
+        {% endif %}
         <li class="nav-item" style: "position: sticky;">
             <a class="nav-link" href="#">Help</a>
         </li>
