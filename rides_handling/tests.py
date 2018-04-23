@@ -3,6 +3,9 @@ from .forms import SignUpForm, RideForm
 from django.contrib.auth.models import User
 from django.test import Client
 from .models import Profile
+from django.contrib.auth.models import User
+from .apps import RidesHandlingConfig
+from django.apps import apps
 
 class SignupFormTest(TestCase):
     def test_if_signup_form_is_valid(self):
@@ -32,3 +35,9 @@ class RideFormTest(TestCase):
         self.assertFalse(wrong_form3.is_valid())
         wrong_form4 = RideForm()
         self.assertFalse(wrong_form4.is_valid())
+
+
+class RidesHandlingConfigTest(TestCase):
+    def test_apps(self):
+        self.assertEqual(RidesHandlingConfig.name, 'rides_handling')
+        self.assertEqual(apps.get_app_config('rides_handling').name, 'rides_handling')
