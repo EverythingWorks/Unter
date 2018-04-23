@@ -16,12 +16,14 @@ class Ride(models.Model):
 	set_by_passenger = 'SET_BY_PASSENGER'
 	accepted = 'ACCEPTED'
 	completed = 'COMPLETED'
+	canceled = 'CANCELED'
 
 	STATUS_CHOICES = (
 		(set_by_driver, 'Set by driver'),
 		(set_by_passenger, 'Set by passenger'),
 		(accepted, 'Accepted'),
-		(completed, 'Completed')
+		(completed, 'Completed'),
+		(canceled, 'Canceled'),
 	)
 
 	initiator = models.ForeignKey(Profile, on_delete=models.CASCADE)

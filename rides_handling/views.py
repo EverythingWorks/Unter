@@ -117,7 +117,7 @@ def profile_summary(request):
             rides_history = request.user.profile.ride_set.all()
             for ride in rides_history:
                 if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
-                    ride.status = 'COMPLETED'
+                    ride.status = 'CANCELED'
                     ride.save()
             return redirect('profile_summary')            
 
