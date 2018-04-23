@@ -54,7 +54,7 @@ def signup(request):
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
+        if form.is_valid(): #is not valid!
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.is_driver = False
@@ -73,18 +73,9 @@ def offer(request):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
-        if request.method == 'POST':
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                user.refresh_from_db()
-                if user.profile.is_driver == True:
-                    return render(request, 'offer.html')
-                else:
-                    return render(request, 'signup_driver.html')
-        else:
-            form = SignUpForm()
-        return render(request, 'signup_driver.html')
+        if request.user.profile.is_driver == True:
+            return render(request, 'offer.html')
+        return redirect('signup_driver')
 
 def help(request): 
     return render(request, 'help.html')
@@ -99,12 +90,12 @@ def signup_driver(request):
         if request.method == 'POST':
             form = SignUpForm(request.POST)
             if form.is_valid():
-                user = form.save()
+                user = form.save(commit = False)
                 user.refresh_from_db()
                 user.profile.is_driver = True
                 user.profile.car = form.cleaned_data.get('car')
                 user.save()
-                return redirect('profile_summary')
+                return redirect('offer')
         else:
             form = SignUpForm()
         return render(request, 'signup_driver.html')

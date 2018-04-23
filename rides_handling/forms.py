@@ -9,7 +9,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'is_driver', 'password1', 'password2', )
+        fields = ('username', 'is_driver', 'car', 'password1', 'password2', )
 
 
 class RideForm(forms.ModelForm):
