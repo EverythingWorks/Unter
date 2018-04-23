@@ -89,6 +89,8 @@ def offer(request):
 def help(request): 
     return render(request, 'help.html')
     
+def about(request): 
+    return render(request, 'about.html')
 
 def signup_driver(request):
     if not request.user.is_authenticated:
