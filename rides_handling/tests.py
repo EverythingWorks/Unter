@@ -68,4 +68,31 @@ class ViewTest(TestCase):
         response = self.client.get(reverse('signup'))
         self.assertTemplateUsed(response, 'signup.html')
     
-       
+    def test_wrong_signup(self):
+        response1 = self.client.post(reverse('signup'), {'username': '', 'password1': 'verygoodpass123', 'password_2': 'verygoodpass123'}, follow=True)
+        self.assertTemplateUsed(response1, 'signup.html')
+        response2 = self.client.post(reverse('signup'), {'username': 'fafaf',  'password1':  'verygoodpass123',  'password_2':  'verygoodpass123'}, follow=True)
+        self.assertTemplateUsed(response2, 'signup.html')  
+        response3 = self.client.post(reverse('signup'), {'username': 'user1',  'password1': 'verygoodpass123',  'password_2': 'verygoodpass123'}, follow=True)
+        self.assertTemplateUsed(response3, 'signup.html')
+
+    def test_home_page_if_not_logged_in(self):
+        response = self.client.get(reverse('home'), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
+
+    def test_about_page(self):
+        response = self.client.get(reverse('about'), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about.html')
+
+    def test_help_page(self):
+        response = self.client.get(reverse('help'), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'help.html')
+
+    def test_profile_summary_if_not_logged_in(self):
+        response = self.client.get(reverse('profile_summary'), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
+    
