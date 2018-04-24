@@ -11,6 +11,13 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'is_driver', 'car', 'password1', 'password2', )
 
+class SignUpDriverForm(forms.ModelForm):
+    is_driver = forms.BooleanField(required=False)
+    car = forms.CharField()
+    
+    class Meta:
+        model = User
+        fields = ('is_driver', 'car',)
 
 class RideForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

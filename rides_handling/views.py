@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from rides_handling.forms import SignUpForm, RideForm 
+from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
 from django.utils import timezone
 from .models import Profile
 
@@ -54,7 +54,7 @@ def signup(request):
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid(): #is not valid!
+        if form.is_valid():
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.is_driver = False
@@ -88,16 +88,16 @@ def signup_driver(request):
         return redirect('login')
     else:
         if request.method == 'POST':
-            form = SignUpForm(request.POST)
+            form = SignUpDriverForm(request.POST, instance = request.user.profile)
             if form.is_valid():
                 user = form.save(commit = False)
                 user.refresh_from_db()
-                user.profile.is_driver = True
-                user.profile.car = form.cleaned_data.get('car')
+                user.is_driver = True
+                user.car = form.cleaned_data.get('car')
                 user.save()
                 return redirect('offer')
         else:
-            form = SignUpForm()
+            form = SignUpDriverForm()
         return render(request, 'signup_driver.html')
 
 
