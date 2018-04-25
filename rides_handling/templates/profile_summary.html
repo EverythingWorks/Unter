@@ -65,6 +65,7 @@
 <br>
 {% endif %}
 
+{% if rides_history %}
 <h4>History:</h4>
 
 <div class="container">
@@ -102,5 +103,13 @@
     {% endfor %}
     </div>
 </div>
+
+{% else %}
+<div class="container">
+    <h4 style="padding-left: 0">You don't have any rides yet.</h4>
+    <h2 style="text-align: left;">Plan yor first ride <a href="{% url 'home' %}">here</a>.</h2>
+
+</div>
+{% endif %}
 
 {% endblock %}

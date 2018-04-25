@@ -26,26 +26,32 @@
       {% endfor %}
     </div>
 
-      <center>
-          <form method="post">
-              {% csrf_token %}
+    <center>
+      <form method="post">
+        {% csrf_token %}
               
-  
-            <div class = "form_field"> <input id="username" type="text" name="username" value="{{ current_name }}" placeholder="Username" required autofocus> </div>
-            <br><br>
-            <div class = "form_field"> <input id="password1" type="password" name="password1" value="{{ current_name }}" placeholder="Password" required></div>
-            <br><br>
-            <div class = "form_field"> <input id="password2" type="password" name="password2" value="{{ current_name }}" placeholder="Confirm Password" required></div>
+        <div class="input-group mb-1" style = "width: 15vw;">
+          <input id="username" name="username" type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+        </div> 
+
+        <br style = "display: block; margin: 0.5vh">
             
-            <br><br>
-            <button type="submit">Continue</button>
-          </form>
+        <div class="input-group mb-1" style = "width: 15vw;">
+          <input id="password1" name="password1" type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+        </div> 
+
+        <br style = "display: block; margin: 0.5vh">
+          
+        <div class="input-group mb-1" style = "width: 15vw;">
+          <input id="password2" name="password2" type="password" class="form-control" placeholder="Confirm Password" aria-label="password" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+        </div>
+
+        <br>
+        <button type="submit">CONTINUE</button>
+      </form>
   
-      </center>
-          <!--
-          {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
-          {% endif %}
-          -->
+    </center>
 
 {% endblock %}
+
+

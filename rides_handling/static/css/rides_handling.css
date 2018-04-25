@@ -47,9 +47,13 @@ body {
     text-shadow: 3px 2px #F7D388;
 }
 
+input.form-control{
+    font-family: 'Lato', sans-serif;
+}
+
 table{
     table-layout: auto;
-    min-width: 40vw;
+    /*min-width: 40vw;*/
     align-content: center;
 }
 
@@ -249,10 +253,17 @@ h3 {
 }
 
 h4 {
-    font-size: 3vh;
+    font-size: 4vh;
     font-family: 'Lato', sans-serif;   
     text-align: left;
     padding-left: 0.5vw;
+}
+
+h5 {
+    font-size: 3vh;
+    font-family: 'Lobster'; 
+    text-shadow: 3px 2px #FAC555;
+    text-align: left;
 }
 
 button {
@@ -264,6 +275,13 @@ button {
     font-size: 2.4vh;
     cursor: pointer;
     border-radius: 1vh;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+}
+
+input.form-control{
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
 }
 
 .dropdown-content a:hover {background-color:#FAC555 ;}

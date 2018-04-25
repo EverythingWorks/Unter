@@ -6,20 +6,16 @@
 <h2>Offer rides, take orders and meet new people</h2>
 <br>
 
-          <center>
-              <form method="post">
-                  {% csrf_token %}
-                  
-                <div class = "form_field"> <input id="car" type="text" name="car" value="{{ current_name }}" placeholder="Car" required autofocus> </div>
-                
-                <br><br>
-                <button type="submit">Continue</button>
-              </form>
+    <center>
+        <form method="post">
+            {% csrf_token %}
+                <div class="input-group mb-1" style = "width: 10vw;">
+                    <input id="car" name="car" type="text" class="form-control" placeholder="Your Car" aria-label="car" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+                </div> 
+                <br>
+                <button type="submit">CONTINUE</button>
+        </form>
       
-          </center>
-    </div>
-
-
-
+    </center>
 
 {% endblock %}

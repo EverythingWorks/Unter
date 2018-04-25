@@ -16,42 +16,48 @@
 
 
   <div style = "background-color: #F7D388; height: 55vh;" >
-      <br>
+    <br>
 
   <h1>Welcome to Unter! </h1>
   <h2>Please, log in:</h2>
 
   <div class = "warnings">
-      {% if form.errors %}
-       Your username and password didn't match. Please try again. 
-      {% endif %}
+    {% if form.errors %}
+      Your username and password didn't match. Please try again. 
+    {% endif %}
   </div>
-        <center>
-            <form class = "form-horizontal" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ next }}" />
+  <center>
+    <form class = "form-horizontal" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
 
-              <div class = "form_field"> <input id="username" type="text" name="username" value="{{ current_name }}" placeholder="Username" required autofocus> </div>
-              <br>
-              <div class = "form_field"> <input id="password" type="password" name="password" value="{{ current_name }}" placeholder="Password" required></div>
+        <div class="input-group mb-1" style = "width: 15vw;">
+          <input id="username" name="username" type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+        </div> 
 
-              {% for error in field.errors %}
-              <div class = "warnings">
-                {{ error }}
-              </div>
-              {% endfor %}
+        <br style = "display: block; margin: 0.5vh">
+        
+        <div class="input-group mb-1" style = "width: 15vw;">
+          <input id="password" name="password" type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+        </div> 
+
+        {% for error in field.errors %}
+        <div class = "warnings">
+          {{ error }}
+        </div>
+        {% endfor %}
               
-              {% if field.help_text %}
-                <p><small style="color: grey">{{ field.help_text }}</small></p>
-              {% endif %}
-              <br><br>
-              <button type="submit">Continue</button>
-            </form>
+        {% if field.help_text %}
+          <p><small style="color: grey">{{ field.help_text }}</small></p>
+        {% endif %}
 
-        </center>
+        <br>
+        <button type="submit">CONTINUE</button>
+
+    </form>
+  </center>
       
-    
-    <h2><a href="{% url 'signup' %}" style="text-decoration:none;" ><font color = #39382C>Don't have an account?  Sign up for free!</font></a></h2>
+  <h2><a href="{% url 'signup' %}" style="text-decoration:none;" ><font color = #39382C>Don't have an account?  Sign up for free!</font></a></h2>
   
 </div>
 
