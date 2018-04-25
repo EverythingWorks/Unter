@@ -8,43 +8,52 @@
 {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
 <h4>Current ride:</h4>
 
-<div class="container">
+{% for ride in rides_history %}
+    {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
 
+<div class="container">
     <div class="row" style="width: 60vw">
+        <div class="col-3">
+            Status:
+        </div>
         <div class="col">
+            {{ ride.status }}
+        </div>
+    </div>
+    <div class="row" style="width: 60vw">
+        <div class="col-3">
             From:
         </div>
         <div class="col">
+            {{ ride.pickup_longitude }}
+        </div>
+        <div class="col">
+            {{ ride.pickup_latitude }}
+        </div>
+    </div>
+    <div class="row" style="width: 60vw">
+        <div class="col-3">
             To:
         </div>
-        <div class="col-2">
-            Date:
+        <div class="col">
+            {{ ride.dropoff_longitude }}
         </div>
+        <div class="col">
+            {{ ride.dropoff_latitude }}
+        </div>
+    </div>
+    <div class="row" style="width: 60vw">
         <div class="col-3">
-            Status:
-        </div> 
-    </div>
-    <div class = "list">
-        {% for ride in rides_history %}
-         {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
-            <div class="row">
-               <div class="col">
-                   ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
-               </div>
-               <div class="col">
-                   ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
-               </div>
-               <div class="col-2">
-                   {{ride.pickup_datetime}}
-               </div>
-               <div class="col-3">
-                   {{ride.get_status_display}}
-               </div>            
-             </div>
-             {% endif %}
-       {% endfor %}    
-    </div>
+            Estimated Time:
+        </div>
+        <div class="col">
+            <!--HERE GOES OUT ML-->
+        </div>
+    </div>    
 </div>
+<br>
+{% endif %}
+{% endfor %}
 
 <form method="GET" class="ride-form">
     {% csrf_token %}
