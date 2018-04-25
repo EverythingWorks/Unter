@@ -91,15 +91,23 @@ button.finish{
     text-shadow: none;
     font-size: 2.3vh;
 
-    height: 100%;
+    /*height: 100%;*/
     margin-bottom: 0;
     position: relative;
+}
+
+.strip {
+    background-color:#FAC555;
+    height: 6vh;
+    line-height: 6vh;
+    vertical-align: middle;
+    border-radius: 0.5vw;
 }
 
 div.list .row {
     background-color: rgba(112, 128, 144, 0.164);
     border-radius: 1vw;
-    width: 60vw;
+    width: 61vw;
     margin-bottom: 2vh;
 }
 
@@ -319,4 +327,66 @@ div.dropdown {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+
+.carousel-control {
+    width: 30px;
+    height: 30px;
+    top: -35px;
+  
+}
+.left.carousel-control {
+    right: 30px;
+    left: inherit;
+}
+
+.thumbnails{
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    margin: auto auto auto auto;
+}
+
+.fff{
+    padding-left: 1vw;
+    padding-right: 1vw;
+    text-align: center;
+}
+
+
+li.col-sm-3{
+    background-color: rgba(112, 128, 144, 0.164);
+    margin: auto auto auto auto;
+    list-style-type: none;
+    float: left;
+    margin-left: 2.8vw;
+}
+
+li.col-sm-3:hover {background-color: rgba(130, 138, 146, 0.336);}
+
+div.caption h4{
+    font-size: 3vh;
+    text-align: center;
+}
+
+div.caption h2{
+    font-style: italic;
+    text-align: center;
+}
+
+div.caption button{
+    padding: 1vh 1vw;
+    font-size: 2vh;
+}
+
+div.caption hr{
+    display: block;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(53, 61, 68, 0.322);
+    color: rgba(53, 61, 68, 0.322);
+    border-color: rgba(53, 61, 68, 0.322);
 }

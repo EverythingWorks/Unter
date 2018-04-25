@@ -6,22 +6,25 @@
 <h3>{{ user.username }} rides history</h3>
 <br>
 {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
-<h4>Current ride:</h4>
+<div class = "strip">
+    <h4>Current ride:</h4>
+</div>
+
 
 {% for ride in rides_history %}
     {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
 
-<div class="container">
-    <div class="row" style="width: 60vw">
-        <div class="col-3">
+<div class="container" style = "background-color: rgba(112, 128, 144, 0.164); border-radius: 0.5vw; font-size: 3vh;">
+    <div class="row" style="width: 60vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+        <div class="col-3" style = "font-size: 3.5vh;">
             Status:
         </div>
         <div class="col">
             {{ ride.status }}
         </div>
     </div>
-    <div class="row" style="width: 60vw">
-        <div class="col-3">
+    <div class="row" style="width: 60vw;  border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+        <div class="col-3" style = "font-size: 3.5vh;">
             From:
         </div>
         <div class="col">
@@ -31,8 +34,8 @@
             {{ ride.pickup_latitude }}
         </div>
     </div>
-    <div class="row" style="width: 60vw">
-        <div class="col-3">
+    <div class="row" style="width: 60vw;  border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+        <div class="col-3" style = "font-size: 3.5vh;">
             To:
         </div>
         <div class="col">
@@ -42,8 +45,8 @@
             {{ ride.dropoff_latitude }}
         </div>
     </div>
-    <div class="row" style="width: 60vw">
-        <div class="col-3">
+    <div class="row" style="width: 60vw;">
+        <div class="col-3" style = "font-size: 3.5vh;">
             Estimated Time:
         </div>
         <div class="col">
@@ -75,11 +78,13 @@
 {% endif %}
 
 {% if rides_history %}
-<h4>History:</h4>
+<div class = "strip">
+    <h4>History:</h4>
+</div>
 
 <div class="container">
 
-    <div class="row" style="width: 60vw">
+    <div class="row" style="width: 61vw">
         <div class="col">
             From:
         </div>
