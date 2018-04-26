@@ -25,7 +25,7 @@ body {
     font-size: 12vh;
     text-align: right;
     padding-right: 5vw;
-    text-shadow: 3px 2px #FAC555;
+    text-shadow: 0.2vw 0.3vh #FAC555;
     margin-top: 0;
     margin-left: auto;
     margin-right: auto;
@@ -42,9 +42,8 @@ body {
     position: relative;
 
     font-family: 'Lato', sans-serif;
-    /*font-weight: bold;*/
     font-size: 3vh;
-    text-shadow: 3px 2px #F7D388;
+    text-shadow: 0.2vw 0.3vh #F7D388;
 }
 
 input.form-control{
@@ -85,7 +84,8 @@ button.finish{
     display: flex;
     flex-direction: column;
 
-    width: auto;
+    width: 61vw;
+    height: auto;
     margin-left: auto;
     margin-right: auto;
     text-shadow: none;
@@ -102,6 +102,7 @@ button.finish{
     line-height: 6vh;
     vertical-align: middle;
     border-radius: 0.5vw;
+    width: 61vw;
 }
 
 div.list .row {
@@ -127,7 +128,7 @@ div.list .row:hover {background-color: rgba(130, 138, 146, 0.336);}
     font-family: 'Lobster';
     font-size: 12vh;
     text-align: right;
-    text-shadow: 3px 2px #FAC555;
+    text-shadow: 0.2vw 0.3vh #FAC555;
 }
 
 .right {
@@ -141,6 +142,10 @@ div.list .row:hover {background-color: rgba(130, 138, 146, 0.336);}
 a{
     text-decoration: none;
     color:#39382C;
+}
+
+div.display_l ul.nav li.nav-item a.nav-link{
+    font-size: 3vh;
 }
 
 div.display_l ul.nav li.nav-item a.nav-link:hover{
@@ -159,7 +164,7 @@ ul.body_list{
     font-size: 3.6vh;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
-    text-shadow: 3px 2px #F7D388;
+    text-shadow: 0.2vw 0.3vh #F7D388;
 }
 
 li.body_list a{
@@ -174,13 +179,13 @@ li.body_list a{
 }
  
 li.body_list a:hover {
-    text-shadow: 3px 2px #F7D388;
+    text-shadow: 0.2vw 0.3vh #F7D388;
     height: 7.5vh; 
     color:rgb(83, 83, 83);
 }
 
 li.body_list a.active {
-    text-shadow: 3px 2px #FAC555;
+    text-shadow: 0.2vw 0.3vh #FAC555;
     border-bottom: 7.5vh solid #F7D388;
     border-right: 1.5vw solid transparent; 
     border-left: 1.5vw solid transparent; 
@@ -242,7 +247,7 @@ img {
 h1 {
     font-size: 6vh;
     font-family: 'Lobster';
-    text-shadow: 3px 2px #FAC555;   
+    text-shadow: 0.2vw 0.3vh #FAC555;   
     text-align: center;
 }
 
@@ -256,7 +261,7 @@ h2 {
 h3 {
     font-size: 5vh;
     font-family: 'Lobster';
-    text-shadow: 3px 2px #FAC555;   
+    text-shadow: 0.2vw 0.3vh #FAC555;   
     text-align: right;
 }
 
@@ -270,7 +275,7 @@ h4 {
 h5 {
     font-size: 3vh;
     font-family: 'Lobster'; 
-    text-shadow: 3px 2px #FAC555;
+    text-shadow: 0.2vw 0.3vh #FAC555;
     text-align: left;
 }
 
@@ -290,6 +295,7 @@ button {
 input.form-control{
     font-family: 'Lato', sans-serif;
     text-decoration: none;
+    font-size: 2vh;   
 }
 
 .dropdown-content a:hover {background-color:#FAC555 ;}
@@ -349,8 +355,6 @@ div.dropdown {
 }
 
 .fff{
-    padding-left: 1vw;
-    padding-right: 1vw;
     text-align: center;
 }
 
