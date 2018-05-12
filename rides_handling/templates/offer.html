@@ -5,6 +5,8 @@
 
 <h3>Available rides</h3>
 
+{% for ride in rides_active %}
+
 <div class="container">
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -20,24 +22,27 @@
                                                             <h4>
                                                                   Target: <br> 
                                                                   <hr>
-                                                                  40.717816 <br>
-                                                                  -74.005848
+                                                                  {{ ride.dropoff_longitude }} <br>
+                                                                  {{ ride.dropoff_latitude }}
                                                             </h4>
                                                             <h2>
                                                                   Start Point:<br>
                                                                   <hr>
-                                                                  40.705456<br>
-                                                                  -73.966653
+                                                                  {{ ride.pickup_longitude }}<br>
+                                                                  {{ ride.pickup_latitude }}
                                                             </h2>
                                                             <h2>
-                                                                  2 Passengers
+                                                                  Passengers: {{ ride.passenger_count }}
                                                             </h2>
-                                                            <button class="submit">TAKE ORDER</button>
+                                                            <form method="GET" class="acceptRide-form">
+                                                               <!-- {% csrf_token %} -->
+                                                               <button class="submit", value="take", name="take">TAKE ORDER</button>
+                                                            </form>
                                                             <br><br>
                                                       </div>
                                                 </div>
                                           </li>
-                                          <li class="col-sm-3">
+<!--                                           <li class="col-sm-3">
                                                 <div class="fff">
                                                       <div class="caption">
                                                             <h4>
@@ -85,8 +90,8 @@
                                           </li>
                                     </ul>                                                 
                               </div>
-        			</div>
-   			      <div class="carousel-item">
+        			</div> -->
+<!--    			      <div class="carousel-item">
                               <div class="d-block w-100">
                                     <ul class="thumbnails">
                                           <li class="col-sm-3">
@@ -138,8 +143,8 @@
                                      </ul>                                                 
                               </div>
         			</div>
-        		</div>
-
+        		</div> -->
+{% endfor %}
         		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                               <span class="sr-only">Previous</span>

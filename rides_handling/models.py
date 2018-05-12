@@ -12,14 +12,12 @@ class Profile(models.Model):
 		return self.user.username
 
 class Ride(models.Model):
-	set_by_driver = 'SET_BY_DRIVER'
 	set_by_passenger = 'SET_BY_PASSENGER'
 	accepted = 'ACCEPTED'
 	completed = 'COMPLETED'
 	canceled = 'CANCELED'
 
 	STATUS_CHOICES = (
-		(set_by_driver, 'Set by driver'),
 		(set_by_passenger, 'Set by passenger'),
 		(accepted, 'Accepted'),
 		(completed, 'Completed'),
@@ -27,6 +25,7 @@ class Ride(models.Model):
 	)
 
 	initiator = models.ForeignKey(Profile, on_delete=models.CASCADE)
+	driver = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, related_name = 'driver')
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 	pickup_longitude = models.DecimalField(max_digits=9, decimal_places=6)
 	pickup_latitude = models.DecimalField(max_digits=9, decimal_places=6)

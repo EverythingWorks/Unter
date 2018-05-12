@@ -30,7 +30,7 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 class RidesAdmin(admin.ModelAdmin):
-	list_display = ('initiator', 'status', 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'pickup_datetime', 'passenger_count')
+	list_display = ('initiator', 'driver', 'status', 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'pickup_datetime', 'passenger_count')
 	list_filter = ('status',)
 	date_hierarchy = 'pickup_datetime'
 	ordering = ['-pickup_datetime', 'status']

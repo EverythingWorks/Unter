@@ -33,3 +33,11 @@ class RideForm(forms.ModelForm):
     class Meta:
         model = Ride
         fields =  ( 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count', )
+
+class AcceptRideForm(forms.ModelForm):
+    # driver = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, related_name = 'driver')
+    status = forms.CharField(required=False)
+
+    class Meta:
+        model = Ride
+        fields =  ( 'driver', 'status', )

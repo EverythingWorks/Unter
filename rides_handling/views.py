@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
+from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm, AcceptRideForm
 from django.utils import timezone
-from .models import Profile
+from .models import Profile, Ride
 
 @login_required
 def home(request):
@@ -15,9 +15,10 @@ def home(request):
             ride = form.save(commit=False)
             try:
                 ride.initiator = request.user.profile
+                ride.driver = request.user.profile
             except Profile.DoesNotExist:
                 ride.initiator = Profile(user=request.user)
-                
+                ride.driver = Profile(user=request.user)
             ride.status = 'SET_BY_PASSENGER'
             ride.pickup_datetime = timezone.now()
             ride.save()
@@ -74,7 +75,20 @@ def offer(request):
         return redirect('login')
     else:
         if request.user.profile.is_driver == True:
-            return render(request, 'offer.html')
+            rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
+
+            if request.GET:
+                print(request.GET.get(...))
+                # form = AcceptRideForm(request.POST)
+                # print(form.errors)
+                # if form.is_valid():
+                #     ride = form.save(commit = False)
+                #     # ride.refresh_from_db()
+                #     ride.status = 'ACCEPTED'
+                #     ride.save()
+                return redirect('profile_summary')
+
+            return render(request, 'offer.html', {'rides_active' : rides_active})
         return redirect('signup_driver')
 
 def help(request): 
