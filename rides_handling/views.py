@@ -1,9 +1,8 @@
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm, AcceptRideForm
+from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
 from django.utils import timezone
 from .models import Profile, Ride
 
@@ -77,15 +76,12 @@ def offer(request):
         if request.user.profile.is_driver == True:
             rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
 
-            if request.GET:
-                print(request.GET.get(...))
-                # form = AcceptRideForm(request.POST)
-                # print(form.errors)
-                # if form.is_valid():
-                #     ride = form.save(commit = False)
-                #     # ride.refresh_from_db()
-                #     ride.status = 'ACCEPTED'
-                #     ride.save()
+            if request.POST:
+                pk_number = int(request.POST['take'].strip(','))
+                ride = Ride.objects.get(pk=pk_number)
+                ride.status = 'ACCEPTED'
+                ride.driver = request.user.profile
+                ride.save()
                 return redirect('profile_summary')
 
             return render(request, 'offer.html', {'rides_active' : rides_active})

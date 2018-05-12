@@ -34,9 +34,9 @@
                                                             <h2>
                                                                   Passengers: {{ ride.passenger_count }}
                                                             </h2>
-                                                            <form method="GET" class="acceptRide-form">
-                                                               <!-- {% csrf_token %} -->
-                                                               <button class="submit", value="take", name="take">TAKE ORDER</button>
+                                                            <form method="POST" class="acceptRide-form">
+                                                               {% csrf_token %}
+                                                               <button class="submit", value={{ride.pk}}, name="take">TAKE ORDER</button>
                                                             </form>
                                                             <br><br>
                                                       </div>
