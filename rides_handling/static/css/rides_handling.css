@@ -292,6 +292,23 @@ button {
     text-decoration: none;
 }
 
+.btn {
+    background-color: #FCA205;
+    border: none;
+    color: white;
+    padding: 1.5vh 1.4vw;
+    text-align: center;
+    font-size: 2.4vh;
+    cursor: pointer;
+    border-radius: 1vh;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+}
+
+.btn:hover {
+    color: white;
+}
+
 input.form-control{
     font-family: 'Lato', sans-serif;
     text-decoration: none;

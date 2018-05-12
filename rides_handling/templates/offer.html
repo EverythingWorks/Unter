@@ -5,31 +5,40 @@
 
 <h3>Available rides</h3>
 
-{% for ride in rides_active %}
-
 <div class="container">
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
          <br/>  
         	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0" style="width: 61vw;">
-        	   <div class="carousel-inner">
-        			<div class="carousel-item active">
+
+                  <div class="carousel-inner">
+                        {% for ride in rides_active %}
+
+                       <!--new carousel page-->
+                       {% if forloop.counter0|divisibleby:3  %}     
+                              {% if forloop.first %} 
+                                    <div class="carousel-item active">
+                              {% else %}
+                                    <div class="carousel-item">
+                              {% endif %}
+                              
                               <div class="d-block w-100">
                                     <ul class="thumbnails">
+                        {% endif %}
+
+                                          <!--new carousel item-->
                                           <li class="col-sm-3">
                                                 <div class="fff">
                                                       <div class="caption">
                                                             <h4>
                                                                   Target: <br> 
                                                                   <hr>
-                                                                  {{ ride.dropoff_longitude }} <br>
-                                                                  {{ ride.dropoff_latitude }}
+                                                                  {{ ride.dropoff_longitude }} <br> {{ ride.dropoff_latitude }}
                                                             </h4>
                                                             <h2>
                                                                   Start Point:<br>
                                                                   <hr>
-                                                                  {{ ride.pickup_longitude }}<br>
-                                                                  {{ ride.pickup_latitude }}
+                                                                  {{ ride.pickup_longitude }}<br>{{ ride.pickup_latitude }}
                                                             </h2>
                                                             <h2>
                                                                   Passengers: {{ ride.passenger_count }}
@@ -38,113 +47,23 @@
                                                                {% csrf_token %}
                                                                <button class="submit", value={{ride.pk}}, name="take">TAKE ORDER</button>
                                                             </form>
-                                                            <br><br>
+                                                        <br><br>
                                                       </div>
                                                 </div>
-                                          </li>
-<!--                                           <li class="col-sm-3">
-                                                <div class="fff">
-                                                      <div class="caption">
-                                                            <h4>
-                                                                  Target: <br> 
-                                                                  <hr>
-                                                                  40.734563 <br>
-                                                                  -73.983468
-                                                            </h4>
-                                                            <h2>
-                                                                  Start Point:<br>
-                                                                  <hr>
-                                                                  40.698356<br>
-                                                                  -73.068942
-                                                            </h2>
-                                                            <h2>
-                                                                  1 Passengers
-                                                            </h2>
-                                                            <button class="submit">TAKE ORDER</button>
-                                                            <br><br>
-                                                      </div>
-                                                </div>
-                                          </li>    
-                                          <li class="col-sm-3">
-                                                <div class="fff">
-                                                      <div class="caption">
-                                                            <h4>
-                                                                  Target: <br> 
-                                                                  <hr>
-                                                                  40.678245 <br>
-                                                                  -73.950024
-                                                            </h4>
-                                                            <h2>
-                                                                  Start Point:<br>
-                                                                  <hr>
-                                                                  40.712655<br>
-                                                                  -73.949274
-                                                            </h2>
-                                                            <h2>
-                                                                        1 Passengers
-                                                            </h2>
-                                                            <button class="submit">TAKE ORDER</button>
-                                                            <br><br>
-                                                      </div>
-                                                </div>
-                                          </li>
-                                    </ul>                                                 
+                                          </li>  
+                                          <!--end of carousel item--> 
+
+                        {% if forloop.counter|divisibleby:3 or forloop.last %}      
+                                    </ul>                                     
                               </div>
-        			</div> -->
-<!--    			      <div class="carousel-item">
-                              <div class="d-block w-100">
-                                    <ul class="thumbnails">
-                                          <li class="col-sm-3">
-                                                <div class="fff">
-                                                      <div class="caption">
-                                                            <h4>
-                                                                  Target: <br> 
-                                                                  <hr>
-                                                                  40.678245 <br>
-                                                                  -73.950024
-                                                            </h4>
-                                                            <h2>
-                                                                  Start Point:<br>
-                                                                  <hr>
-                                                                  40.712655<br>
-                                                                  -73.949274
-                                                            </h2>
-                                                            <h2>
-                                                                  1 Passengers
-                                                            </h2>
-                                                            <button class="submit">TAKE ORDER</button>
-                                                            <br><br>
-                                                      </div>
-                                                </div>
-                                          </li>
-                                          <li class="col-sm-3">
-                                                <div class="fff">
-                                                      <div class="caption">
-                                                            <h4>
-                                                                  Target: <br> 
-                                                                  <hr>
-                                                                  40.678245 <br>
-                                                                  -73.950024
-                                                            </h4>
-                                                            <h2>
-                                                                  Start Point:<br>
-                                                                  <hr>
-                                                                  40.712655<br>
-                                                                  -73.949274
-                                                            </h2>
-                                                            <h2>
-                                                                  1 Passengers
-                                                            </h2>
-                                                            <button class="submit">TAKE ORDER</button>
-                                                            <br><br>
-                                                      </div>
-                                                </div>
-                                          </li>        
-                                     </ul>                                                 
-                              </div>
-        			</div>
-        		</div> -->
-{% endfor %}
+                          </div>
+
+                        <!--end of carousel page-->
+                        {% endif %}
+                                           
+                        {% endfor %}
+                  </div>
+
         		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                               <span class="sr-only">Previous</span>
@@ -162,5 +81,4 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
       <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 
-
-{% endblock %}
+      {% endblock %}

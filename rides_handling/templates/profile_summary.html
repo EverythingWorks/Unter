@@ -62,15 +62,15 @@
     {% csrf_token %}
     <center>
         <table style = "border: none">
-        <tr style = "height: auto">
+        <tr style = "height: auto; border-bottom: none;">
             <th>
-                <center><button type = "submit" value="cancel" name="cancel">CANCEL RIDE</button></center>
+                <button type = "submit" value="cancel" name="cancel" class="btn">CANCEL RIDE</button>
             </th>
             <th>
-                <center><button type = "submit" value="finish" name="finish">FINISH RIDE</button></center>
+                <button type = "submit" value="finish" name="finish" class="btn">FINISH RIDE</button>
             </th>
         </tr>
-         </table>
+        </table>
     </center>
 </form>
 
@@ -115,9 +115,30 @@
             </div>            
           </div>
     {% endfor %}
+    </div>
+</div>
+
+    <br>
     <div class = "strip">
     <h4>History as driver:</h4>
     </div>
+    <div class="container">
+
+            <div class="row" style="width: 61vw">
+                <div class="col">
+                    From:
+                </div>
+                <div class="col">
+                    To:
+                </div>
+                <div class="col-2">
+                    Date:
+                </div>
+                <div class="col-3">
+                    Status:
+                </div>
+            </div>
+            <div class = "list">
     {% for ride in rides_history_as_driver %}
          <div class="row">
             <div class="col">
