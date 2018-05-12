@@ -14,10 +14,8 @@ def home(request):
             ride = form.save(commit=False)
             try:
                 ride.initiator = request.user.profile
-                ride.driver = request.user.profile
             except Profile.DoesNotExist:
                 ride.initiator = Profile(user=request.user)
-                ride.driver = Profile(user=request.user)
             ride.status = 'SET_BY_PASSENGER'
             ride.pickup_datetime = timezone.now()
             ride.save()
@@ -110,32 +108,34 @@ def signup_driver(request):
             form = SignUpDriverForm()
         return render(request, 'signup_driver.html')
 
-
 @login_required
 def profile_summary(request):
     if not request.user.is_authenticated:
         return redirect('home')
     else:
         if request.GET.get('finish'):
-            rides_history = request.user.profile.ride_set.all()
+            rides_history = list(request.user.profile.ride_set.all())
+            rides_history.extend(Ride.objects.filter(driver=request.user.profile).all())
             for ride in rides_history:
                 if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
                     ride.status = 'COMPLETED'
                     ride.save()
             return redirect('profile_summary')
         if request.GET.get('cancel'):
-            rides_history = request.user.profile.ride_set.all()
+            rides_history = list(request.user.profile.ride_set.all())
+            rides_history.extend(Ride.objects.filter(driver=request.user.profile).all())
             for ride in rides_history:
                 if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
                     ride.status = 'CANCELED'
                     ride.save()
             return redirect('profile_summary')            
 
-        rides_history = request.user.profile.ride_set.all()
-        rides_history = list(reversed(rides_history))
+        rides_history = list(reversed(request.user.profile.ride_set.all()))
+        rides_history_as_driver = list(reversed(Ride.objects.filter(driver=request.user.profile)))
+
         if not rides_history:
             recent_ride_status = "no rides"
         else:
             recent_ride_status = rides_history[0].status
-        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'recent_ride_status': recent_ride_status })
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status })
         

@@ -77,7 +77,7 @@
 <br>
 {% endif %}
 
-{% if rides_history %}
+{% if rides_history or rides_history_as_driver %}
 <div class = "strip">
     <h4>History:</h4>
 </div>
@@ -100,6 +100,25 @@
     </div>
     <div class = "list">
     {% for ride in rides_history %}
+         <div class="row">
+            <div class="col">
+                ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
+            </div>
+            <div class="col">
+                ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
+            </div>
+            <div class="col-2">
+                {{ride.pickup_datetime}}
+            </div>
+            <div class="col-3">
+                {{ride.get_status_display}}
+            </div>            
+          </div>
+    {% endfor %}
+    <div class = "strip">
+    <h4>History as driver:</h4>
+    </div>
+    {% for ride in rides_history_as_driver %}
          <div class="row">
             <div class="col">
                 ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )

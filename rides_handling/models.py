@@ -25,7 +25,7 @@ class Ride(models.Model):
 	)
 
 	initiator = models.ForeignKey(Profile, on_delete=models.CASCADE)
-	driver = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, related_name = 'driver')
+	driver = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, related_name = 'driver')
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 	pickup_longitude = models.DecimalField(max_digits=9, decimal_places=6)
 	pickup_latitude = models.DecimalField(max_digits=9, decimal_places=6)
