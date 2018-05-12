@@ -5,6 +5,7 @@
 
 <h3>{{ user.username }} rides history</h3>
 <br>
+
 {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
 <div class = "strip">
     <h4>Current ride:</h4>
@@ -13,6 +14,7 @@
 
 {% for ride in rides_history %}
     {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
+
 
 <div class="container" style = "background-color: rgba(112, 128, 144, 0.164); border-radius: 0.5vw; font-size: 3vh;">
     <div class="row" style="width: 60vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">

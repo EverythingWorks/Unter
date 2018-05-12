@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rides_handling',
+    'leaflet',
 ]
 
 MIDDLEWARE = [
