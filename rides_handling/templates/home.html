@@ -16,6 +16,9 @@
 
 {% else %}
 
+<form method="POST" class="ride-form">
+        {% csrf_token %}
+
     <div id="mapid" style="height: 40vh; text-shadow: none;"></div>
 
     <script type="text/javascript">
@@ -36,14 +39,19 @@
 
 	function onMapClick(e) {
         markerStart.setLatLng(e.latlng).addTo(mymap);
-        var lat = e.latlng.lat;
-        var lng = e.latlng.lng;
+        var lat = e.latlng.lat.toFixed(6);
+        var lng = e.latlng.lng.toFixed(6);
 
-        //form ride form
-        $('#pickup longitude').val(lng);
-        $('#pickup latitude').val(lat);
+        popup
+			.setLatLng(e.latlng)
+			.setContent("You choose " + lat + " " + lng)
+			.openOn(mymap);
 
-        $( "#ride_form" ).dialog();  
+        document.getElementById('pickup_longitude'). value = lng;
+        document.getElementById('pickup_latitude'). value = lat;
+        document.getElementById('dropoff_longitude'). value = lng;
+        document.getElementById('dropoff_latitude'). value = lat;
+
 	}
 
 	mymap.on('click', onMapClick);
@@ -60,11 +68,6 @@
       {% endfor %}
     </div>
 
-    <form method="POST" class="ride-form">
-        {% csrf_token %}
-
-        {{pickup_longitude}}
-        
         <table>
         
         <tr  scope = "row">
@@ -73,12 +76,12 @@
             </th>
             <th >
                 <div class="input-group mb-1">
-                    <input id="pickup_longitude" name="pickup_longitude" type="number" step=0.000001 class="form-control" placeholder="pickup longitude" max="999" min="-999" aria-label="pickup longitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
+                    <input id="pickup_longitude" name="pickup_longitude" type="number" step=0.000001 class="form-control" placeholder="pickup longitude" value = "{{pickup_longitude}}" max="999" min="-999" aria-label="pickup longitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
                 </div>
             </th>
             <th >
                 <div class="input-group mb-1">
-                    <input id="pickup_latitude" name="pickup_latitude" type="number" step=0.000001 class="form-control" placeholder="pickup latitude" max="999" min="-999" aria-label="pickup_latitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
+                    <input id="pickup_latitude" name="pickup_latitude" type="number" step=0.000001 class="form-control" placeholder="pickup latitude" value = "{{pickup_latitude}}" max="999" min="-999" aria-label="pickup_latitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
                 </div>
             </th>
         </tr>
@@ -88,12 +91,12 @@
                 </th>
                 <th>
                     <div class="input-group mb-1">
-                            <input id="dropoff_longitude" name="dropoff_longitude" type="number" step=0.000001 class="form-control" placeholder="dropoff longitude" max="999" min="-999" aria-label="dropoff_longitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
+                            <input id="dropoff_longitude" name="dropoff_longitude" type="number" step=0.000001 class="form-control" placeholder="dropoff longitude" value = "{{dropoff_longitude}}" max="999" min="-999" aria-label="dropoff_longitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
                     </div>               
                 </th>
                 <th>
                     <div class="input-group mb-1">
-                            <input id="dropoff_latitude" name="dropoff_latitude" type="number" step=0.000001 class="form-control" placeholder="dropoff latitude" max="999" min="-999" aria-label="dropoff latitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
+                            <input id="dropoff_latitude" name="dropoff_latitude" type="number" step=0.000001 class="form-control" placeholder="dropoff latitudepickup" value = "{{dropoff_latitude}}" max="999" min="-999" aria-label="dropoff latitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
                     </div> 
                 </th>
         </tr>
