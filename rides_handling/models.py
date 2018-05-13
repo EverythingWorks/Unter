@@ -31,6 +31,7 @@ class Ride(models.Model):
 	pickup_latitude = models.DecimalField(max_digits=9, decimal_places=6)
 	dropoff_longitude = models.DecimalField(max_digits=9, decimal_places=6)
 	dropoff_latitude = models.DecimalField(max_digits=9, decimal_places=6)
+	estimated_trip_time = models.DecimalField(max_digits=9, decimal_places=6)
 	pickup_datetime = models.DateField()
 	passenger_count = models.IntegerField(default=1)
 
