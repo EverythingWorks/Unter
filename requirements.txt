@@ -1,3 +1,6 @@
 Django==2.0.4
 django-leaflet==0.23.0
 pytz==2018.4
+scikit-learn==0.19.1
+scipy==0.19.1
+numpy==1.14.3
