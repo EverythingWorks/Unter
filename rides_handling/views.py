@@ -6,9 +6,21 @@ from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverF
 from django.utils import timezone
 from .models import Profile, Ride
 
+from sklearn.externals import joblib
+import numpy as np
+import datetime
+
+def euklidian_distance(a_x,a_y,b_x,b_y):
+    return np.sqrt((a_x - b_x)**2 + (a_y - b_y)**2)
+
+def manhattan_distance(a_x,a_y,b_x,b_y):
+    return np.absolute(a_x - b_x) + np.absolute(a_y - b_y)
+
+
 @login_required
 def home(request):
     if request.method == "POST":
+        regressor = joblib.load('rides_handling/production_full.pkl')
         form = RideForm(request.POST)
         if form.is_valid():
             ride = form.save(commit=False)
@@ -18,6 +30,20 @@ def home(request):
                 ride.initiator = Profile(user=request.user)
             ride.status = 'SET_BY_PASSENGER'
             ride.pickup_datetime = timezone.now()
+
+            now = datetime.datetime.now()
+            ml_input = np.array([
+            ride.pickup_longitude,
+            ride.pickup_latitude,
+            ride.dropoff_longitude,
+            ride.dropoff_latitude,
+            now.hour, now.month, 
+            euklidian_distance(ride.pickup_longitude, ride.pickup_latitude, ride.dropoff_longitude, ride.dropoff_latitude),
+            manhattan_distance(ride.pickup_longitude, ride.pickup_latitude, ride.dropoff_longitude, ride.dropoff_latitude),
+            ])
+            ride.estimated_trip_time = np.exp(regressor.predict([ml_input])[0]) / 60
+            
+            
             ride.save()
             return redirect('profile_summary')
     else:
