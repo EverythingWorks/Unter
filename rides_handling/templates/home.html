@@ -33,35 +33,25 @@
 		id: 'mapbox.streets'
 	}).addTo(mymap);
 
-	var popup = L.popup();
-    var markerStart = L.marker();
-    var markerEnd = L.marker();
-    var start_lat, start_lng, end_lat, end_lng;
+    var popup = L.popup();
 
-	function onMapClick(e) {
-        markerStart.setLatLng(e.latlng).addTo(mymap);
-        start_lat = e.latlng.lat.toFixed(6);
-        start_lng = e.latlng.lng.toFixed(6);
-        end_lat = e.latlng.lat.toFixed(6);
-        end_lng = e.latlng.lng.toFixed(6);
+    var markerStart = L.marker([40.731542, -73.996770],{
+        draggable: true
+    }).bindPopup('Start Point').addTo(mymap);
 
-        popup
-			.setLatLng(e.latlng)
-			.setContent("You choose " + lat + " " + lng)
-			.openOn(mymap);
-	}
+    var markerEnd = L.marker([40.706106, -74.013485],{
+        draggable: true
+    }).bindPopup('End Point').addTo(mymap);
 
-    function getStart(){
-        document.getElementById('pickup_longitude'). value = start_lng;
-        document.getElementById('pickup_latitude'). value = start_lat;    
-    }
+    markerStart.on('dragend', function (e) {
+        document.getElementById('pickup_latitude').value = markerStart.getLatLng().lat.toFixed(6);
+        document.getElementById('pickup_longitude').value = markerStart.getLatLng().lng.toFixed(6);
+    });
 
-    function getEnd(){
-        document.getElementById('dropoff_longitude'). value = end_lng;
-        document.getElementById('dropoff_latitude'). value = end_lat;    
-    }
-
-	mymap.on('click', onMapClick);
+    markerEnd.on('dragend', function (e) {
+        document.getElementById('dropoff_latitude').value = markerEnd.getLatLng().lat.toFixed(6);
+        document.getElementById('dropoff_longitude').value = markerEnd.getLatLng().lng.toFixed(6);
+    });
 
     </script>
 
@@ -73,12 +63,6 @@
       {% endfor %}
     </div>
 
-    <h2>First choose point on the map, then click button, please.</h2>
-
-    <center>
-<table style="width: 100%">
-    <tr  scope = "row">
-        <th>
 <center>
     <h2>Number of passengers: <span id="demo"></span></h2>
     <div class="slidecontainer">
@@ -96,23 +80,13 @@
               document.getElementById("passenger_count").value = slider.value;
             }
     </script>
-    </th>
-    <th>
-         <center><button onclick="getStart();" type="button" class="btn"> CHOOSE START POINT </button></center>
-    </th>
-    <th>
-         <center><button onclick="getEnd();" type="button" class="btn"> CHOOSE END POINT </button></center>
-    </th>
-    </tr>
-    </table>
-</center>
 
 <input id="passenger_counte" name="passenger_count" type="hidden" value = "1" class="form-control" required>
 
-    <input id="pickup_longitude" name="pickup_longitude" type="hidden" value="{{pickup_longitude}}" required>
-    <input id="pickup_latitude" name="pickup_latitude" type="hidden" value="{{pickup_latitude}}" required>
-    <input id="dropoff_longitude" name="dropoff_longitude" type="hidden" value="{{dropoff_longitude}}" required>
-    <input id="dropoff_latitude" name="dropoff_latitude" type="hidden" value="{{dropoff_latitude}}" required>
+    <input id="pickup_longitude" name="pickup_longitude" type="hidden" value="40.731542" required>
+    <input id="pickup_latitude" name="pickup_latitude" type="hidden" value="-73.996770" required>
+    <input id="dropoff_longitude" name="dropoff_longitude" type="hidden" value="40.706106" required>
+    <input id="dropoff_latitude" name="dropoff_latitude" type="hidden" value="-74.013485" required>
     <input id="passenger_count" name="passenger_count" type="hidden"  value=1 required>
 
         <br>
