@@ -7,7 +7,10 @@ class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	is_driver = models.BooleanField(default=False, blank=True)
 	car = models.CharField(max_length=30, blank=True)
-
+	
+	grade_sum = models.IntegerField(default=0)
+	grade_counter = models.IntegerField(default=0)
+	
 	def __str__(self):
 		return self.user.username
 
@@ -33,7 +36,6 @@ class Ride(models.Model):
 	dropoff_latitude = models.DecimalField(max_digits=9, decimal_places=6)
 	pickup_datetime = models.DateField()
 	passenger_count = models.IntegerField(default=1)
-
 
 	def __str__(self):
 		return ('({}, {}) -> ({}, {}) {}'.format(self.pickup_longitude, self.pickup_latitude, 
