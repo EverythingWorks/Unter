@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 
 {% block display %}
-    <header>
-      <div class = "header_l">
+    <header class = "header_l">
         Unter <br>
-      </div>
     </header>
 
 
     <div class = "card">
      <div class = "display_l">
-         <div style="float: left; width: 15vw;">
+         <div style="float: left; width: 10vw;">
             <ul class="nav flex-column" >
               <li class="nav-item" style = "border-bottom: 2px solid #F7D388;" >
                 <a class="nav-link" href="{% url 'home' %}"> Ride </a>
@@ -26,7 +24,8 @@
               </li>
             </ul>
          </div>
-         <div style="float: left; width: 65vw; ">
+
+         <div style="float: left; width: 70vw; ">
            <div class = "pages">
               <br style = "display: block;">
              {% block content %}
@@ -34,6 +33,7 @@
              {% endblock %}
             </div>
          </div>
+         
         </div>
       </div>
   

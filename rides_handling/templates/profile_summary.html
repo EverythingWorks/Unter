@@ -3,169 +3,277 @@
 
 {% block content %}
 
-<h3>{{ user.username }} rides history</h3>
-<br>
-
-{% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
-<div class = "strip">
-    <h4>Current ride:</h4>
-</div>
-
-
-{% for ride in rides_history %}
-    {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
-
-
-<div class="container" style = "background-color: rgba(112, 128, 144, 0.164); border-radius: 0.5vw; font-size: 3vh;">
-    <div class="row" style="width: 60vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-        <div class="col-3" style = "font-size: 3.5vh;">
-            Status:
+ <!-- The Modal -->
+ <div class="modal" id="myModal" style="border: none;" >
+    <div class="modal-dialog">
+      <div class="modal-content"  style="background-color: #F7D388;">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="border: none; background-color: #FAC555;"> 
+          <h3 style ="text-shadow: 0.2vw 0.3vh #F7D388;">Rate your ride!</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="col">
-            {{ ride.status }}
-        </div>
-    </div>
-    <div class="row" style="width: 60vw;  border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-        <div class="col-3" style = "font-size: 3.5vh;">
-            From:
-        </div>
-        <div class="col">
-            {{ ride.pickup_longitude }}
-        </div>
-        <div class="col">
-            {{ ride.pickup_latitude }}
-        </div>
-    </div>
-    <div class="row" style="width: 60vw;  border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-        <div class="col-3" style = "font-size: 3.5vh;">
-            To:
-        </div>
-        <div class="col">
-            {{ ride.dropoff_longitude }}
-        </div>
-        <div class="col">
-            {{ ride.dropoff_latitude }}
-        </div>
-    </div>
-    <div class="row" style="width: 60vw;">
-        <div class="col-3" style = "font-size: 3.5vh;">
-            Estimated Time:
-        </div>
-        <div class="col">
-            <!--HERE GOES OUT ML-->
-        </div>
-    </div>    
-</div>
-<br>
-{% endif %}
-{% endfor %}
-
-<form method="GET" class="ride-form">
-    {% csrf_token %}
-    <center>
-        <table style = "border: none">
-        <tr style = "height: auto; border-bottom: none;">
-            <th>
-                <button type = "submit" value="cancel" name="cancel" class="btn">CANCEL RIDE</button>
-            </th>
-            <th>
-                <button type = "submit" value="finish" name="finish" class="btn">FINISH RIDE</button>
-            </th>
-        </tr>
-        </table>
-    </center>
-</form>
-
-<br>
-{% endif %}
-
-{% if rides_history or rides_history_as_driver %}
-<div class = "strip">
-    <h4>History:</h4>
-</div>
-
-<div class="container">
-
-    <div class="row" style="width: 61vw">
-        <div class="col">
-            From:
-        </div>
-        <div class="col">
-            To:
-        </div>
-        <div class="col-2">
-            Date:
-        </div>
-        <div class="col-3">
-            Status:
-        </div>
-    </div>
-    <div class = "list">
-    {% for ride in rides_history %}
-         <div class="row">
-            <div class="col">
-                ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
-            </div>
-            <div class="col">
-                ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
-            </div>
-            <div class="col-2">
-                {{ride.pickup_datetime}}
-            </div>
-            <div class="col-3">
-                {{ride.get_status_display}}
-            </div>            
-          </div>
-    {% endfor %}
-    </div>
-</div>
-
-    <br>
-    <div class = "strip">
-    <h4>History as driver:</h4>
-    </div>
-    <div class="container">
-
-            <div class="row" style="width: 61vw">
-                <div class="col">
-                    From:
+        
+        <!-- Modal body -->
+        <div class="modal-body" >
+          <center>
+               
+                <div class="star-rating">
+                        <span class="fa fa-star-o" data-rating="1"></span>
+                        <span class="fa fa-star-o" data-rating="2"></span>
+                        <span class="fa fa-star-o" data-rating="3"></span>
+                        <span class="fa fa-star-o" data-rating="4"></span>
+                        <span class="fa fa-star-o" data-rating="5"></span>
+                        <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                 </div>
-                <div class="col">
-                    To:
-                </div>
-                <div class="col-2">
-                    Date:
-                </div>
-                <div class="col-3">
-                    Status:
-                </div>
-            </div>
-            <div class = "list">
-    {% for ride in rides_history_as_driver %}
-         <div class="row">
-            <div class="col">
-                ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
-            </div>
-            <div class="col">
-                ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
-            </div>
-            <div class="col-2">
-                {{ride.pickup_datetime}}
-            </div>
-            <div class="col-3">
-                {{ride.get_status_display}}
-            </div>            
-          </div>
-    {% endfor %}
+          </center>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="border: none;">
+          <form method="GET" class="ride-form">
+            {% csrf_token %}
+
+                <button type = "submit" value="finish" name="finish" class="btn">CONTINUE</button>
+
+            </form>
+        </div>
+        
+      </div>
     </div>
+  </div>
+
+<div class="history">
+
+<div class="container" style = "padding-left: 0; margin-left: 0;">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0" style="width: 70vw;">
+        <div class="carousel-inner" >
+            <!--new carousel page-->
+            {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
+            <div class="carousel-item active" > 
+                    <div class="title">
+                            Current ride:
+                    </div>
+
+                    {% for ride in rides_history %}
+                    {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
+                    
+                    <div class="container" style = "background-color: rgba(112, 128, 144, 0.164); font-size: 3vh; width: 55vw; text-align: center;">
+                    
+                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col" style = "font-size: 2vh;">
+                            STATUS:
+                        </div>
+                    </div>
+                    <div class="row" style="width: 55vw; height: 7vh;">
+                        <div class="col">
+                            {{ ride.status }}
+                        </div>
+                    </div>
+
+                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col" style = "font-size: 2vh;">
+                            START:
+                        </div>
+                    </div>
+                    <div class="row" style="width: 55vw; height: 7vh;">
+                        <div class="col">
+                            {{ ride.pickup_longitude }} {{ ride.pickup_latitude }}
+                        </div>
+                    </div>
+
+                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col" style = "font-size: 2vh;">
+                            DESTINATION:
+                        </div>
+                    </div>
+                    <div class="row" style="width: 55vw; height: 7vh;">
+                        <div class="col">
+                            {{ ride.dropoff_longitude }} {{ ride.dropoff_latitude }}
+                        </div>
+                    </div>
+
+                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col" style = "font-size: 2vh;">
+                            ESTIMATED TIME:
+                        </div>
+                    </div>
+                    <div class="row" style="width: 55vw; height: 7vh;">
+                        <div class="col">
+                            <!--HERE GOES OUT ML-->
+                        </div>
+                    </div>
+
+                    </div>  
+                    <br>  
+
+                    {% endif %}
+                    {% endfor %}
+                    
+                    <form method="GET" class="ride-form">
+                            {% csrf_token %}
+                            <center>
+                                <table style = "border: none">
+                                <tr style = "height: auto; border-bottom: none;">
+                                    <th>
+                                            <!-- Button to Canclel Ride -->
+                                        <button type = "submit" value="cancel" name="cancel" class="btn">CANCEL RIDE</button>
+                                    </th>
+                                    <th>
+                                            <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+                                            FINISH
+                                        </button>
+
+                                    </th>
+                                </tr>
+                                </table>
+                            </center>
+                    </form>
+            </div>
+            {% endif %}
+
+            <!--new carousel page-->            
+            {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
+                <div class="carousel-item" style = "margin: auto; "> 
+            {% else %}
+                <div class="carousel-item active" style = "margin: auto;">
+            {% endif %}
+
+                <div class="title">
+                    Your past orders:
+                </div>  
+                
+                {% if rides_history or rides_history%}
+
+                <div class="container" style = "overflow-x: auto; height: 50vh; background-color: rgba(112, 128, 144, 0.164); width: 55vw; text-align: center;">
+
+                <div class="row" style="width: 100%; ">
+                        <div class="col">
+                            START:
+                        </div>
+                        <div class="col">
+                            DESTINATION:
+                        </div>
+                        <div class="col-2">
+                            DATE:
+                        </div>
+                        <div class="col-3">
+                            STATUS:
+                        </div>
+                </div>
+
+                    <div class = "list">
+                    {% for ride in rides_history %}
+                         <div class="row"  style="width: 54vw; border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                            <div class="col">
+                                ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
+                            </div>
+                            <div class="col">
+                                ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
+                            </div>
+                            <div class="col-2">
+                                {{ride.pickup_datetime}}
+                            </div>
+                            <div class="col-3">
+                                {{ride.get_status_display}}
+                            </div>            
+                          </div>
+                    {% endfor %}
+                    </div>  
+                    {% else %} 
+                        <h4 style="padding-left: 0">You don't have any rides yet.</h4>
+                        <h2 style="text-align: left;">Plan yor first ride <a href="{% url 'home' %}">here</a>.</h2>
+                    {% endif %}                                                                                  
+                </div>
+                </div>
+
+                {% if rides_history or rides_history_as_driver%}
+
+                <div class="carousel-item" style = "margin: auto; "> 
+                    <div class="title">
+                        Your past rides:
+                    </div>  
+
+                    <div class="container" style = "overflow-x: auto; height: 50vh; background-color: rgba(112, 128, 144, 0.164); width: 55vw; text-align: center;">
+
+                        <div class="row" style="width: 54vw; padding-left: 0.5vw;">
+                                <div class="col">
+                                    START:
+                                </div>
+                                <div class="col">
+                                    DESTINATION:
+                                </div>
+                                <div class="col-2">
+                                    DATE:
+                                </div>
+                                <div class="col-3">
+                                    STATUS:
+                                </div>
+                        </div>
+
+                        <div class = "list">
+                            {% for ride in rides_history_as_driver %}
+                                 <div class="row"  style="width: 54vw; padding-left: 0.5vw; border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                                    <div class="col">
+                                        ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
+                                    </div>
+                                    <div class="col">
+                                        ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
+                                    </div>
+                                    <div class="col-2">
+                                        {{ride.pickup_datetime}}
+                                    </div>
+                                    <div class="col-3">
+                                        {{ride.get_status_display}}
+                                    </div>            
+                                  </div>
+                            {% endfor %}
+                            </div>  
+                    </div>      
+                </div>
+                {% endif %}
+
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            
+      </div>
+  </div>
+</div>
 </div>
 
-{% else %}
-<div class="container">
-    <h4 style="padding-left: 0">You don't have any rides yet.</h4>
-    <h2 style="text-align: left;">Plan yor first ride <a href="{% url 'home' %}">here</a>.</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-</div>
-{% endif %}
+ <script>
+    var $star_rating = $('.star-rating .fa');
+    
+    var SetRatingStar = function() {
+      return $star_rating.each(function() {
+        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+          return $(this).removeClass('fa-star-o').addClass('fa-star');
+        } else {
+          return $(this).removeClass('fa-star').addClass('fa-star-o');
+        }
+      });
+    };
+    
+    $star_rating.on('click', function() {
+      $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+      return SetRatingStar();
+    });
+    
+    SetRatingStar();
+    $(document).ready(function() {
+    
+    });
+</script>
 
 {% endblock %}

@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load leaflet_tags %}
+<div style = "padding-left : 2vw;">
 
     <h3>Plan your ride</h3>
 
@@ -89,10 +90,11 @@
     <input id="dropoff_latitude" name="dropoff_latitude" type="hidden" value="-74.013485" required>
     <input id="passenger_count" name="passenger_count" type="hidden"  value=1 required>
 
-        <br>
         <center><button type="submit">CONTINUE</button></center>
     </form>
 
 {% endif %}
+
+</div>
 
 {% endblock %}
