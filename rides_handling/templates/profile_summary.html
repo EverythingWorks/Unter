@@ -9,7 +9,7 @@
       <div class="modal-content"  style="background-color: #F7D388;">
       
         <!-- Modal Header -->
-        <div class="modal-header" style="border: none; background-color: #FAC555;"> 
+        <div class="modal-header" style="border: none; background-color: #FAC555; padding-top: 0; padding-left: 2vw;"> 
           <h3 style ="text-shadow: 0.2vw 0.3vh #F7D388;">Rate your ride!</h3>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
@@ -17,7 +17,7 @@
         <!-- Modal body -->
         <div class="modal-body" >
           <center>
-               
+              <br>
                 <div class="star-rating">
                         <span class="fa fa-star-o" data-rating="1"></span>
                         <span class="fa fa-star-o" data-rating="2"></span>
@@ -34,7 +34,9 @@
           <form method="GET" class="ride-form">
             {% csrf_token %}
 
-                <button type = "submit" value="finish" name="finish" class="btn">CONTINUE</button>
+            <center> 
+                 <button type = "submit" value="finish" name="finish" class="btn">CONTINUE</button>
+            </center>   
 
             </form>
         </div>
@@ -78,7 +80,17 @@
                     </div>
                     <div class="row" style="width: 55vw; height: 7vh;">
                         <div class="col">
-                            {{ ride.pickup_longitude }} {{ ride.pickup_latitude }}
+                            <p id = "pickup"></p>
+
+                            <script type="text/javascript"> 
+                                var geocoder = new google.maps.Geocoder();                           
+                                var latLng = new google.maps.LatLng(parseFloat("{{ ride.pickup_latitude }}"), parseFloat("{{ ride.pickup_longitude }}"));
+                                geocoder.geocode({latLng: latLng}, function(responses) {
+                                        if (responses && responses.length > 0) {
+                                            document.getElementById("pickup").innerHTML = responses[0].formatted_address; } 
+                                        else {       
+                                            alert('Cannot determine address at this location.');}});
+                            </script>
                         </div>
                     </div>
 
@@ -89,7 +101,16 @@
                     </div>
                     <div class="row" style="width: 55vw; height: 7vh;">
                         <div class="col">
-                            {{ ride.dropoff_longitude }} {{ ride.dropoff_latitude }}
+                            <p id = "dropoff"></p>
+                            <script type="text/javascript"> 
+                                var geocoder = new google.maps.Geocoder();                           
+                                var latLng = new google.maps.LatLng(parseFloat("{{ ride.dropoff_latitude }}"), parseFloat("{{ ride.dropoff_longitude }}"));
+                                geocoder.geocode({latLng: latLng}, function(responses) {
+                                        if (responses && responses.length > 0) {
+                                            document.getElementById("dropoff").innerHTML = responses[0].formatted_address; } 
+                                        else {       
+                                            alert('Cannot determine address at this location.');}});
+                            </script>
                         </div>
                     </div>
 
@@ -252,6 +273,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+
+
  <script>
     var $star_rating = $('.star-rating .fa');
     
@@ -275,5 +298,7 @@
     
     });
 </script>
+
+
 
 {% endblock %}
