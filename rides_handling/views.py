@@ -119,7 +119,12 @@ def profile_summary(request):
             for ride in rides_history:
                 if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
                     ride.status = 'COMPLETED'
+                    user_driver = ride.driver.user.profile
+                    user_driver.grade_sum += int(dict(request.GET)['grade'][0])
+                    user_driver.grade_counter += 1
+                    user_driver.save()
                     ride.save()
+            
             return redirect('profile_summary')
         if request.GET.get('cancel'):
             rides_history = list(request.user.profile.ride_set.all())
@@ -132,10 +137,11 @@ def profile_summary(request):
 
         rides_history = list(reversed(request.user.profile.ride_set.all()))
         rides_history_as_driver = list(reversed(Ride.objects.filter(driver=request.user.profile)))
+        grade_score = round(request.user.profile.grade_sum / request.user.profile.grade_counter, 2) if request.user.profile.grade_counter else 0
 
         if not rides_history:
             recent_ride_status = "no rides"
         else:
             recent_ride_status = rides_history[0].status
-        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status })
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })
         

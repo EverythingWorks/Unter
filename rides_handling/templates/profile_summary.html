@@ -31,11 +31,11 @@
         
         <!-- Modal footer -->
         <div class="modal-footer" style="border: none;">
-          <form method="GET" class="ride-form">
+          <form method="GET" class="grade-form">
+          <input id="grade" name="grade" type="hidden" value="2">
             {% csrf_token %}
-
             <center> 
-                 <button type = "submit" value="finish" name="finish" class="btn">CONTINUE</button>
+                 <button type = "submit" value="grade" name="finish" class="btn">CONTINUE</button>
             </center>   
 
             </form>
@@ -213,7 +213,7 @@
 
                 <div class="carousel-item" style = "margin: auto; "> 
                     <div class="title">
-                        Your past rides:
+                        Your grade: {{grade_score}} | Your past rides:
                     </div>  
 
                     <div class="container" style = "overflow-x: auto; height: 50vh; background-color: rgba(112, 128, 144, 0.164); width: 55vw; text-align: center;">
@@ -290,6 +290,7 @@
     
     $star_rating.on('click', function() {
       $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+      document.getElementById('grade').value = parseInt($(this).data('rating'));
       return SetRatingStar();
     });
     
