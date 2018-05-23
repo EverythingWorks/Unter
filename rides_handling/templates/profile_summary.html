@@ -103,7 +103,7 @@
                         <div class="col">
                             <p id = "dropoff"></p>
                             <script type="text/javascript"> 
-                                var geocoder = new google.maps.Geocoder();                           
+                                var geocoder = new google.maps.Geocoder();    
                                 var latLng = new google.maps.LatLng(parseFloat("{{ ride.dropoff_latitude }}"), parseFloat("{{ ride.dropoff_longitude }}"));
                                 geocoder.geocode({latLng: latLng}, function(responses) {
                                         if (responses && responses.length > 0) {
@@ -133,22 +133,18 @@
                     
                     <form method="GET" class="ride-form">
                             {% csrf_token %}
-                            <center>
-                                <table style = "border: none">
-                                <tr style = "height: auto; border-bottom: none;">
-                                    <th>
-                                            <!-- Button to Canclel Ride -->
-                                        <button type = "submit" value="cancel" name="cancel" class="btn">CANCEL RIDE</button>
-                                    </th>
-                                    <th>
-                                            <!-- Button to Open the Modal -->
-                                        <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
-                                            FINISH
-                                        </button>
-
-                                    </th>
-                                </tr>
-                                </table>
+                            <center>    
+                                <!-- Button to Canclel Ride -->
+                                {% if recent_ride_status == 'SET_BY_PASSENGER' %}
+                                    <button type = "submit" value="cancel" name="cancel" class="btn">CANCEL RIDE</button>
+                                {% endif %}
+                                    
+                                <!-- Button to Open the Modal -->
+                                {% if recent_ride_status == 'ACCEPTED' %}
+                                    <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+                                        FINISH
+                                    </button>
+                                {% endif %}                     
                             </center>
                     </form>
             </div>
