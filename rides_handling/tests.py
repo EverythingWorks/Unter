@@ -1,12 +1,14 @@
-from django.test import TestCase
-from .forms import SignUpForm, RideForm
+from django.test import TestCase, RequestFactory
+from .forms import SignUpForm, RideForm, SignUpDriverForm
 from django.contrib.auth.models import User
 from django.test import Client
 from .models import Profile
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from .apps import RidesHandlingConfig
 from django.apps import apps
 from django.urls import reverse
+
+from .views import signup_driver
 
 class SignupFormTest(TestCase):
     def test_if_signup_form_is_valid(self):
@@ -96,3 +98,21 @@ class ViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
     
+class SimpleTests(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create(username='testuser', password='secret')
+
+    def test_signup_driver_anonymous(self):
+        request = self.factory.get('/signup_driver')
+        request.user = AnonymousUser()
+        response = signup_driver(request)
+        self.assertEqual(response.status_code, 302)
+    def test_signup_driver_logged_in(self):
+        request = self.factory.get('/signup_driver')
+        request.user = self.user
+        response = signup_driver(request)
+        self.assertEqual(response.status_code, 200)
+    def test_signup_driver_already_driver(self):
+        response = self.client.post('/signup_driver', {'is_driver': 'True','car': 'ford'})
+        self.assertEqual(response.status_code, 301)
