@@ -102,7 +102,7 @@ class SimpleTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create(username='testuser', password='secret')
-
+    #comment
     def test_signup_driver_anonymous(self):
         request = self.factory.get('/signup_driver')
         request.user = AnonymousUser()
