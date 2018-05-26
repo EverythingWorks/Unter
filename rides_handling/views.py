@@ -8,6 +8,9 @@ from .models import Profile, Ride
 
 @login_required
 def home(request):
+    have_ride = Ride.objects.filter(status='ACCEPTED', initiator=request.user.profile).values_list('pk', flat=True)
+    if have_ride:
+        print('RIDE PK: {}'.format(have_ride[0])) #redirect na strone chatu 
     if request.method == "POST":
         form = RideForm(request.POST)
         if form.is_valid():
@@ -72,8 +75,11 @@ def offer(request):
         return redirect('login')
     else:
         if request.user.profile.is_driver == True:
+            have_ride = Ride.objects.filter(status='ACCEPTED', driver=request.user.profile).values_list('pk', flat=True)
+            if have_ride:
+                print('RIDE PK: {}'.format(have_ride[0])) #redirect na strone chatu 
+                
             rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
-
             if request.POST:
                 pk_number = int(request.POST['take'].strip(','))
                 ride = Ride.objects.get(pk=pk_number)

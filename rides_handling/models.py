@@ -41,6 +41,18 @@ class Ride(models.Model):
 		return ('({}, {}) -> ({}, {}) {}'.format(self.pickup_longitude, self.pickup_latitude, 
 												self.dropoff_longitude, self.dropoff_latitude, self.status))
 
+class Comment(models.Model):
+	ride = models.ForeignKey(Ride, on_delete=models.CASCADE, related_name='comments')
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	content = models.TextField()
+	date = models.DateTimeField()
+
+	class Meta:
+		ordering = ['-date',]
+
+	def __str__(self):
+		return self.content
+
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
