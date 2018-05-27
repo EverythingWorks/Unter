@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^profile_summary/$', rides_handling_views.profile_summary, name='profile_summary'),
     url(r'^help/$', rides_handling_views.help, name='help'),
     url(r'^about/$', rides_handling_views.about, name='about'),
-    url(r'^chat/$', rides_handling_views.chat, name='chat'),
+    # url(r'^chat/$', rides_handling_views.chat, name='chat'),
+    url(r'^chat/(?P<pk>\d+)/$', rides_handling_views.chat, name='chat'),
 ]

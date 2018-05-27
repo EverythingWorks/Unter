@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm, CommentForm
 from django.utils import timezone
@@ -11,7 +11,7 @@ def home(request):
     have_ride = Ride.objects.filter(status='ACCEPTED', initiator=request.user.profile).values_list('pk', flat=True)
     if have_ride:
         print('RIDE PK: {}'.format(have_ride[0])) #redirect na strone chatu 
-        return redirect('chat')
+        return redirect('chat', have_ride[0])
     if request.method == "POST":
         form = RideForm(request.POST)
         if form.is_valid():
@@ -80,7 +80,7 @@ def offer(request):
             have_ride = Ride.objects.filter(status='ACCEPTED', driver=request.user.profile).values_list('pk', flat=True)
             if have_ride:
                 print('RIDE PK: {}'.format(have_ride[0])) #redirect na strone chatu 
-                return redirect('chat')
+                return redirect('chat', have_ride[0])
                 
             rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
             if request.POST:
@@ -154,13 +154,17 @@ def profile_summary(request):
             recent_ride_status = rides_history[0].status
         return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })
 
-def chat(request): 
+def chat(request, pk):
+    ride = get_object_or_404(Ride, pk=pk)
     if request.method == "POST":
         form = CommentForm(request.POST)
+        print(form.errors)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.ride = ride
+            comment.user = request.user
             comment.save()
-            return redirect('chat')
+            return redirect('chat', pk=ride.pk)
     else:
         form = CommentForm()
     return render(request, 'chat.html', {'form': form})   

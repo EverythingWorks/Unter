@@ -36,7 +36,6 @@ class RideForm(forms.ModelForm):
         fields =  ( 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count', )
 
 class CommentForm(forms.ModelForm):
-    date = datetime.now()
 
     class Meta:
         model = Comment

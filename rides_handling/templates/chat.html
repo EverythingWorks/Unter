@@ -20,7 +20,8 @@
 <div class="container" style="width: 55vw; padding-left:0" >
   <div class="input-group mb-3">
     <form method="POST" class="post-form">{% csrf_token %}
-        <input id="content" id="name" type="text" class="form-control" placeholder="Enter your message" aria-label="chat" aria-describedby="basic-addon2" style="width: 50vw;">
+        {{ form.as_p }}
+<!--         <input id="content" id="name" type="text" class="form-control" placeholder="Enter your message" aria-label="chat" aria-describedby="basic-addon2" style="width: 50vw;"> -->
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" style = "background-color: #FCA205; width: 6vw; color:#39382C;" type="submit">Send</button>
         </div>
