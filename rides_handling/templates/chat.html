@@ -4,7 +4,6 @@
 {% block content %}
 
 <div class="container" style = "overflow-x: auto; height: 50vh; background-color: rgba(112, 128, 144, 0.164); width: 55vw; text-align: center;">
-    
 {% for comment in ride.comments.all %}
     {{ comment.date }}
         <p>{{ comment.content|linebreaks }}</p>

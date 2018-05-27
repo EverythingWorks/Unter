@@ -10,7 +10,6 @@ from .models import Profile, Ride, Comment
 def home(request):
     have_ride = Ride.objects.filter(status='ACCEPTED', initiator=request.user.profile).values_list('pk', flat=True)
     if have_ride:
-        print('RIDE PK: {}'.format(have_ride[0])) #redirect na strone chatu 
         return redirect('chat', have_ride[0])
     if request.method == "POST":
         form = RideForm(request.POST)
@@ -79,7 +78,6 @@ def offer(request):
         if request.user.profile.is_driver == True:
             have_ride = Ride.objects.filter(status='ACCEPTED', driver=request.user.profile).values_list('pk', flat=True)
             if have_ride:
-                print('RIDE PK: {}'.format(have_ride[0])) #redirect na strone chatu 
                 return redirect('chat', have_ride[0])
                 
             rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
@@ -89,7 +87,7 @@ def offer(request):
                 ride.status = 'ACCEPTED'
                 ride.driver = request.user.profile
                 ride.save()
-                return redirect('profile_summary')
+                return redirect('offer')
 
             return render(request, 'offer.html', {'rides_active' : rides_active})
         return redirect('signup_driver')
@@ -158,7 +156,6 @@ def chat(request, pk):
     ride = get_object_or_404(Ride, pk=pk)
     if request.method == "POST":
         form = CommentForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.ride = ride
@@ -167,4 +164,4 @@ def chat(request, pk):
             return redirect('chat', pk=ride.pk)
     else:
         form = CommentForm()
-    return render(request, 'chat.html', {'form': form})   
+    return render(request, 'chat.html', {'form': form, 'ride': ride})   
