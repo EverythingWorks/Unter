@@ -32,32 +32,27 @@
 		id: 'mapbox.streets'
 	}).addTo(mymap);
 
-	var popup = L.popup();
-    var markerStart = L.marker();
-    var markerEnd = L.marker();
+    var popup = L.popup();
 
-	function onMapClick(e) {
-        markerStart.setLatLng(e.latlng).addTo(mymap);
-        var lat = e.latlng.lat.toFixed(6);
-        var lng = e.latlng.lng.toFixed(6);
+    var markerStart = L.marker([40.731542, -73.996770],{
+        draggable: true
+    }).bindPopup('Start Point').addTo(mymap);
 
-        popup
-			.setLatLng(e.latlng)
-			.setContent("You choose " + lat + " " + lng)
-			.openOn(mymap);
+    var markerEnd = L.marker([40.706106, -74.013485],{
+        draggable: true
+    }).bindPopup('End Point').addTo(mymap);
 
-        document.getElementById('pickup_longitude'). value = lng;
-        document.getElementById('pickup_latitude'). value = lat;
-        document.getElementById('dropoff_longitude'). value = lng;
-        document.getElementById('dropoff_latitude'). value = lat;
+    markerStart.on('dragend', function (e) {
+        document.getElementById('pickup_latitude').value = markerStart.getLatLng().lat.toFixed(6);
+        document.getElementById('pickup_longitude').value = markerStart.getLatLng().lng.toFixed(6);
+    });
 
-	}
-
-	mymap.on('click', onMapClick);
+    markerEnd.on('dragend', function (e) {
+        document.getElementById('dropoff_latitude').value = markerEnd.getLatLng().lat.toFixed(6);
+        document.getElementById('dropoff_longitude').value = markerEnd.getLatLng().lng.toFixed(6);
+    });
 
     </script>
-
-    <br>
 
     <div class = "warnings">
       {% for field in form %}
@@ -67,56 +62,31 @@
       {% endfor %}
     </div>
 
-        <table>
-        
-        <tr  scope = "row">
-            <th>
-                <h2 style="text-align: left;">From:</h2>
-            </th>
-            <th >
-                <div class="input-group mb-1">
-                    <input id="pickup_longitude" name="pickup_longitude" type="number" step=0.000001 class="form-control" placeholder="pickup longitude" value = "{{pickup_longitude}}" max="999" min="-999" aria-label="pickup longitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
-                </div>
-            </th>
-            <th >
-                <div class="input-group mb-1">
-                    <input id="pickup_latitude" name="pickup_latitude" type="number" step=0.000001 class="form-control" placeholder="pickup latitude" value = "{{pickup_latitude}}" max="999" min="-999" aria-label="pickup_latitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
-                </div>
-            </th>
-        </tr>
-        <tr scope = "row">
-                <th>
-                    <h2 style="text-align: left;">To:</h2>
-                </th>
-                <th>
-                    <div class="input-group mb-1">
-                            <input id="dropoff_longitude" name="dropoff_longitude" type="number" step=0.000001 class="form-control" placeholder="dropoff longitude" value = "{{dropoff_longitude}}" max="999" min="-999" aria-label="dropoff_longitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
-                    </div>               
-                </th>
-                <th>
-                    <div class="input-group mb-1">
-                            <input id="dropoff_latitude" name="dropoff_latitude" type="number" step=0.000001 class="form-control" placeholder="dropoff latitudepickup" value = "{{dropoff_latitude}}" max="999" min="-999" aria-label="dropoff latitude" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
-                    </div> 
-                </th>
-        </tr>
-        <tr scope = "row">
-                <th>
-                    <h2 style="text-align: left;">Number of passengers:</h2>
-                </th>
-                <th>
-                    <div class="input-group mb-1">
-                            <input id="passenger_counte" name="passenger_count" type="text"  value="1" size="1" maxlength="4" pattern="[1-4]" title="value from 1 to 4" class="form-control" aria-label="passenger_count" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required>
-                    </div> 
-                </th>
-        </tr>
-    
-    </table>
+<center>
+    <h2>Number of passengers: <span id="demo"></span></h2>
+    <div class="slidecontainer">
+        <input id="myRange" type="range" min="1" max="4" value="1" class="slider">
+    </div>
+</center>
+    <script>
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = slider.value;
 
-    {% for error in field.errors %}
-        <div class = "warnings">
-            {{ error }}
-        </div>
-    {% endfor %}
+            
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+              document.getElementById("passenger_count").value = slider.value;
+            }
+    </script>
+
+<input id="passenger_counte" name="passenger_count" type="hidden" value = "1" class="form-control" required>
+
+    <input id="pickup_longitude" name="pickup_longitude" type="hidden" value="40.731542" required>
+    <input id="pickup_latitude" name="pickup_latitude" type="hidden" value="-73.996770" required>
+    <input id="dropoff_longitude" name="dropoff_longitude" type="hidden" value="40.706106" required>
+    <input id="dropoff_latitude" name="dropoff_latitude" type="hidden" value="-74.013485" required>
+    <input id="passenger_count" name="passenger_count" type="hidden"  value=1 required>
 
         <br>
         <center><button type="submit">CONTINUE</button></center>
