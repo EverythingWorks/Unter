@@ -3,19 +3,29 @@
 {% block display %}
 
 <div class = "display_u">
-    <header>
-      <div class = "left">
-        Unter <br>
-      </div>
-      
-    </header>
-    <main>
-        <div class = "right">
-         {% block content %}
-
-         {% endblock %}
+<div class="container" style ="width: auto; height: 48em;">
+    <div class = "row" >
+        <div class="col">
+            <header>
+              <div class = "left">
+                 Unter <br>
+              </div>
+            </header>
         </div>
-    </main>
-  </div>
+        <div class="col">
+            <main>
+              <div class = "right">
+                 {% block content %}
+        
+                 {% endblock %}
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
 
 {% endblock %}

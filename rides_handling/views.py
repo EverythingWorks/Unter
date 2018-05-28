@@ -1,13 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
+from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm, CommentForm
 from django.utils import timezone
-from .models import Profile, Ride
+from .models import Profile, Ride, Comment
 
 @login_required
 def home(request):
+    have_ride = Ride.objects.filter(status='ACCEPTED', initiator=request.user.profile).values_list('pk', flat=True)
+    if have_ride:
+        return redirect('chat', have_ride[0])
     if request.method == "POST":
         form = RideForm(request.POST)
         if form.is_valid():
@@ -36,6 +39,7 @@ def login(request):
         return redirect('home')
 
     if request.method == "POST":
+
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
@@ -72,15 +76,18 @@ def offer(request):
         return redirect('login')
     else:
         if request.user.profile.is_driver == True:
+            have_ride = Ride.objects.filter(status='ACCEPTED', driver=request.user.profile).values_list('pk', flat=True)
+            if have_ride:
+                return redirect('chat', have_ride[0])
+                
             rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
-
             if request.POST:
                 pk_number = int(request.POST['take'].strip(','))
                 ride = Ride.objects.get(pk=pk_number)
                 ride.status = 'ACCEPTED'
                 ride.driver = request.user.profile
                 ride.save()
-                return redirect('profile_summary')
+                return redirect('offer')
 
             return render(request, 'offer.html', {'rides_active' : rides_active})
         return redirect('signup_driver')
@@ -144,4 +151,17 @@ def profile_summary(request):
         else:
             recent_ride_status = rides_history[0].status
         return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })
-        
+
+def chat(request, pk):
+    ride = get_object_or_404(Ride, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.ride = ride
+            comment.user = request.user
+            comment.save()
+            return redirect('chat', pk=ride.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'chat.html', {'form': form, 'ride': ride})   

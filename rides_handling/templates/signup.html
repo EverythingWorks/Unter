@@ -2,21 +2,20 @@
 
 {% block content %}
 
-  <ul class = "body_list">
-    <li class = "body_list">
-      <a style="width: 15vw" href="{% url 'login' %}">
-        <p style="padding-top: 0.7vh; font-size: 3.6vh;">Log in</p>
-      </a>
-    </li>
-    <li class = "body_list" style="float:right">
-      <a class = "active"  style="width: 15vw; border-right: 0" href="{% url 'signup' %}">
-        <p style="padding-top: 0.7vh; font-size: 3.6vh;">Sign up</p>
-      </a>
+<div class = "body_list">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" style = "text-align: left;  " href="{% url 'login' %}">Login</a>
+      </li>
+    
+    <li class="nav-item">
+        <a class="nav-link  active" style = "text-align: right; border-right: 0;" href="{% url 'signup' %}">Sign up</a>
     </li>
   </ul>
+  </div>
 
-  <div style = "background-color: #F7D388; height: 55vh;" >
-    <br>
+  <div class = "card" style = "background-color: #F7D388; height: 35em;" >
+    <br style = "display: block; margin: 0.5em">
     <h2>Please, fill the forms:</h2>
     <div class = "warnings">
       {% for field in form %}
@@ -47,7 +46,7 @@
         </div>
 
         <br>
-        <button type="submit">CONTINUE</button>
+        <button type="submit" >CONTINUE</button>
       </form>
   
     </center>
