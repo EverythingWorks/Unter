@@ -99,8 +99,18 @@ th{
     position: relative;
 }
 
-div.history .container{
-    width: 70vw;
+.history .carousel-inner .container{
+    overflow-x: auto;
+    background-color: rgba(112, 128, 144, 0.164);
+    font-size: 3vh; 
+    width: 55vw; 
+    height: 50vh;
+    text-align: center;
+    font-size: 0.7em;
+}
+
+.history .carousel-inner .row{
+    width: 55vw;
 }
 
 .strip {
@@ -140,50 +150,81 @@ a{
     color:#39382C;
 }
 
-div.display_l ul.nav li.nav-item a.nav-link{
+.display_l .nav-link{
     font-size: 3vh;
 }
 
-div.display_l ul.nav li.nav-item a.nav-link:hover{
+.display_l nav{
+    float: left;
+    width: 100%;
+    margin:0; 
+    padding: 0;
+}
+
+.display_l ul{
+    width: 100%;
+    padding: 0;
+}
+
+.display_l li{
+    width: 100%;
+}
+
+.display_l nav a:hover{
     background: #F7D388;
     text-decoration: none;
     color:#39382C;
 }
 
 /* unlogged page login % signup*/
-.body_list ul.nav{
-    height: 2em;
+.body_list nav{
     list-style-type: none;
-    margin: 0;
-    padding: 0;
 
     background-color:#FAC555;
     font-size: 2.5em;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     text-shadow: 0.2vw 0.3vh #F7D388;
+    padding: 0;
+    margin: 0; 
+    border-radius:0;
+}
+
+.body_list button{
+    border-width: 1px;
+    background-color:transparent;
+    color: #39382C;
+    text-align: center;
+}
+
+.body_list button:hover{
+    border-width: 1px;
+    background-color:transparent;
+    color: white;
+}
+
+.body_list li{
+    width: 25rem;
+    margin: 0;
 }
 
 .body_list li a{
-    width: 26.9rem;
-    height: 2em;
     padding-right : 1em;
     padding-left : 1em;
     vertical-align: middle;
     text-decoration: none;
     text-decoration-style: none;
 }
- 
+
 .body_list li a:hover {
     background-color: transparent;
     text-shadow: 0.2vw 0.3vh #F7D388;
     color:rgb(83, 83, 83);
 }
 
-.body_list li a.active {
+.body_list .active {
     text-shadow: 0.2vw 0.3vh #FAC555;
     background-color: #F7D388;
-
 }
 
 .choices{
