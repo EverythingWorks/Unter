@@ -1,0 +1,57 @@
+
+{% extends 'base_logged.html' %}
+
+{% block content %}
+
+<div class="container" style = "overflow-x: auto; height: 18em; background-color: rgba(112, 128, 144, 0.164); width: 40em; text-align: center;">
+{% for comment in ride.comments.all %}
+<div style = "padding-bottom: 1em;">
+    {% if ride.driver.pk is comment.user.pk %}
+
+    <div class="comment" style = "float: right; text-align: right;">
+        <div class = "date">
+            {{ comment.date }}
+        </div>
+        <div style="padding-right: 0.5em;">
+            {{ comment.content|linebreaks }}
+        </div>
+    </div>  
+
+    {% else %}
+    <div class="comment" style = "float: left; text-align: left;">
+        <div class = "date">
+            {{ comment.date }}
+        </div>
+        <div style="padding-left: 0.5em;">
+            {{ comment.content|linebreaks }}
+         </div>
+    </div>
+
+    {% endif %}
+
+    <br style = "display: block; margin: 0.5em">
+</div>
+
+
+    
+{% empty %}
+    <p>Start the conversation!</p>
+{% endfor %}
+
+</div>
+
+<div class="container" style="width: 40em; padding-left:0">
+  <div class="input-group mb-3">
+    <form method="POST" class="form-horizontal">{% csrf_token %}
+        <input id="content" name="content" type="text" class="form-control" placeholder="Enter your message" aria-label="chat" aria-describedby="basic-addon2" style="width: 50vw;">
+        <div class="input-group-append">
+            <button style = "background-color: #FCA205; border-top-left-radius: 0; border-bottom-left-radius: 0; color:#39382C; height: 2.3em; padding-top: 0.5em;" type="submit">Send</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
