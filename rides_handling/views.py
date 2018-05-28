@@ -80,7 +80,7 @@ def offer(request):
             if have_ride:
                 return redirect('chat', have_ride[0])
                 
-            rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
+            rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').exclude(initiator=request.user.profile).all()
             if request.POST:
                 pk_number = int(request.POST['take'].strip(','))
                 ride = Ride.objects.get(pk=pk_number)
