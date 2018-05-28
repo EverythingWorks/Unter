@@ -3,16 +3,26 @@
 {% block content %}
 
 <div class = "body_list">
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link" style = "text-align: left;  " href="{% url 'login' %}">Login</a>
-      </li>
-    
-    <li class="nav-item">
-        <a class="nav-link  active" style = "text-align: right; border-right: 0;" href="{% url 'signup' %}">Sign up</a>
-    </li>
-  </ul>
-  </div>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          MENU
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="nav justify-content-center">
+      
+            <li class="nav-item">
+                <a class="nav-link" style = "text-align: left;  " href="{% url 'login' %}">Login</a>
+            </li>
+      
+            <li class="nav-item active">
+                <a class="nav-link" style = "text-align: right; border-right: 0;" href="{% url 'signup' %}">Sign up</a>
+            </li>
+      
+          </ul>
+        </div>
+      </nav>
+      </div>
 
   <div class = "card" style = "background-color: #F7D388; height: 35em;" >
     <br style = "display: block; margin: 0.5em">
@@ -51,6 +61,7 @@
   
     </center>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% endblock %}
-
-

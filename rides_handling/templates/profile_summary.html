@@ -47,7 +47,7 @@
 
 <div class="history">
 
-<div class="container" style = "padding-left: 0; margin-left: 0;">
+<div class="container" style="width: 70vw; padding-left: 0; margin-left: 0;">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0" style="width: 70vw;">
         <div class="carousel-inner" >
             <!--new carousel page-->
@@ -60,25 +60,25 @@
                     {% for ride in rides_history %}
                     {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
                     
-                    <div class="container" style = "background-color: rgba(112, 128, 144, 0.164); font-size: 3vh; width: 55vw; text-align: center;">
+                    <div class="container" style = "height: auto;">
                     
-                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-                        <div class="col" style = "font-size: 2vh;">
+                    <div class="row" style="border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col">
                             STATUS:
                         </div>
                     </div>
-                    <div class="row" style="width: 55vw; height: 7vh;">
+                    <div class="row" style="height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             {{ ride.get_status_display }}
                         </div>
                     </div>
 
-                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-                        <div class="col" style = "font-size: 2vh;">
+                    <div class="row" style="border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col">
                             START:
                         </div>
                     </div>
-                    <div class="row" style="width: 55vw; height: 7vh;">
+                    <div class="row" style="height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             <p id = "pickup"></p>
 
@@ -94,12 +94,12 @@
                         </div>
                     </div>
 
-                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-                        <div class="col" style = "font-size: 2vh;">
+                    <div class="row" style="border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col">
                             DESTINATION:
                         </div>
                     </div>
-                    <div class="row" style="width: 55vw; height: 7vh;">
+                    <div class="row" style="height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             <p id = "dropoff"></p>
                             <script type="text/javascript"> 
@@ -114,12 +114,12 @@
                         </div>
                     </div>
 
-                    <div class="row" style="width: 55vw; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
-                        <div class="col" style = "font-size: 2vh;">
+                    <div class="row" style="border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                        <div class="col">
                             ESTIMATED TIME:
                         </div>
                     </div>
-                    <div class="row" style="width: 55vw; height: 7vh;">
+                    <div class="row" style="height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             <!--HERE GOES OUT ML-->
                         </div>
@@ -161,11 +161,11 @@
                     Your past orders:
                 </div>  
                 
-                {% if rides_history or rides_history%}
+                {% if rides_history%}
 
-                <div class="container" style = "overflow-x: auto; height: 50vh; background-color: rgba(112, 128, 144, 0.164); width: 55vw; text-align: center;">
+                <div class="container">
 
-                <div class="row" style="width: 100%; ">
+                <div class="row" style="width: 100%;">
                         <div class="col">
                             START:
                         </div>
@@ -199,8 +199,11 @@
                     {% endfor %}
                     </div>  
                     {% else %} 
-                        <h4 style="padding-left: 0">You don't have any rides yet.</h4>
-                        <h2 style="text-align: left;">Plan yor first ride <a href="{% url 'home' %}">here</a>.</h2>
+                        <div class="container">
+                            <br style = "display: block; margin: 0.5em">
+                            <h4 style="text-align: center;">You don't have any rides yet.</h4>
+                            <h2 style="text-align: center;">Plan yor first ride <a href="{% url 'home' %}">here</a>.</h2>
+                        </div>
                     {% endif %}                                                                                  
                 </div>
                 </div>
@@ -212,7 +215,7 @@
                         Your grade: {{grade_score}} | Your past rides:
                     </div>  
 
-                    <div class="container" style = "overflow-x: auto; height: 50vh; background-color: rgba(112, 128, 144, 0.164); width: 55vw; text-align: center;">
+                    <div class="container">
 
                         <div class="row" style="width: 54vw; padding-left: 0.5vw;">
                                 <div class="col">
@@ -262,6 +265,7 @@
             
       </div>
   </div>
+</div>
 </div>
 </div>
 

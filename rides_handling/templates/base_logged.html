@@ -1,41 +1,66 @@
 {% extends 'base.html' %}
 
 {% block display %}
-    <header class = "header_l">
-        Unter <br>
-    </header>
+<header class = "header_l">
+    Unter <br>
+</header>
 
 
-    <div class = "card">
-     <div class = "display_l">
-         <div style="float: left; width: 10vw;">
-            <ul class="nav flex-column" >
-              <li class="nav-item" style = "border-bottom: 2px solid #F7D388;" >
-                <a class="nav-link" href="{% url 'home' %}"> Ride </a>
-              </li>
-              <li class="nav-item" style = "border-bottom: 2px solid #F7D388;">
-                <a class="nav-link" href="{% url 'offer' %}"> Drive </a>
-              </li>
-              <li class="nav-item" style = "border-bottom: 2px solid #F7D388;">
-                <a class="nav-link" href="{% url 'profile_summary' %}">Profile</a>
-              </li>
-              <li class="nav-item" >
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-              </li>
-            </ul>
-         </div>
+<div class = "card">
+  <div class = "display_l">
 
-         <div style="float: left; width: 70vw; ">
-           <div class = "pages">
-              <br style = "display: block;">
-             {% block content %}
+    <div class="container" style ="width: auto; height: auto; background-color: #F7D388;">
 
-             {% endblock %}
+        <div class = "row" style="padding: 0;">
+            <div class="col" style="background-color: #FAC555; width: auto; padding: 0;  margin: 0">
+                <nav class="navbar navbar-expand-lg" >
+                    <button class="navbar-toggler" type="button" style = "float: left;" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                      MENU
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="margin:0; padding: 0;">
+                      <ul class="nav nav-pills">
+                        <li class="nav-item" style = "border-bottom: 2px solid #F7D388;" >
+                          <a class="nav-link" href="{% url 'home' %}"> Ride </a>
+                        </li>
+                      </ul>
+                      <ul class="nav nav-pills">
+                        <li class="nav-item" style = "border-bottom: 2px solid #F7D388;">
+                          <a class="nav-link" href="{% url 'offer' %}"> Drive </a>
+                        </li>
+                      </ul>
+                      <ul class="nav nav-pills">
+                        <li class="nav-item" style = "border-bottom: 2px solid #F7D388;">
+                          <a class="nav-link" href="{% url 'profile_summary' %}">Profile</a>
+                        </li>
+                      </ul>
+                      <ul class="nav nav-pills">
+                        <li class="nav-item" >
+                          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
             </div>
-         </div>
+            <div class="col">
+
+                <div style="float: left; width: 70vw; ">
+                    <div class = "pages">
+                       <br style = "display: block;">
+                      {% block content %}
          
+                      {% endblock %}
+                     </div>
+                  </div>
+
+                
+            </div>
         </div>
-      </div>
+    </div>       
+  </div>
+</div>
   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 {% endblock %}
