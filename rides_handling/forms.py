@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Ride, Comment
+from .models import Ride
 from django.utils.timezone import datetime
 
 class SignUpForm(UserCreationForm):
@@ -34,9 +34,3 @@ class RideForm(forms.ModelForm):
     class Meta:
         model = Ride
         fields =  ( 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count', )
-
-class CommentForm(forms.ModelForm):
-
-    class Meta:
-        model = Comment
-        fields = ('content',)
