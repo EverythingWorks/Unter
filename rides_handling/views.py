@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
 from django.utils import timezone
 from .models import Profile, Ride
+import decimal
 
 from sklearn.externals import joblib
 import numpy as np
@@ -20,7 +21,7 @@ def manhattan_distance(a_x,a_y,b_x,b_y):
 @login_required
 def home(request):
     if request.method == "POST":
-        regressor = joblib.load('rides_handling/production_full.pkl')
+        regressor = joblib.load('rides_handling/trip_prediction_model.pkl')
         form = RideForm(request.POST)
         if form.is_valid():
             ride = form.save(commit=False)
@@ -33,14 +34,25 @@ def home(request):
 
             now = datetime.datetime.now()
             ml_input = np.array([
-            ride.pickup_longitude,
-            ride.pickup_latitude,
-            ride.dropoff_longitude,
-            ride.dropoff_latitude,
-            now.hour, now.month, 
-            euklidian_distance(ride.pickup_longitude, ride.pickup_latitude, ride.dropoff_longitude, ride.dropoff_latitude),
-            manhattan_distance(ride.pickup_longitude, ride.pickup_latitude, ride.dropoff_longitude, ride.dropoff_latitude),
-            ])
+                            ride.pickup_longitude,
+                            ride.pickup_latitude,
+                            ride.dropoff_longitude,
+                            ride.dropoff_latitude,
+                            now.month, now.hour,
+                            euklidian_distance(ride.pickup_longitude, ride.pickup_latitude, ride.dropoff_longitude, ride.dropoff_latitude),
+                            manhattan_distance(ride.pickup_longitude, ride.pickup_latitude, ride.dropoff_longitude, ride.dropoff_latitude),
+                            ])
+
+            scale_factors = np.array([decimal.Decimal(-7.39734503e+01), 
+                                    decimal.Decimal(4.07509192e+01),
+                                    decimal.Decimal(-7.39733898e+01),
+                                    decimal.Decimal(4.07517839e+01),
+                                    decimal.Decimal(3.51708479e+00), 
+                                    decimal.Decimal(1.36067434e+01),
+                                    decimal.Decimal(3.55015215e-02), 
+                                    decimal.Decimal(4.59241450e-02),
+                                    ])
+            ml_input /= scale_factors
             ride.estimated_trip_time = np.exp(regressor.predict([ml_input])[0]) / 60
             
             
