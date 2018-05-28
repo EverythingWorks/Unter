@@ -7,13 +7,13 @@ body {
 
 .display_u {
     width: auto;
-    height: 70vh;
+    height: 34em;
     background-color:#F7B731;
     background-image: url("../images/manhattan5.png");
     background-size: cover;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10vh;
+    margin-top: 4em;
     min-height: 200px;
 }
 
@@ -45,6 +45,24 @@ body {
     font-family: 'Lato', sans-serif;
     font-size: 3vh;
     text-shadow: 0.2vw 0.3vh #F7D388;
+}
+
+.left {
+    margin-left: 3em;
+    margin-right: auto;
+    margin-top: 3vh;
+
+    padding-right : 2vw;
+
+    font-family: 'Lobster';
+    font-size: 10em;
+    text-align: right;
+    text-shadow: 0.2vw 0.3vh #FAC555;
+}
+
+.right {
+    padding-top : 3vh;
+    width: auto;
 }
 
 input.form-control{
@@ -117,30 +135,6 @@ div.list .row {
 
 div.list .row:hover {background-color: rgba(130, 138, 146, 0.336);}
 
-.left {
-    width: 35vw;
-    height: 60vh;
-    margin-left: 14vw;
-    margin-right: auto;
-    margin-top: 3vh;
-    float: left; 
-
-    padding-right : 2vw;
-
-    font-family: 'Lobster';
-    font-size: 12vh;
-    text-align: right;
-    text-shadow: 0.2vw 0.3vh #FAC555;
-}
-
-.right {
-    width: 35vw;
-    height: 60vh;
-    margin-left: auto;
-    margin-right: 14vw;
-    padding-top : 3vh;
-}
-
 a{
     text-decoration: none;
     color:#39382C;
@@ -156,42 +150,40 @@ div.display_l ul.nav li.nav-item a.nav-link:hover{
     color:#39382C;
 }
 
-ul.body_list{
-    height: 7vh;
+/* unlogged page login % signup*/
+.body_list ul.nav{
+    height: 2em;
     list-style-type: none;
     margin: 0;
     padding: 0;
 
     background-color:#FAC555;
-    font-size: 3.6vh;
+    font-size: 2.5em;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     text-shadow: 0.2vw 0.3vh #F7D388;
 }
 
-li.body_list a{
-    width: 11vw;
-    float: left; 
-    text-align: center;
-    padding-right : 0.5vw;
-    padding-left : 0.5vw;
+.body_list li a{
+    width: 26.9rem;
+    height: 2em;
+    padding-right : 1em;
+    padding-left : 1em;
     vertical-align: middle;
     text-decoration: none;
     text-decoration-style: none;
 }
  
-li.body_list a:hover {
+.body_list li a:hover {
+    background-color: transparent;
     text-shadow: 0.2vw 0.3vh #F7D388;
-    height: 7.5vh; 
     color:rgb(83, 83, 83);
 }
 
-li.body_list a.active {
+.body_list li a.active {
     text-shadow: 0.2vw 0.3vh #FAC555;
-    border-bottom: 7.5vh solid #F7D388;
-    border-right: 1.5vw solid transparent; 
-    border-left: 1.5vw solid transparent; 
-    height: 7.5vh; 
+    background-color: #F7D388;
+
 }
 
 .choices{
@@ -247,21 +239,21 @@ img {
 }
 
 h1 {
-    font-size: 6vh;
+    font-size: 4rem;
     font-family: 'Lobster';
     text-shadow: 0.2vw 0.3vh #FAC555;   
     text-align: center;
 }
 
 h2 {
-    font-size: 2.6vh;
+    font-size: 1.7rem;
     font-family: 'Lato', sans-serif;  
     text-align: center;
     text-decoration: none;
 }
 
 h3 {
-    font-size: 5vh;
+    font-size: 3rem;
     font-family: 'Lobster';
     text-shadow: 0.2vw 0.3vh #FAC555;   
     text-align: right;
@@ -285,16 +277,16 @@ button {
     background-color: #FCA205;
     border: none;
     color: white;
-    padding: 1.5vh 1.4vw;
+    padding: 1rem 1.5rem;
     text-align: center;
-    font-size: 2.4vh;
+    font-size: 1.5rem;
     cursor: pointer;
-    border-radius: 1vh;
+    border-radius: 1rem;
     font-family: 'Lato', sans-serif;
-    text-decoration: none;
 }
 
 button:hover {
+    border: none;
     color: white;
 }
 
