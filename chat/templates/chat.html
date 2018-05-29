@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container" style = "overflow-x: auto; height: 18em; background-color: rgba(112, 128, 144, 0.164); width: 40em; text-align: center;">
-{% for comment in ride.comments.all %}
+{% for comment in ride.messages.all %}
 <div style = "padding-bottom: 1em;">
     {% if ride.driver.pk is comment.user.pk %}
 

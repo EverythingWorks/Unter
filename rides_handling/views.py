@@ -2,9 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm, CommentForm
+from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
 from django.utils import timezone
-from .models import Profile, Ride, Comment
+from .models import Profile, Ride
 
 @login_required
 def home(request):
@@ -80,7 +80,7 @@ def offer(request):
             if have_ride:
                 return redirect('chat', have_ride[0])
                 
-            rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').all()
+            rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').exclude(initiator=request.user.profile).all()
             if request.POST:
                 pk_number = int(request.POST['take'].strip(','))
                 ride = Ride.objects.get(pk=pk_number)
@@ -122,7 +122,6 @@ def profile_summary(request):
     else:
         if request.GET.get('finish'):
             rides_history = list(request.user.profile.ride_set.all())
-            rides_history.extend(Ride.objects.filter(driver=request.user.profile).all())
             for ride in rides_history:
                 if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
                     ride.status = 'COMPLETED'
@@ -135,7 +134,6 @@ def profile_summary(request):
             return redirect('profile_summary')
         if request.GET.get('cancel'):
             rides_history = list(request.user.profile.ride_set.all())
-            rides_history.extend(Ride.objects.filter(driver=request.user.profile).all())
             for ride in rides_history:
                 if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
                     ride.status = 'CANCELED'
@@ -150,18 +148,4 @@ def profile_summary(request):
             recent_ride_status = "no rides"
         else:
             recent_ride_status = rides_history[0].status
-        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })
-
-def chat(request, pk):
-    ride = get_object_or_404(Ride, pk=pk)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.ride = ride
-            comment.user = request.user
-            comment.save()
-            return redirect('chat', pk=ride.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'chat.html', {'form': form, 'ride': ride})   
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })   

@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 
 from django.contrib.auth import views as auth_views
 from rides_handling import views as rides_handling_views
- 
+from chat import views as chat_views
 
 urlpatterns = [
     url(r'admin/', admin.site.urls),
@@ -17,6 +17,5 @@ urlpatterns = [
     url(r'^profile_summary/$', rides_handling_views.profile_summary, name='profile_summary'),
     url(r'^help/$', rides_handling_views.help, name='help'),
     url(r'^about/$', rides_handling_views.about, name='about'),
-    # url(r'^chat/$', rides_handling_views.chat, name='chat'),
-    url(r'^chat/(?P<pk>\d+)/$', rides_handling_views.chat, name='chat'),
+    url(r'^chat/(?P<pk>\d+)/$', chat_views.chat, name='chat'),
 ]
