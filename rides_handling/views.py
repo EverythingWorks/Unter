@@ -6,7 +6,7 @@ from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverF
 from django.utils import timezone
 from .models import Profile, Ride
 
-def home_post(form, request):
+def order_ride(form, request):
     if form.is_valid():
         ride = form.save(commit=False)
         try:
@@ -25,7 +25,7 @@ def home(request):
     if have_ride:
         return redirect('chat', have_ride[0])
     if request.method == "POST":
-        if home_post(RideForm(request.POST), request):
+        if order_ride(RideForm(request.POST), request):
             return redirect('profile_summary')
     else:
         form = RideForm()
