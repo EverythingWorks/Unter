@@ -6,22 +6,26 @@ from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverF
 from django.utils import timezone
 from .models import Profile, Ride
 
+def home_post(form, request):
+    if form.is_valid():
+        ride = form.save(commit=False)
+        try:
+            ride.initiator = request.user.profile
+        except Profile.DoesNotExist:
+            ride.initiator = Profile(user=request.user)
+        ride.status = 'SET_BY_PASSENGER'
+        ride.pickup_datetime = timezone.now()
+        ride.save()
+        return True
+        
+
 @login_required
 def home(request):
     have_ride = Ride.objects.filter(status='ACCEPTED', initiator=request.user.profile).values_list('pk', flat=True)
     if have_ride:
         return redirect('chat', have_ride[0])
     if request.method == "POST":
-        form = RideForm(request.POST)
-        if form.is_valid():
-            ride = form.save(commit=False)
-            try:
-                ride.initiator = request.user.profile
-            except Profile.DoesNotExist:
-                ride.initiator = Profile(user=request.user)
-            ride.status = 'SET_BY_PASSENGER'
-            ride.pickup_datetime = timezone.now()
-            ride.save()
+        if home_post(RideForm(request.POST), request):
             return redirect('profile_summary')
     else:
         form = RideForm()
@@ -115,29 +119,32 @@ def signup_driver(request):
             form = SignUpDriverForm()
         return render(request, 'signup_driver.html')
 
+def finish_ride(rides_history):
+    for ride in rides_history:
+        if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
+            ride.status = 'COMPLETED'
+            user_driver = ride.driver.user.profile
+            user_driver.grade_sum += int(dict(request.GET)['grade'][0])
+            user_driver.grade_counter += 1
+            user_driver.save()
+            ride.save()
+
+def cancel_ride(rides_history):
+    for ride in rides_history:
+        if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
+            ride.status = 'CANCELED'
+            ride.save()
+
 @login_required
 def profile_summary(request):
     if not request.user.is_authenticated:
         return redirect('home')
     else:
         if request.GET.get('finish'):
-            rides_history = list(request.user.profile.ride_set.all())
-            for ride in rides_history:
-                if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
-                    ride.status = 'COMPLETED'
-                    user_driver = ride.driver.user.profile
-                    user_driver.grade_sum += int(dict(request.GET)['grade'][0])
-                    user_driver.grade_counter += 1
-                    user_driver.save()
-                    ride.save()
-            
+            finish_ride(list(request.user.profile.ride_set.all()))
             return redirect('profile_summary')
         if request.GET.get('cancel'):
-            rides_history = list(request.user.profile.ride_set.all())
-            for ride in rides_history:
-                if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
-                    ride.status = 'CANCELED'
-                    ride.save()
+            cancel_ride(list(request.user.profile.ride_set.all()))
             return redirect('profile_summary')            
 
         rides_history = list(reversed(request.user.profile.ride_set.all()))
