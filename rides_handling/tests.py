@@ -98,11 +98,12 @@ class ViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
     
-class SimpleTests(TestCase):
+class test_signup_driver(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.user = User.objects.create(username='testuser', password='secret')
-
+        self.user = User.objects.create(username='testuser', email='testmail@domain.com')
+        self.user.set_password('secretpass123')
+        self.user.save()
     def test_signup_driver_anonymous(self):
         request = self.factory.get('/signup_driver')
         request.user = AnonymousUser()
@@ -114,5 +115,13 @@ class SimpleTests(TestCase):
         response = signup_driver(request)
         self.assertEqual(response.status_code, 200)
     def test_signup_driver_already_driver(self):
-        response = self.client.post('/signup_driver', {'is_driver': 'True','car': 'ford'})
-        self.assertEqual(response.status_code, 301)
+        data = {
+            'is_driver': True,
+            'car': 'ford'
+                }
+        c = Client()
+        logged_in = c.login(username='testuser', password='secretpass123')
+        url = reverse('signup_driver')
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/offer/')
