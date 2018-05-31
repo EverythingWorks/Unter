@@ -159,9 +159,7 @@ def profile_summary(request):
         grade_score = round(request.user.profile.grade_sum / request.user.profile.grade_counter, 2) if request.user.profile.grade_counter else 0
         rides_history = get_human_readable_rides_history(rides_history)
         rides_history_as_driver = get_human_readable_rides_history(rides_history_as_driver)
-        return render(request, 'profile_summary.html', {'rides_history' : rides_history, 
-                                                        'rides_history_as_driver' : rides_history_as_driver,
-                                                        'recent_ride_status': recent_ride_status, 'grade_score' : grade_score,})   
+        return render(request, 'profile_summary.html', locals())   
 
 
 def get_human_readable_rides_history(rides_list):
