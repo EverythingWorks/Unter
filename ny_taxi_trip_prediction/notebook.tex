@@ -355,8 +355,14 @@ hour.
         \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{hour}
         \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day\PYZus{}of\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{day}
         \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}
-        \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euklidian\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{euklidian\PYZus{}dist}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude}\PY{p}{,}  \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{p}{,} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{p}{,}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{p}{)}
-        \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manhattan\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{manhattan\PYZus{}dist}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude}\PY{p}{,}  \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{p}{,} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{p}{,}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{p}{)}
+        \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euklidian\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{euklidian\PYZus{}dist}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude}\PY{p}{,} 
+                                                        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{p}{,}
+                                                        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{p}{,}
+                                                        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{p}{)}
+        \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{manhattan\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{manhattan\PYZus{}dist}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude}\PY{p}{,}  
+                                                        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{p}{,} 
+                                                        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{p}{,}
+                                                        \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{p}{)}
         \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}trip\PYZus{}duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{trip\PYZus{}duration}\PY{p}{)}
 \end{Verbatim}
 
@@ -653,21 +659,17 @@ manhattan distance, because this configuration gave us the best results
 
     To test performance of models we use cross validation. Given data is
 randomly splited, with first part of dataset model is trained, and other
-part is used for testing. This process is repeated two times.
-
-We use \textbf{NEGATIVE MEAN SQUARED ERROR} as a scoring function.
-
+part is used for testing. This process is repeated two times.\\
+We use \textbf{NEGATIVE MEAN SQUARED ERROR} as a scoring function. \\
 After that we calculate mean and standard error of all tests.
-
-    
-
-    \textbf{1. Support vector machine with liear kernel}
+\textbf{1. Support vector machine with liear kernel}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVR}
          
          \PY{n}{model} \PY{o}{=} \PY{n}{SVR}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -684,7 +686,8 @@ average: -0.4029606009563827 std: 0.0035690115845566917
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVR}
          \PY{n}{model} \PY{o}{=}  \PY{n}{SVR}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}absolute\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}absolute\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -701,7 +704,8 @@ average: -0.5718316168537649 std: 0.009856788742861333
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{ExtraTreesRegressor}
          \PY{n}{model} \PY{o}{=} \PY{n}{ExtraTreesRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -718,7 +722,8 @@ average: -0.2112642692752844 std: 0.001417616736263505
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{GradientBoostingRegressor}
          \PY{n}{model} \PY{o}{=} \PY{n}{GradientBoostingRegressor}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -806,7 +811,8 @@ average: -0.20860082611219993 std: 0.005568361927162313
 {\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}baseline model}
          \PY{n}{model} \PY{o}{=} \PY{n}{KerasRegressor}\PY{p}{(}\PY{n}{build\PYZus{}fn}\PY{o}{=}\PY{n}{baseline\PYZus{}model}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
          
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -823,7 +829,8 @@ twelve units and second with six
 {\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{}deep model}
          \PY{n}{model} \PY{o}{=} \PY{n}{KerasRegressor}\PY{p}{(}\PY{n}{build\PYZus{}fn}\PY{o}{=}\PY{n}{deep\PYZus{}model}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
          
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -840,7 +847,8 @@ cells
 {\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{}wide model}
          \PY{n}{model} \PY{o}{=} \PY{n}{KerasRegressor}\PY{p}{(}\PY{n}{build\PYZus{}fn}\PY{o}{=}\PY{n}{wide\PYZus{}model}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
          
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -858,7 +866,8 @@ test. It is neural network with three deep layers: * First with 20 units
 {\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{}super model}
          \PY{n}{model} \PY{o}{=} \PY{n}{KerasRegressor}\PY{p}{(}\PY{n}{build\PYZus{}fn}\PY{o}{=}\PY{n}{super\PYZus{}model}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
          
-         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ std: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
@@ -898,12 +907,13 @@ squarred error:
 
     
 
-    For further development we choose \textbf{Gradient Boosted Trees} model,
+\noindent    For further development we choose \textbf{Gradient Boosted Trees} model,
 which scored the lowest error of all model. The Downside is relatively
 long time of training which can be a bit painfull with using the whole
-database containing over 1 milion records.
+database containing over 1 milion records. \\
 
-    A: danpisq @ UNTER
+
+\noindent A: danpisq @ UNTER
 
 
     % Add a bibliography block to the postdoc
