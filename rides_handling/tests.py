@@ -114,7 +114,14 @@ class ViewTest(TestCase):
         response = self.client.get(reverse('profile_summary'), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
-    
+
+class UserModelTest(TestCase):
+    def test_str_method(self):
+        user = User.objects.create(username='test2user')
+        user.set_password('12345blablasd')
+        user.save()
+        self.assertEqual(user.__str__(), 'test2user')
+
 class TestSignupDriver(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
