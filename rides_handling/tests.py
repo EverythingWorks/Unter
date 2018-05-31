@@ -2,13 +2,13 @@ from django.test import TestCase, RequestFactory
 from .forms import SignUpForm, RideForm, SignUpDriverForm
 from django.contrib.auth.models import User
 from django.test import Client
-from .models import Profile
+from .models import Profile, Ride
 from django.contrib.auth.models import User, AnonymousUser
 from .apps import RidesHandlingConfig
 from django.apps import apps
 from django.urls import reverse
-
-from .views import signup_driver
+from .views import order_ride, signup_driver
+from django.utils import timezone
 
 class SignupFormTest(TestCase):
     def test_if_signup_form_is_valid(self):
@@ -98,22 +98,25 @@ class ViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
     
-class test_signup_driver(TestCase):
+class TestSignupDriver(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create(username='testuser', email='testmail@domain.com')
         self.user.set_password('secretpass123')
         self.user.save()
+
     def test_signup_driver_anonymous(self):
         request = self.factory.get('/signup_driver')
         request.user = AnonymousUser()
         response = signup_driver(request)
         self.assertEqual(response.status_code, 302)
+
     def test_signup_driver_logged_in(self):
         request = self.factory.get('/signup_driver')
         request.user = self.user
         response = signup_driver(request)
         self.assertEqual(response.status_code, 200)
+
     def test_signup_driver_already_driver(self):
         data = {
             'is_driver': True,
@@ -125,3 +128,93 @@ class test_signup_driver(TestCase):
         response = c.post(url, data, format='json')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/offer/')
+
+class TestOffer(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='testuser', email='testmail@domain.com')
+        self.user.set_password('secretpass123')
+        self.user.save()
+        self.url = reverse('offer')
+
+    def test_signup_anonymous(self):
+        client = Client()
+        response = client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/')
+
+    def test_user_not_driver(self):
+        client = Client()
+        client.login(username='testuser', password='secretpass123')
+        response = client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/signup_driver/')
+
+    def test_driver_no_rides(self):
+        self.user.profile.is_driver = True
+        self.user.save()
+        client = Client()
+        logged_in = client.login(username='testuser', password='secretpass123')  
+        response = client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'offer.html')
+
+class TestHome(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='testuser', email='testmail@domain.com')
+        self.user.set_password('secretpass123')
+        self.user.save()
+        self.url = reverse('home')
+        self.factory = RequestFactory()
+    def test_order_ride_good_form(self):
+        good_form = RideForm(data={
+            'pickup_longitude' : 0, 
+            'pickup_latitude' : 0, 
+            'dropoff_longitude' : 0, 
+            'dropoff_latitude' : 0, 
+            'passenger_count' : 1,
+            })
+        request = self.factory.get(self.url)
+        request.user = self.user
+        self.assertTrue(order_ride(good_form, request))
+        
+    def test_order_ride_bad_form(self):
+        wrong_form = RideForm(data={
+            'pickup_longitude' : 1555555, 
+            'pickup_latitude' : 0, 
+            'dropoff_longitude' : 0, 
+            'dropoff_latitude' : 0, 
+            'passenger_count' : 1,
+            })
+        request = self.factory.get(self.url)
+        request.user = self.user
+        self.assertFalse(order_ride(wrong_form, request))
+    def test_post_ride(self):
+        data={
+            'pickup_longitude' : 0, 
+            'pickup_latitude' : 0, 
+            'dropoff_longitude' : 0, 
+            'dropoff_latitude' : 0, 
+            'passenger_count' : 1,
+            }
+        c = Client()
+        logged_in = c.login(username='testuser', password='secretpass123')
+        response = c.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/profile_summary/')
+    def test_home_has_rides(self):
+        ride = Ride()
+        ride.initiator = self.user.profile
+        ride.status = 'ACCEPTED'
+        ride.driver = self.user.profile
+        ride.pickup_longitude = 1
+        ride.pickup_latitude = 1
+        ride.dropoff_longitude = 1
+        ride.dropoff_latitude = 1
+        ride.pickup_datetime = timezone.now()
+        ride.passenger_count = 1
+        ride.save()
+        c = Client()
+        logged_in = c.login(username='testuser', password='secretpass123')
+        response = c.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/chat/1/')

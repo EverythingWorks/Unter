@@ -17,7 +17,7 @@ def order_ride(form, request):
         ride.pickup_datetime = timezone.now()
         ride.save()
         return True
-        
+    return False
 
 @login_required
 def home(request):
