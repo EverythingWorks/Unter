@@ -120,7 +120,7 @@ class UserModelTest(TestCase):
         user = User.objects.create(username='test2user')
         user.set_password('12345blablasd')
         user.save()
-        self.assertEqual(user.__str__(), 'test2user')
+        self.assertEqual(str(user), 'test2user')
 
 class TestSignupDriver(TestCase):
     def setUp(self):
