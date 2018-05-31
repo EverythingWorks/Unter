@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from .apps import RidesHandlingConfig
 from django.apps import apps
 from django.urls import reverse
-from .views import order_ride, signup_driver
+from .views import order_ride, signup_driver, signup
 from django.utils import timezone
 
 class SignupFormTest(TestCase):
@@ -77,6 +77,23 @@ class ViewTest(TestCase):
         self.assertTemplateUsed(response2, 'signup.html')  
         response3 = self.client.post(reverse('signup'), {'username': 'user1',  'password1': 'verygoodpass123',  'password_2': 'verygoodpass123'}, follow=True)
         self.assertTemplateUsed(response3, 'signup.html')
+    
+    def test_post_good_signup(self):
+        data = {'username' : 'nowyuser', 'is_driver' : True, 'car' : 'skoda',  'password1': 'strongpass1', 'password2': 'strongpass1',}
+        c = Client()
+        url = reverse('signup')
+        response = c.post(url, data, format='json')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/')
+    
+    def test_signup_authenticated(self):
+        factory = RequestFactory()
+        request = factory.get('/signup')
+        user = User.objects.create(username='testuser1')
+        user.set_password('12345blablasd')
+        request.user = user
+        response = signup(request)
+        self.assertEqual(response.status_code, 302)
 
     def test_home_page_if_not_logged_in(self):
         response = self.client.get(reverse('home'), follow=True)
@@ -165,6 +182,18 @@ class TestHome(TestCase):
         self.user.save()
         self.url = reverse('home')
         self.factory = RequestFactory()
+
+        self.ride = Ride()
+        self.ride.initiator = self.user.profile
+        self.ride.status = 'ACCEPTED'
+        self.ride.driver = self.user.profile
+        self.ride.pickup_longitude = 1
+        self.ride.pickup_latitude = 1
+        self.ride.dropoff_longitude = 1
+        self.ride.dropoff_latitude = 1
+        self.ride.pickup_datetime = timezone.now()
+        self.ride.passenger_count = 1
+
     def test_order_ride_good_form(self):
         good_form = RideForm(data={
             'pickup_longitude' : 0, 
@@ -188,6 +217,7 @@ class TestHome(TestCase):
         request = self.factory.get(self.url)
         request.user = self.user
         self.assertFalse(order_ride(wrong_form, request))
+
     def test_post_ride(self):
         data={
             'pickup_longitude' : 0, 
@@ -201,20 +231,32 @@ class TestHome(TestCase):
         response = c.post(self.url, data, format='json')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/profile_summary/')
+    
     def test_home_has_rides(self):
-        ride = Ride()
-        ride.initiator = self.user.profile
-        ride.status = 'ACCEPTED'
-        ride.driver = self.user.profile
-        ride.pickup_longitude = 1
-        ride.pickup_latitude = 1
-        ride.dropoff_longitude = 1
-        ride.dropoff_latitude = 1
-        ride.pickup_datetime = timezone.now()
-        ride.passenger_count = 1
-        ride.save()
+        self.ride.save()
         c = Client()
         logged_in = c.login(username='testuser', password='secretpass123')
         response = c.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/chat/1/')
+    def test_home_no_rides(self):
+        c = Client()
+        logged_in = c.login(username='testuser', password='secretpass123')
+        response = c.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home.html')
+
+class TestProfileSummary(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='testuser', email='testmail@domain.com')
+        self.user.set_password('secretpass123')
+        self.user.save()
+        self.url = reverse('profile_summary')
+        self.factory = RequestFactory()
+
+    def test_signup_anonymous(self):
+        request = self.factory.get('/profile_summary')
+        request.user = AnonymousUser()
+        response = signup_driver(request)
+        self.assertEqual(response.status_code, 302)
+
