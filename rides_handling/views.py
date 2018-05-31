@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
 from django.utils import timezone
 from .models import Profile, Ride
+from geopy.geocoders import Nominatim
+
 
 def order_ride(form, request):
     if form.is_valid():
@@ -149,10 +151,26 @@ def profile_summary(request):
 
         rides_history = list(reversed(request.user.profile.ride_set.all()))
         rides_history_as_driver = list(reversed(Ride.objects.filter(driver=request.user.profile)))
-        grade_score = round(request.user.profile.grade_sum / request.user.profile.grade_counter, 2) if request.user.profile.grade_counter else 0
-
         if not rides_history:
             recent_ride_status = "no rides"
         else:
             recent_ride_status = rides_history[0].status
-        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })   
+
+        grade_score = round(request.user.profile.grade_sum / request.user.profile.grade_counter, 2) if request.user.profile.grade_counter else 0
+        rides_history = get_human_readable_rides_history(rides_history)
+        rides_history_as_driver = get_human_readable_rides_history(rides_history_as_driver)
+        return render(request, 'profile_summary.html', {'rides_history' : rides_history, 
+                                                        'rides_history_as_driver' : rides_history_as_driver,
+                                                        'recent_ride_status': recent_ride_status, 'grade_score' : grade_score,})   
+
+
+def get_human_readable_rides_history(rides_list):
+    geolocator = Nominatim()
+    rides_history = []
+
+    for ride in rides_list:
+        pickup = geolocator.reverse((ride.pickup_latitude, ride.pickup_longitude)).address
+        dropoff = geolocator.reverse((ride.dropoff_latitude, ride.dropoff_longitude)).address
+        rides_history.append((pickup, dropoff, ride))
+   
+    return rides_history

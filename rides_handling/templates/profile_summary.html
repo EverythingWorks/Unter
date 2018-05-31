@@ -1,4 +1,3 @@
-
 {% extends 'base_logged.html' %}
 
 {% block content %}
@@ -57,7 +56,7 @@
                             Current ride:
                     </div>
 
-                    {% for ride in rides_history %}
+                    {% for pickup, dropoff, ride in rides_history %}
                     {% if ride.status == 'SET_BY_PASSENGER' or ride.status == 'ACCEPTED' %}
                     
                     <div class="container" style = "height: auto;">
@@ -80,17 +79,7 @@
                     </div>
                     <div class="row" style="height: 7vh; font-size: 1.5em;">
                         <div class="col">
-                            <p id = "pickup"></p>
-
-                            <script type="text/javascript"> 
-                                var geocoder = new google.maps.Geocoder();                           
-                                var latLng = new google.maps.LatLng(parseFloat("{{ ride.pickup_latitude }}"), parseFloat("{{ ride.pickup_longitude }}"));
-                                geocoder.geocode({latLng: latLng}, function(responses) {
-                                        if (responses && responses.length > 0) {
-                                            document.getElementById("pickup").innerHTML = responses[0].formatted_address; } 
-                                        else {       
-                                            alert('Cannot determine address at this location.');}});
-                            </script>
+                            {{ pickup }}
                         </div>
                     </div>
 
@@ -101,16 +90,7 @@
                     </div>
                     <div class="row" style="height: 7vh; font-size: 1.5em;">
                         <div class="col">
-                            <p id = "dropoff"></p>
-                            <script type="text/javascript"> 
-                                var geocoder = new google.maps.Geocoder();    
-                                var latLng = new google.maps.LatLng(parseFloat("{{ ride.dropoff_latitude }}"), parseFloat("{{ ride.dropoff_longitude }}"));
-                                geocoder.geocode({latLng: latLng}, function(responses) {
-                                        if (responses && responses.length > 0) {
-                                            document.getElementById("dropoff").innerHTML = responses[0].formatted_address; } 
-                                        else {       
-                                            alert('Cannot determine address at this location.');}});
-                            </script>
+                           {{ dropoff }}
                         </div>
                     </div>
 
@@ -161,7 +141,7 @@
                     Your past orders:
                 </div>  
                 
-                {% if rides_history%}
+                {% if rides_history %}
 
                 <div class="container">
 
@@ -181,13 +161,13 @@
                 </div>
 
                     <div class = "list">
-                    {% for ride in rides_history %}
+                    {% for pickup, dropoff, ride in rides_history %}
                          <div class="row"  style="width: 54vw; border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
                             <div class="col">
-                                ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
+                                {{ pickup }}
                             </div>
                             <div class="col">
-                                ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
+                                {{ dropoff }}
                             </div>
                             <div class="col-2">
                                 {{ride.pickup_datetime}}
@@ -233,13 +213,13 @@
                         </div>
 
                         <div class = "list">
-                            {% for ride in rides_history_as_driver %}
+                            {% for pickup, dropoff, ride in rides_history_as_driver %}
                                  <div class="row"  style="width: 54vw; padding-left: 0.5vw; border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
                                     <div class="col">
-                                        ( {{ ride.pickup_longitude }} , {{ ride.pickup_latitude }} )
+                                        {{ pickup }}
                                     </div>
                                     <div class="col">
-                                        ({{ride.dropoff_longitude}} , {{ride.dropoff_latitude }})
+                                        {{ dropoff }}
                                     </div>
                                     <div class="col-2">
                                         {{ride.pickup_datetime}}

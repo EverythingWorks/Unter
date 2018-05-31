@@ -1,3 +1,5 @@
 Django==2.0.4
 django-leaflet==0.23.0
+geographiclib==1.49
+geopy==1.14.0
 pytz==2018.4
