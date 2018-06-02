@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="container" style = "overflow-x: auto; height: 18em; background-color: rgba(112, 128, 144, 0.164); width: 40em; text-align: center;">
+<div class="container" style = " overflow-x: auto; height: 18em; background-color: rgba(112, 128, 144, 0.164); width: 80rem; text-align: center;">
 {% for comment in ride.messages.all %}
 <div style = "padding-bottom: 1em;">
     {% if ride.driver.pk is comment.user.pk %}
@@ -31,8 +31,6 @@
 
     <br style = "display: block; margin: 0.5em">
 </div>
-
-
     
 {% empty %}
     <p>Start the conversation!</p>
@@ -40,18 +38,15 @@
 
 </div>
 
-<div class="container" style="width: 40em; padding-left:0">
+<div class="container" style="padding-left: 10.4rem;">
   <div class="input-group mb-3">
     <form method="POST" class="form-horizontal">{% csrf_token %}
-        <input id="content" name="content" type="text" class="form-control" placeholder="Enter your message" aria-label="chat" aria-describedby="basic-addon2" style="width: 50vw;">
+        <input id="content" name="content" type="text" class="form-control" placeholder="Enter your message" aria-label="chat" aria-describedby="basic-addon2" style="width: 74rem;">
         <div class="input-group-append">
-            <button style = "background-color: #FCA205; border-top-left-radius: 0; border-bottom-left-radius: 0; color:#39382C; height: 2.3em; padding-top: 0.5em;" type="submit">Send</button>
+            <button style = "background-color: #FCA205; border-top-left-radius: 0; border-bottom-left-radius: 0; color:#39382C; height: 2.3em; padding-top: 0.5em; width: 10rem;" type="submit">Send</button>
         </div>
     </form>
   </div>
 </div>
-
-
-
 
 {% endblock %}

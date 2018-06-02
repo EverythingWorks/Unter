@@ -18,13 +18,13 @@ body {
 }
 
 .header_l {
-    width: 80vw;
+    width: 110rem;
     background-color:#F7B731;
     background-image: url("../images/manhattan5.png");
     font-family: 'Lobster';
-    font-size: 5em;
+    font-size: 8rem;
     text-align: right;
-    padding-right: 5vw;
+    padding-right: 5rem;
     text-shadow: 0.2vw 0.3vh #FAC555;
     margin-top: 0;
     margin-left: auto;
@@ -33,22 +33,20 @@ body {
 }
 
 .card .display_l {
-    width: 80vw;
+    width: 110rem;
     min-height: 60vh;
-    background-color:#FAC555;
+    background-color: #FAC555;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
     margin-bottom: 0;
-    position: relative;
-
+    
     font-family: 'Lato', sans-serif;
     font-size: 3vh;
     text-shadow: 0.2vw 0.3vh #F7D388;
 }
 
 .left {
-    
     margin-right: 1rem;
     margin-top: 3vh;
 
@@ -92,7 +90,6 @@ th{
     display: flex;
     flex-direction: column;
 
-    width: 61vw;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -107,14 +104,14 @@ th{
     overflow-x: auto;
     background-color: rgba(112, 128, 144, 0.164);
     font-size: 3vh; 
-    width: 55vw; 
-    height: 50vh;
+    width: 80rem;
+    height: 30rem;
     text-align: center;
     font-size: 0.7em;
 }
 
 .history .carousel-inner .row{
-    width: 55vw;
+    width: 79rem;
 }
 
 .strip {
@@ -129,22 +126,23 @@ th{
 .title{
     background-color:#FAC555;
     text-shadow: 0.2vw 0.3vh #F7D388;
-    height: 6vh;
-    line-height: 6vh;
+    height: 4rem;
+    line-height: 4rem;
     vertical-align: middle;
     width: 100%;
 
-    font-size: 5vh;
+    font-size: 3rem;
     font-family: 'Lobster';
     text-align: right;
-    padding-right: 5vw;
+    padding-right: 6rem;
 }
 
 div.list .row {
     background-color: rgba(112, 128, 144, 0.164);
     border-radius: 1vw;
-    width: 61vw;
+    width: 100%;
     margin-bottom: 2vh;
+    padding-left: 0.5vw; 
 }
 
 div.list .row:hover {background-color: rgba(130, 138, 146, 0.336);}
@@ -155,23 +153,28 @@ a{
 }
 
 .display_l .nav-link{
-    font-size: 3vh;
+    font-size: 2rem;
+    padding: 1rem;
+    padding-left: 0.5rem;
 }
 
 .display_l nav{
     float: left;
-    width: 100%;
     margin:0; 
     padding: 0;
 }
 
 .display_l ul{
-    width: 100%;
     padding: 0;
+    width: 9.1rem;
 }
 
 .display_l li{
     width: 100%;
+}
+
+.display_l .collapse{
+    padding: 0;
 }
 
 .display_l nav a:hover{
@@ -259,17 +262,17 @@ a{
     background-color:  transparent;
     border: none;
     padding-bottom: 3vw; 
-    min-width: 40vh;
 }
+
 .card .pages{
     background-color:  #F7D388; 
     width: 100%;
-    padding-bottom: 3vw; 
+    padding-bottom: 3rem; 
     margin: 0;
 
     font-size: 3rem;
     font-family: 'Lato', sans-serif;  
-    min-height: 60vh;
+    min-height: 30rem;
 }
 
 .warnings{
@@ -370,19 +373,17 @@ input.form-control{
     align-items: center;
     align-self: center;
     margin: auto auto auto auto;
+    margin-left: 6rem;
 }
-
-.fff{
-    text-align: center;
-}
-
 
 li.col-sm-3{
     background-color: rgba(112, 128, 144, 0.164);
     margin: auto auto auto auto;
     list-style-type: none;
     float: left;
-    margin-left: 2.8vw;
+    text-align: center;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
 }
 
 li.col-sm-3:hover {background-color: rgba(130, 138, 146, 0.336);}
@@ -414,8 +415,8 @@ div.caption hr{
 }
 
 .slidecontainer {
-    width: 20vw;
-    padding: 1.5vh 1.4vw;
+    width: 20rem;
+    padding: 1.5rem 1.4rem;
 }
 
 .slider {

@@ -145,7 +145,7 @@
 
                 <div class="container">
 
-                <div class="row" style="width: 100%;">
+                <div class="row">
                         <div class="col">
                             START:
                         </div>
@@ -156,13 +156,14 @@
                             DATE:
                         </div>
                         <div class="col-3">
+                        
                             STATUS:
                         </div>
                 </div>
 
                     <div class = "list">
                     {% for pickup, dropoff, ride in rides_history %}
-                         <div class="row"  style="width: 54vw; border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                         <div class="row"  style="border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
                             <div class="col">
                                 {{ pickup }}
                             </div>
@@ -182,7 +183,7 @@
                         <div class="container">
                             <br style = "display: block; margin: 0.5em">
                             <h4 style="text-align: center;">You don't have any rides yet.</h4>
-                            <h2 style="text-align: center;">Plan yor first ride <a href="{% url 'home' %}">here</a>.</h2>
+                            <h2 style="text-align: center;"><a href="{% url 'home' %}">Plan yor first ride here</a>.</h2>
                         </div>
                     {% endif %}                                                                                  
                 </div>
@@ -197,7 +198,7 @@
 
                     <div class="container">
 
-                        <div class="row" style="width: 54vw; padding-left: 0.5vw;">
+                        <div class="row">
                                 <div class="col">
                                     START:
                                 </div>
@@ -214,7 +215,7 @@
 
                         <div class = "list">
                             {% for pickup, dropoff, ride in rides_history_as_driver %}
-                                 <div class="row"  style="width: 54vw; padding-left: 0.5vw; border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
+                                 <div class="row"  style="border-radius: 0; border-bottom: 1px solid rgba(53, 61, 68, 0.322);">
                                     <div class="col">
                                         {{ pickup }}
                                     </div>

@@ -7,7 +7,7 @@
       Available rides
 </div>  
 
-<div class="container">
+<div class="container" style=" width: 90rem;">
 
 {% if not rides_active %}
 
@@ -22,7 +22,7 @@
          <br/>  
         	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0">
 
-                  <div class="carousel-inner" style="padding-left: 4rem">
+                  <div class="carousel-inner">
                         {% for pickup, dropoff, ride in rides_active %}
 
                        <!--new carousel page-->
@@ -38,7 +38,7 @@
                         {% endif %}
 
                                           <!--new carousel item-->
-                                          <li class="col-sm-3" style="text-align: center;">
+                                          <li class="col-sm-3">
                                                       <div class="caption">
                                                             <h4>
                                                                   Target: <br> 
