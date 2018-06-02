@@ -7,13 +7,13 @@ body {
 
 .display_u {
     width: auto;
-    height: 34em;
+    height: 44rem;
     background-color:#F7B731;
     background-image: url("../images/manhattan5.png");
     background-size: cover;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 4em;
+    margin-top: 4rem;
     min-height: 200px;
 }
 
