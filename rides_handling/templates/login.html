@@ -2,17 +2,19 @@
 
 {% block content %}
 
-<div class = "body_list">
+<div class = "body_list" >
 <nav class="navbar navbar-expand-lg">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
+  <button class="navbar-toggler" type="button"data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     MENU
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="nav justify-content-center">
 
-      <li class="nav-item active">
-        <a class="nav-link"  style = "text-align: left; border-left: 0; " href="{% url 'login' %}">Login</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="nav justify-content-center" >
+
+      <li class="nav-item active" style = "text-align: left; border-left: 0; ">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
       </li>
 
       <li class="nav-item">
@@ -41,13 +43,13 @@
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ next }}" />
 
-        <div class="input-group mb-1" style = "width: 15vw;">
+        <div class="input-group mb-1">
           <input id="username" name="username" type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
         </div> 
 
         <br style = "display: block; margin: 0.5vh">
         
-        <div class="input-group mb-1" style = "width: 15vw;">
+        <div class="input-group mb-1">
           <input id="password" name="password" type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
         </div> 
 

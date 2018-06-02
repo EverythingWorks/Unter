@@ -48,8 +48,8 @@ body {
 }
 
 .left {
-    margin-left: 3em;
-    margin-right: auto;
+    
+    margin-right: 1rem;
     margin-top: 3vh;
 
     padding-right : 2vw;
@@ -63,6 +63,10 @@ body {
 .right {
     padding-top : 3vh;
     width: auto;
+}
+
+.input-group{
+    width: 20rem;
 }
 
 input.form-control{
@@ -180,14 +184,14 @@ a{
 .body_list nav{
     list-style-type: none;
 
-    background-color:#FAC555;
+    background-color: #FAC555;
     font-size: 2.5em;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     text-shadow: 0.2vw 0.3vh #F7D388;
     padding: 0;
     margin: 0; 
-    border-radius:0;
+    border:0;
 }
 
 .body_list button{
@@ -197,6 +201,11 @@ a{
     text-align: center;
 }
 
+.body_list .collapse{
+    padding: 0; 
+    margin: 0;
+}
+
 .body_list button:hover{
     border-width: 1px;
     background-color:transparent;
@@ -204,8 +213,10 @@ a{
 }
 
 .body_list li{
-    width: 25rem;
+    width: 50%;
     margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .body_list li a{
@@ -223,8 +234,13 @@ a{
 }
 
 .body_list .active {
+    height: 0;
+
     text-shadow: 0.2vw 0.3vh #FAC555;
-    background-color: #F7D388;
+    border: 2rem solid transparent;
+    border-top: 0 solid;
+    border-bottom: 5.5rem solid #F7D388;
+
 }
 
 .choices{
@@ -243,14 +259,15 @@ a{
     background-color:  transparent;
     border: none;
     padding-bottom: 3vw; 
-    min-width: 40vh;;
+    min-width: 40vh;
 }
 .card .pages{
     background-color:  #F7D388; 
-    padding-right : 2vw;
+    width: 100%;
     padding-bottom: 3vw; 
+    margin: 0;
 
-    font-size: 4vh;
+    font-size: 3rem;
     font-family: 'Lato', sans-serif;  
     min-height: 60vh;
 }
@@ -301,14 +318,14 @@ h3 {
 }
 
 h4 {
-    font-size: 4vh;
+    font-size: 3rem;
     font-family: 'Lato', sans-serif;   
     text-align: left;
     padding-left: 0.5vw;
 }
 
 h5 {
-    font-size: 3vh;
+    font-size: 2.7rem;
     font-family: 'Lobster'; 
     text-shadow: 0.2vw 0.3vh #FAC555;
     text-align: left;
@@ -334,7 +351,7 @@ button:hover {
 input.form-control{
     font-family: 'Lato', sans-serif;
     text-decoration: none;
-    font-size: 2vh;   
+    font-size: 1.3rem;   
 }
 
 .carousel-control {

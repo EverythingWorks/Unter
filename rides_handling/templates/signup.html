@@ -15,8 +15,8 @@
                 <a class="nav-link" style = "text-align: left;  " href="{% url 'login' %}">Login</a>
             </li>
       
-            <li class="nav-item active">
-                <a class="nav-link" style = "text-align: right; border-right: 0;" href="{% url 'signup' %}">Sign up</a>
+            <li class="nav-item active" style = "text-align: right; border-right: 0;">
+                <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
             </li>
       
           </ul>
@@ -39,19 +39,19 @@
       <form method="post">
         {% csrf_token %}
               
-        <div class="input-group mb-1" style = "width: 15vw;">
+        <div class="input-group mb-1">
           <input id="username" name="username" type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
         </div> 
 
         <br style = "display: block; margin: 0.5vh">
             
-        <div class="input-group mb-1" style = "width: 15vw;">
+        <div class="input-group mb-1">
           <input id="password1" name="password1" type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
         </div> 
 
         <br style = "display: block; margin: 0.5vh">
           
-        <div class="input-group mb-1" style = "width: 15vw;">
+        <div class="input-group mb-1">
           <input id="password2" name="password2" type="password" class="form-control" placeholder="Confirm Password" aria-label="password" aria-describedby="basic-addon1"  style ="border-radius: 1vh;" required autofocus>
         </div>
 

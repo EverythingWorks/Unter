@@ -12,10 +12,10 @@
     <div class="container" style ="width: auto; height: auto; background-color: #F7D388;">
 
         <div class = "row" style="padding: 0;">
-            <div class="col" style="background-color: #FAC555; width: auto; padding: 0;  margin: 0">
-                <nav class="navbar navbar-expand-lg" >
-                    <button class="navbar-toggler" type="button" style = "float: left;" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
+
+            <div class="col-1" style="background-color: #FAC555; width: 100%; padding-left: 0; margin: 0;">
+                <nav class="navbar navbar-expand-lg">
+                    <button class="navbar-toggler" type="button" style="padding-left: 0; margin-left: 0;" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                       MENU
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="margin:0; padding: 0;">
@@ -42,18 +42,13 @@
                     </div>
                   </nav>
             </div>
-            <div class="col">
-
-                <div style="float: left; width: 70vw; ">
+            <div class="col-11" style = "padding: 0;">
                     <div class = "pages">
                        <br style = "display: block;">
                       {% block content %}
          
                       {% endblock %}
                      </div>
-                  </div>
-
-                
             </div>
         </div>
     </div>       

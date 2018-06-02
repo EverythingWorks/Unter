@@ -3,8 +3,9 @@
 {% block content %}
 
 
-
-<h3>Available rides</h3>
+<div class="title">
+      Available rides
+</div>  
 
 <div class="container">
 
@@ -19,10 +20,10 @@
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
          <br/>  
-        	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0" style="width: 61vw;">
+        	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0">
 
-                  <div class="carousel-inner">
-                        {% for ride in rides_active %}
+                  <div class="carousel-inner" style="padding-left: 4rem">
+                        {% for pickup, dropoff, ride in rides_active %}
 
                        <!--new carousel page-->
                        {% if forloop.counter0|divisibleby:3  %}     
@@ -32,23 +33,22 @@
                                     <div class="carousel-item">
                               {% endif %}
                               
-                              <div class="d-block w-100">
+                              <div class="d-block">
                                     <ul class="thumbnails">
                         {% endif %}
 
                                           <!--new carousel item-->
-                                          <li class="col-sm-3">
-                                                <div class="fff">
+                                          <li class="col-sm-3" style="text-align: center;">
                                                       <div class="caption">
                                                             <h4>
                                                                   Target: <br> 
                                                                   <hr>
-                                                                  {{ ride.dropoff_longitude }} <br> {{ ride.dropoff_latitude }}
+                                                                  {{ dropoff }}
                                                             </h4>
                                                             <h2>
                                                                   Start Point:<br>
                                                                   <hr>
-                                                                  {{ ride.pickup_longitude }}<br>{{ ride.pickup_latitude }}
+                                                                  {{ pickup }}
                                                             </h2>
                                                             <h2>
                                                                   Passengers: {{ ride.passenger_count }}
@@ -59,7 +59,6 @@
                                                             </form>
                                                         <br><br>
                                                       </div>
-                                                </div>
                                           </li>  
                                           <!--end of carousel item--> 
 

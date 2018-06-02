@@ -44,14 +44,14 @@
     </div>
   </div>
 
-<div class="history">
+<div class="history" style="width: 100%;">
 
-<div class="container" style="width: 70vw; padding-left: 0; margin-left: 0;">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0" style="width: 70vw;">
+<div class="container" style="width: 100%; padding: 0; margin-left: 0; margin-right: 0;">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="0" style="width: 100%;">
         <div class="carousel-inner" >
             <!--new carousel page-->
             {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
-            <div class="carousel-item active" > 
+            <div class="carousel-item active" style="margin: 0; width: 100%;" > 
                     <div class="title">
                             Current ride:
                     </div>
@@ -66,7 +66,7 @@
                             STATUS:
                         </div>
                     </div>
-                    <div class="row" style="height: 7vh; font-size: 1.5em;">
+                    <div class="row" style="min-height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             {{ ride.get_status_display }}
                         </div>
@@ -77,7 +77,7 @@
                             START:
                         </div>
                     </div>
-                    <div class="row" style="height: 7vh; font-size: 1.5em;">
+                    <div class="row" style="min-height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             {{ pickup }}
                         </div>
@@ -88,7 +88,7 @@
                             DESTINATION:
                         </div>
                     </div>
-                    <div class="row" style="height: 7vh; font-size: 1.5em;">
+                    <div class="row" style="min-height: 7vh; font-size: 1.5em;">
                         <div class="col">
                            {{ dropoff }}
                         </div>
@@ -99,7 +99,7 @@
                             ESTIMATED TIME:
                         </div>
                     </div>
-                    <div class="row" style="height: 7vh; font-size: 1.5em;">
+                    <div class="row" style="min-height: 7vh; font-size: 1.5em;">
                         <div class="col">
                             <!--HERE GOES OUT ML-->
                         </div>
@@ -134,7 +134,7 @@
             {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
                 <div class="carousel-item" style = "margin: auto; "> 
             {% else %}
-                <div class="carousel-item active" style = "margin: auto;">
+                <div class="carousel-item active" style = "margin: auto; ">
             {% endif %}
 
                 <div class="title">

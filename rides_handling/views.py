@@ -185,4 +185,4 @@ def get_address(data):
         if key in data['address']:
             address += data['address'][key] + ", "
 
-    return address[:-1]
+    return address[:-2]

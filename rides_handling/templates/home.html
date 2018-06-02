@@ -2,9 +2,12 @@
 
 {% block content %}
 {% load leaflet_tags %}
-<div style = "padding-left : 2vw;">
 
-    <h3>Plan your ride</h3>
+<div class="title">
+        Plan your ride
+</div>  
+
+<div style = "padding-left : 2vw;">
 
 {% if recent_ride_status == 'SET_BY_PASSENGER' or recent_ride_status == 'ACCEPTED' %}
 
