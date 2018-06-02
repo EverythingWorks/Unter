@@ -181,8 +181,11 @@ def get_address(data):
     address = ""
     keys = ['residental', 'house_number', 'road', 'neighbourhood', 'suburb']
 
-    for key in keys:
-        if key in data['address']:
-            address += data['address'][key] + ", "
+    if 'address' in data:
+        for key in keys:
+            if key in data['address']:
+                address += data['address'][key] + ", "
 
-    return address[:-2]
+        return address[:-2]
+
+    return address
