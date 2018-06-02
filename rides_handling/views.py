@@ -124,7 +124,7 @@ def signup_driver(request):
             form = SignUpDriverForm()
         return render(request, 'signup_driver.html')
 
-def finish_ride(rides_history):
+def finish_ride(rides_history, request):
     for ride in rides_history:
         if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
             ride.status = 'COMPLETED'
@@ -146,23 +146,28 @@ def profile_summary(request):
         return redirect('home')
     else:
         if request.GET.get('finish'):
-            finish_ride(list(request.user.profile.ride_set.all()))
+            finish_ride(list(request.user.profile.ride_set.all()), request)
             return redirect('profile_summary')
+
         if request.GET.get('cancel'):
             cancel_ride(list(request.user.profile.ride_set.all()))
             return redirect('profile_summary')            
 
         rides_history = list(reversed(request.user.profile.ride_set.all()))
         rides_history_as_driver = list(reversed(Ride.objects.filter(driver=request.user.profile)))
+
+        grade_score = round(request.user.profile.grade_sum / request.user.profile.grade_counter, 2) if request.user.profile.grade_counter else 0
+
         if not rides_history:
             recent_ride_status = "no rides"
         else:
             recent_ride_status = rides_history[0].status
+            rides_history = get_human_readable_rides_history(rides_history)
 
-        grade_score = round(request.user.profile.grade_sum / request.user.profile.grade_counter, 2) if request.user.profile.grade_counter else 0
-        rides_history = get_human_readable_rides_history(rides_history)
-        rides_history_as_driver = get_human_readable_rides_history(rides_history_as_driver)
-        return render(request, 'profile_summary.html', locals())   
+        if rides_history_as_driver:
+            rides_history_as_driver = get_human_readable_rides_history(rides_history_as_driver)         
+
+        return render(request, 'profile_summary.html', {'user' : request.user, 'rides_history' : rides_history, 'rides_history_as_driver' : rides_history_as_driver, 'recent_ride_status': recent_ride_status, 'grade_score' : grade_score })  
 
 
 def get_human_readable_rides_history(rides_list):
