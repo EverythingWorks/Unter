@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from .apps import RidesHandlingConfig
 from django.apps import apps
 from django.urls import reverse
-from .views import order_ride, signup_driver, signup
+from .views import order_ride, signup_driver, signup, get_address
 from django.utils import timezone
 
 class SignupFormTest(TestCase):
@@ -267,3 +267,8 @@ class TestProfileSummary(TestCase):
         response = signup_driver(request)
         self.assertEqual(response.status_code, 302)
 
+class TestGettingAddress(TestCase):
+    def test_parsing(self):
+        address = "29, Avenue, Green Valley"
+        data = {'address' : {'house_number': '29', 'suburb': 'Green Valley', 'road': 'Avenue'}, 'other_key': 'to_be_skipped'}
+        self.assertEqual(get_address(data), address)
