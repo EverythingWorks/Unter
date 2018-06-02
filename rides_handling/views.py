@@ -87,6 +87,7 @@ def offer(request):
                 return redirect('chat', have_ride[0])
                 
             rides_active = Ride.objects.filter(status='SET_BY_PASSENGER').exclude(initiator=request.user.profile).all()
+
             if request.POST:
                 pk_number = int(request.POST['take'].strip(','))
                 ride = Ride.objects.get(pk=pk_number)
@@ -95,7 +96,9 @@ def offer(request):
                 ride.save()
                 return redirect('offer')
 
+            rides_active = get_human_readable_rides_history(rides_active)
             return render(request, 'offer.html', {'rides_active' : rides_active})
+
         return redirect('signup_driver')
 
 def help(request): 
@@ -167,8 +170,19 @@ def get_human_readable_rides_history(rides_list):
     rides_history = []
 
     for ride in rides_list:
-        pickup = geolocator.reverse((ride.pickup_latitude, ride.pickup_longitude)).address
-        dropoff = geolocator.reverse((ride.dropoff_latitude, ride.dropoff_longitude)).address
+        pickup = get_address(geolocator.reverse((ride.pickup_latitude, ride.pickup_longitude)).raw )
+        dropoff = get_address(geolocator.reverse((ride.dropoff_latitude, ride.dropoff_longitude)).raw)
+
         rides_history.append((pickup, dropoff, ride))
    
     return rides_history
+
+def get_address(data):
+    address = ""
+    keys = ['residental', 'house_number', 'road', 'neighbourhood', 'suburb']
+
+    for key in keys:
+        if key in data['address']:
+            address += data['address'][key] + ", "
+
+    return address[:-1]
