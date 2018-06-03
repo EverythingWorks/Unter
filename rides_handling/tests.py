@@ -9,7 +9,7 @@ from django.apps import apps
 from django.urls import reverse
 from .views import order_ride, signup_driver, signup, get_address
 from django.utils import timezone
-from .views import cancel_ride
+from .views import cancel_ride, finish_ride
 
 class SignupFormTest(TestCase):
     def test_if_signup_form_is_valid(self):
@@ -295,9 +295,34 @@ class TestProfileSummary(TestCase):
         logged_in = client.login(username='testuser', password='secretpass123')
         self.ride.status = 'CANCELED'
         history = [self.ride]
-        result, history = cancel_ride(history)
+        result, new_history = cancel_ride(history)
+        new_status = new_history[0].status
         self.assertEqual(result, 0)
-        self.assertEqual(history[0].status, 'CANCELED')
+        self.assertEqual(new_status, 'CANCELED')
+
+    def test_fnish_ride_good(self):
+        request = self.factory.get('/profile_summary')
+        request.user = self.user
+        grades = [2]
+        request.GET = {'grade' : grades}
+        history = [self.ride]
+        result, new_history = finish_ride(history, request)
+        new_status = new_history[0].status
+        self.assertEqual(result, 1)
+        self.assertEqual(new_status, 'COMPLETED')
+        
+    def test_fnish_ride_bad(self):
+        request = self.factory.get('/profile_summary')
+        request.user = self.user
+        grades = [2]
+        request.GET = {'grade' : grades}
+        self.ride.status = 'CANCELED'
+        history = [self.ride]
+        result, new_history = finish_ride(history, request)
+        new_status = new_history[0].status
+        self.assertEqual(result, 0)
+        self.assertEqual(new_status, 'CANCELED')
+
 class TestGettingAddress(TestCase):
     def test_parsing(self):
         address = "29, Avenue, Green Valley"

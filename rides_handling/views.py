@@ -125,6 +125,7 @@ def signup_driver(request):
         return render(request, 'signup_driver.html')
 
 def finish_ride(rides_history, request):
+    counter = 0
     for ride in rides_history:
         if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER':
             ride.status = 'COMPLETED'
@@ -133,6 +134,8 @@ def finish_ride(rides_history, request):
             user_driver.grade_counter += 1
             user_driver.save()
             ride.save()
+            counter += 1
+    return counter, rides_history
 
 def cancel_ride(rides_history):
     counter = 0
