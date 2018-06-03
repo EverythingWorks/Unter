@@ -135,10 +135,13 @@ def finish_ride(rides_history, request):
             ride.save()
 
 def cancel_ride(rides_history):
+    counter = 0
     for ride in rides_history:
         if ride.status == 'ACCEPTED' or ride.status == 'SET_BY_PASSENGER' :
             ride.status = 'CANCELED'
             ride.save()
+            counter += 1
+    return counter, rides_history
 
 @login_required
 def profile_summary(request):

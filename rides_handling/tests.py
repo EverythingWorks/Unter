@@ -9,6 +9,7 @@ from django.apps import apps
 from django.urls import reverse
 from .views import order_ride, signup_driver, signup, get_address
 from django.utils import timezone
+from .views import cancel_ride
 
 class SignupFormTest(TestCase):
     def test_if_signup_form_is_valid(self):
@@ -257,16 +258,46 @@ class TestProfileSummary(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='testuser', email='testmail@domain.com')
         self.user.set_password('secretpass123')
+        self.user.profile.is_driver = True
         self.user.save()
         self.url = reverse('profile_summary')
         self.factory = RequestFactory()
+
+        self.ride = Ride()
+        self.ride.initiator = self.user.profile
+        self.ride.status = 'ACCEPTED'
+        self.ride.driver = self.user.profile
+        self.ride.pickup_longitude = 1
+        self.ride.pickup_latitude = 1
+        self.ride.dropoff_longitude = 1
+        self.ride.dropoff_latitude = 1
+        self.ride.pickup_datetime = timezone.now()
+        self.ride.passenger_count = 1
+
+    
 
     def test_signup_anonymous(self):
         request = self.factory.get('/profile_summary')
         request.user = AnonymousUser()
         response = signup_driver(request)
         self.assertEqual(response.status_code, 302)
-
+    
+    def test_cancel_ride_good(self):
+        client = Client()
+        logged_in = client.login(username='testuser', password='secretpass123')
+        history = [self.ride]
+        result, history = cancel_ride(history)
+        self.assertEqual(result, 1)
+        self.assertEqual(history[0].status, 'CANCELED')
+        
+    def test_cancel_ride_bad(self):
+        client = Client()
+        logged_in = client.login(username='testuser', password='secretpass123')
+        self.ride.status = 'CANCELED'
+        history = [self.ride]
+        result, history = cancel_ride(history)
+        self.assertEqual(result, 0)
+        self.assertEqual(history[0].status, 'CANCELED')
 class TestGettingAddress(TestCase):
     def test_parsing(self):
         address = "29, Avenue, Green Valley"
