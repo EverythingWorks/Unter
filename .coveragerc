@@ -2,4 +2,4 @@
 omit =
     manage.py
     */wsgi.py
-    
+    chat/tests.py
