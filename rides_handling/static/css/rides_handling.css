@@ -7,14 +7,13 @@ body {
 
 .display_u {
     width: auto;
-    height: 44rem;
     background-color:#F7B731;
     background-image: url("../images/manhattan5.png");
     background-size: cover;
     margin-left: auto;
     margin-right: auto;
     margin-top: 4rem;
-    min-height: 30rem;
+    min-height: 44rem;
 }
 
 .header_l {
@@ -195,6 +194,7 @@ a{
     padding: 0;
     margin: 0; 
     border:0;
+    width: 55rem;
 }
 
 .body_list button{
