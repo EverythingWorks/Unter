@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from chat.forms import MessageForm
 from rides_handling.models import Ride
 

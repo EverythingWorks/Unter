@@ -1,10 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
-from rides_handling.forms import SignUpForm, RideForm, SignUpForm, SignUpDriverForm
+from rides_handling.forms import SignUpForm
+from rides_handling.forms import RideForm
+from rides_handling.forms import SignUpDriverForm
 from django.utils import timezone
-from .models import Profile, Ride
+from .models import Profile
+from .models import Ride
 from geopy.geocoders import Nominatim
 
 
