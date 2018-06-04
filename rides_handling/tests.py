@@ -29,6 +29,8 @@ class RideFormTest(TestCase):
         self.assertTrue(good_form1.is_valid())
         good_form2 = RideForm(data={'pickup_longitude' : -10.10, 'pickup_latitude' : -10.1565, 'dropoff_longitude' : -10.155, 'dropoff_latitude' : 15.26, 'passenger_count' : 3, })
         self.assertTrue(good_form2.is_valid())
+        good_form3 = RideForm(data={'pickup_longitude' : 44.84, 'pickup_latitude' : 60.165, 'dropoff_longitude' : -55.155, 'dropoff_latitude' : 55.96, 'passenger_count' : 4, })
+        self.assertTrue(good_form3.is_valid())
 
     def test_if_ride_form_is_invalid(self):
         wrong_form1 = RideForm(data={'pickup_longitude' : 0, 'pickup_latitude' : 0, 'dropoff_longitude' : 0, 'dropoff_latitude' : 0, 'passenger_count' : -5, })

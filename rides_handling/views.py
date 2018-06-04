@@ -16,10 +16,7 @@ from geopy.geocoders import Nominatim
 def order_ride(form, request):
     if form.is_valid():
         ride = form.save(commit=False)
-        try:
-            ride.initiator = request.user.profile
-        except Profile.DoesNotExist:
-            ride.initiator = Profile(user=request.user)
+        ride.initiator = request.user.profile
         ride.status = 'SET_BY_PASSENGER'
         ride.pickup_datetime = timezone.now()
         ride.save()
