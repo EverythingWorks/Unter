@@ -281,7 +281,7 @@ class TestHome(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/chat/1/')
     
-def test_home_no_rides(self):
+    def test_home_no_rides(self):
         c = Client()
         logged_in = c.login(username='testuser', password='secretpass123')
         response = c.get(self.url)
