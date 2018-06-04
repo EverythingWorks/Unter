@@ -10,6 +10,7 @@ from django.urls import reverse
 from .views import order_ride, signup_driver, signup, get_address
 from django.utils import timezone
 from .views import cancel_ride, finish_ride
+from .admin import CustomUserAdmin
 
 class SignupFormTest(TestCase):
     def test_if_signup_form_is_valid(self):
@@ -21,7 +22,6 @@ class SignupFormTest(TestCase):
         self.assertFalse(wrong_form1.is_valid())
         wrong_form2 = SignUpForm(data={'is_driver' : False, 'username' : 'admin', 'password1' : 'firstpassword', 'password2' : 'secondisdifferent'})
         self.assertFalse(wrong_form2.is_valid())
-
 
 class RideFormTest(TestCase):
     def test_if_ride_form_is_valid(self):
@@ -160,6 +160,18 @@ class TestOffer(TestCase):
         self.user.set_password('secretpass123')
         self.user.save()
         self.url = reverse('offer')
+        
+        self.ride = Ride()
+        self.ride.initiator = self.user.profile
+        self.ride.status = 'ACCEPTED'
+        self.ride.driver = self.user.profile
+        self.ride.pickup_longitude = 1
+        self.ride.pickup_latitude = 1
+        self.ride.dropoff_longitude = 1
+        self.ride.dropoff_latitude = 1
+        self.ride.pickup_datetime = timezone.now()
+        self.ride.passenger_count = 1
+
 
     def test_signup_anonymous(self):
         client = Client()
@@ -174,6 +186,7 @@ class TestOffer(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/signup_driver/')
 
+        
     def test_driver_no_rides(self):
         self.user.profile.is_driver = True
         self.user.save()
@@ -182,6 +195,18 @@ class TestOffer(TestCase):
         response = client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'offer.html')
+
+    def test_offer_post(self):
+        self.ride.save()
+        self.user.profile.is_driver = True
+        self.user.save()
+        client = Client()
+        logged_in = client.login(username='testuser', password='secretpass123')
+        
+        data = {'take': '1'}
+        response = client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, "/chat/1/")
 
 class TestHome(TestCase):
     def setUp(self):
@@ -322,9 +347,12 @@ class TestProfileSummary(TestCase):
         new_status = new_history[0].status
         self.assertEqual(result, 0)
         self.assertEqual(new_status, 'CANCELED')
+        
+        
 
 class TestGettingAddress(TestCase):
     def test_parsing(self):
         address = "29, Avenue, Green Valley"
         data = {'address' : {'house_number': '29', 'suburb': 'Green Valley', 'road': 'Avenue'}, 'other_key': 'to_be_skipped'}
         self.assertEqual(get_address(data), address)
+
