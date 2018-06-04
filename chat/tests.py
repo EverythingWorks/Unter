@@ -47,4 +47,12 @@ class TestViews(TestCase):
         response = chat(request, 1)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/chat/1/")
+    
+class TestModel(TestCase):
+    def setUp(self):
+        self.message = Message()
+        self.message.content = "hello"
+    
+    def test_str(self):
+        self.assertEqual("hello", self.message.__str__())
         
