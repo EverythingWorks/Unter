@@ -116,6 +116,14 @@ class ViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
 
+    def test_login_already_logged_in(self):
+        client = Client()
+        client.login(username='testuser', password='12345blablasd')
+        response = client.get(reverse('login'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/')
+
+
 class UserModelTest(TestCase):
     def test_str_method(self):
         user = User.objects.create(username='test2user')
@@ -272,7 +280,8 @@ class TestHome(TestCase):
         response = c.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/chat/1/')
-    def test_home_no_rides(self):
+    
+def test_home_no_rides(self):
         c = Client()
         logged_in = c.login(username='testuser', password='secretpass123')
         response = c.get(self.url)
@@ -302,11 +311,10 @@ class TestProfileSummary(TestCase):
     
 
     def test_signup_anonymous(self):
-        request = self.factory.get('/profile_summary')
-        request.user = AnonymousUser()
-        response = signup_driver(request)
+        c = Client()
+        response = c.get(reverse('profile_summary'))
         self.assertEqual(response.status_code, 302)
-    
+
     def test_cancel_ride_good(self):
         client = Client()
         logged_in = client.login(username='testuser', password='secretpass123')
